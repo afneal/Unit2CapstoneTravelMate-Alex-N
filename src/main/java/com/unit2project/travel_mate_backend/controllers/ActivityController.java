@@ -1,4 +1,51 @@
 package com.unit2project.travel_mate_backend.controllers;
 
+
+import com.unit2project.travel_mate_backend.dto.UserDTO;
+import com.unit2project.travel_mate_backend.models.Activity;
+import com.unit2project.travel_mate_backend.models.User;
+import com.unit2project.travel_mate_backend.repositories.ActivityRepository;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/activities")
 public class ActivityController {
+
+    @Autowired
+    ActivityRepository activityRepository;  //Type of activityRepository (variable name) is ActivityRepository(Class),
+                                            // which is an interface that extends JpaRepository, allows CRUD on Activity entity in database.
+
+    @GetMapping("") //base path
+    public List<Activity> getAllActivities() {
+        return activityRepository.findAll();// 200 response, successful retrieval
+    }
+
+    @PostMapping("/addActivity")
+    public ResponseEntity<?> addNewActivity(@RequestBody ActivityDTO activityData) {
+        Activity activity = new Activity(activityData.getName());
+        activityRepository.save(activity);
+        return new ResponseEntity<>(activity, HttpStatus.CREATED); // 201, successful creating
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteActivity(@PathVariable int activityId) throws NoResourceFoundException {
+        Activity activity = activityRepository.findById(activityId).orElse(null);
+        if (activity == null) {
+            throw new NoResourceFoundException("Activity with id " + activityId + " not found");
+        } else {
+            activityRepository.deleteById(activityId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT); // 204, successful deletion, no content to return
+        }
+    }
+
+
+
 }
