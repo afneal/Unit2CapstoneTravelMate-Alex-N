@@ -1,6 +1,7 @@
 package com.unit2project.travel_mate_backend.controllers;
 
 
+import com.unit2project.travel_mate_backend.dto.DayDTO;
 import com.unit2project.travel_mate_backend.models.Day;
 import com.unit2project.travel_mate_backend.repositories.DayRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class DayController {
 
     @PostMapping("/addDay")
     public ResponseEntity<?> addNewDay(@RequestBody DayDTO dayData) {
-        Day day = new Day(dayData.getDate(), dayData.getNotes(), dayData.getTrip());
+        Day day = new Day(dayData.getCity(), dayData.getDate(), dayData.getActivities());
         dayRepository.save(day);
         return new ResponseEntity<>(day, HttpStatus.CREATED);
     }

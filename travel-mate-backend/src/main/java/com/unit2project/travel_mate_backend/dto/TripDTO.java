@@ -15,12 +15,12 @@ public class TripDTO {
     private String name;
 
     private int userId;
-    private List<Day> days;
+    private List<DayDTO> days;
 
     public TripDTO() {
     }
 
-    public TripDTO(String name, int userId, List<Day> days) {
+    public TripDTO(String name, int userId, List<DayDTO> days) {
         this.name = name;
         this.userId = userId;
         this.days = days;
@@ -43,11 +43,11 @@ public class TripDTO {
     }
 
 
-    public List<Day> getDays() {
+    public List<DayDTO> getDays() {
         return days;
     }
 
-    public void setDays(List<Day> days) {
+    public void setDays(List<DayDTO> days) {
         this.days = days;
     }
 }
