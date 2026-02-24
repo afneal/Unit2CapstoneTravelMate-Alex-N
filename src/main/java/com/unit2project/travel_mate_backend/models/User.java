@@ -15,7 +15,7 @@ public class User {
 
 //    @OneToMany(mappedBy = "user")
 
-    public User() {
+    public User() { //default constructor needed by Hibernate to instantiate objects when retrieving from the database
     }
 
     public User(String firstName, String email, String password) {
