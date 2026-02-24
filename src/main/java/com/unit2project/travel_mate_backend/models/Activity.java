@@ -15,15 +15,14 @@ public class Activity {
     @Lob                                    //large object, for longer text
     private String notes;
 
-    @ManyToOne //many activities can belong to one day, does not need mappedBy since this is the owning side of the relationship and will have the foreign key
-    @JsonBackReference  //prevents infinite recursion during JSON serialization
-    private Day day;    //stores the day(parent) this activity belongs to
+//    @ManyToOne //many activities can belong to one day, does not need mappedBy since this is the owning side of the relationship and will have the foreign key
+//    @JsonBackReference  //prevents infinite recursion during JSON serialization
+//    private Day day;    //stores the day(parent) this activity belongs to
 
     public Activity() {
     }
 
-    public Activity(int id, String name, int time, String notes) {
-        this.id = id;
+    public Activity(String name, int time, String notes) {
         this.name = name;
         this.time = time;
         this.notes = notes;

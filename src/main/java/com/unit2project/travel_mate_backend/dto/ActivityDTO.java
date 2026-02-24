@@ -11,11 +11,12 @@ public class ActivityDTO {
     private String name;
 
     private int time;
-    @Lob
     private String notes;
 
-    public ActivityDTO(int id, String name, int time, String notes) {
-        this.id = id;
+    public ActivityDTO() {
+    }
+
+    public ActivityDTO(String name, int time, String notes) {
         this.name = name;
         this.time = time;
         this.notes = notes;
