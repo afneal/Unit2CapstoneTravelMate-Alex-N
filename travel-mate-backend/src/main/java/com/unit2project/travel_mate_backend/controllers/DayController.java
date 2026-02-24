@@ -30,5 +30,14 @@ public class DayController {
         return new ResponseEntity<>(day, HttpStatus.CREATED);
     }
 
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<?> deleteDay(@PathVariable int id) {
+        if (dayRepository.existsById(id)) {
+            dayRepository.deleteById(id);
+            return new ResponseEntity<>("Day deleted successfully", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Day not found", HttpStatus.NOT_FOUND);
+        }
+    }
 
 }
