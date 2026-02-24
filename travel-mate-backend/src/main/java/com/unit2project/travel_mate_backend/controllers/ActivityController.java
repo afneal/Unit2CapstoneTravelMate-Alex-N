@@ -39,7 +39,7 @@ public class ActivityController {
     public ResponseEntity<?> deleteActivity(@PathVariable int activityId) throws NoResourceFoundException {
         Activity activity = activityRepository.findById(activityId).orElse(null);
         if (activity == null) {
-            throw new NoResourceFoundException("Activity with id " + activityId + " not found");
+            throw new NoResourceFoundException(HttpMethod.DELETE, "/" + activityId, "Activity with id " + activityId + " not found");
         } else {
             activityRepository.deleteById(activityId);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT); // 204, successful deletion, no content to return
