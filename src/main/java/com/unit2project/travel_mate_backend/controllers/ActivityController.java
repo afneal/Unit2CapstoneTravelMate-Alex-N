@@ -36,7 +36,7 @@ public class ActivityController {
         return new ResponseEntity<>(activity, HttpStatus.CREATED); // 201, successful creating
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteActivity(@PathVariable int id) throws NoResourceFoundException {
         Activity activity = activityRepository.findById(id).orElse(null); //only deletes the activity by id, not other ids (trip, day) b/c only queries the primary key of Activity table
         if (activity == null) { // checks if the activity with the specified id exists in the database, if not, throws an exception
