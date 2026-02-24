@@ -1,6 +1,7 @@
 package com.unit2project.travel_mate_backend.controllers;
 
 
+import com.unit2project.travel_mate_backend.dto.ActivityDTO;
 import com.unit2project.travel_mate_backend.dto.UserDTO;
 import com.unit2project.travel_mate_backend.models.Activity;
 import com.unit2project.travel_mate_backend.models.User;

@@ -7,8 +7,8 @@ import jakarta.validation.constraints.Size;
 public class UserDTO {  //DTO is data transfer object, used to transfer data btwn processes
 
     @NotBlank(message = "Username is required.")
-    @Size(min = 3, max = 20, message = "Username must be 3-20 characters long.")
-    private String username;
+    @Size(min = 3, max = 20, message = "First name must be 3-20 characters long.")
+    private String firstName;
 
     @NotBlank(message = "Password is required.")
     @Size(min = 6, max = 15, message = "Password must be 6-15 characters long.")
@@ -19,18 +19,18 @@ public class UserDTO {  //DTO is data transfer object, used to transfer data btw
     private String email;
 
 
-    public UserDTO(String username, String password, String email) {
-        this.username = username;
+    public UserDTO(String firstName, String password, String email) {
+        this.firstName = firstName;
         this.password = password;
         this.email = email;
     }
 
-    public String getUsername() {
-        return username;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getPassword() {
