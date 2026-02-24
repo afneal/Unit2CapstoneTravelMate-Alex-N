@@ -21,7 +21,7 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<?> addNewUser(@RequestBody UserDTO userData) {
-        User user = new User(userData.getUsername(), userData.getEmail(), userData.getPassword());
+        User user = new User(userData.getFirstName(), userData.getEmail(), userData.getPassword());
         userRepository.save(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED); // 201 response indicating that a new resource has been created successfully
     }
