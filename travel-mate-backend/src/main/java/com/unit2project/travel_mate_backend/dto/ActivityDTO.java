@@ -1,8 +1,11 @@
 package com.unit2project.travel_mate_backend.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Lob;
 import jakarta.validation.constraints.NotBlank;
+
+import java.time.LocalTime;
 
 public class ActivityDTO {
 
@@ -10,13 +13,14 @@ public class ActivityDTO {
     @NotBlank(message = "Activity name must be between 1 and 100 characters long.")
     private String name;
 
-    private int time;
+    @JsonFormat(pattern = "HH:mm")  //LocalTime in JSON will be formatted as "HH:mm"
+    private LocalTime time;
     private String notes;
 
     public ActivityDTO() {
     }
 
-    public ActivityDTO(String name, int time, String notes) {
+    public ActivityDTO(String name, LocalTime time, String notes) {
         this.name = name;
         this.time = time;
         this.notes = notes;
@@ -34,11 +38,11 @@ public class ActivityDTO {
         this.name = name;
     }
 
-    public int getTime() {
+    public LocalTime getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(LocalTime time) {
         this.time = time;
     }
 
