@@ -4,6 +4,7 @@ package com.unit2project.travel_mate_backend.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Lob;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalTime;
 
@@ -11,6 +12,7 @@ public class ActivityDTO {
 
     private int id;
     @NotBlank(message = "Activity name must be between 1 and 100 characters long.")
+    @Size(min = 1, max = 100, message = "Activity name must be between 1 and 100 characters long.")
     private String name;
 
     @JsonFormat(pattern = "HH:mm")  //LocalTime in JSON will be formatted as "HH:mm"
