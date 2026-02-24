@@ -18,8 +18,6 @@ public class UserDTO {  //DTO is data transfer object, used to transfer data btw
     @Email(message = "Email should be valid.")
     private String email;
 
-    public UserDTO() {
-    }
 
     public UserDTO(String username, String password, String email) {
         this.username = username;
