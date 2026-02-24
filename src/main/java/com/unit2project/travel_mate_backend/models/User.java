@@ -18,12 +18,12 @@ public class User {
     public User() {
     }
 
-    public User(int id, String firstName, String email, String password) {
-        this.id = id;
+    public User(String firstName, String email, String password) {
         this.firstName = firstName;
         this.email = email;
         this.password = password;
     }
+
 
     public int getId() {
         return id;
