@@ -21,8 +21,8 @@ public class Day {
     @JsonFormat(pattern = "MM-dd-yyyy")  //LocalDate in JSON will be formatted as "MM-dd-yyyy")
     private LocalDate date;
 
-    @OneToMany(mappedBy = "day", cascade = CascadeType.ALL, orphanRemoval = true) //one day can have many activities,mappedBy points to the field in Activity that owns the relationship,
-    // cascade ALL means all operations on Day will cascade to its activities,orphanRemoval means if an activity is removed from the day's list, it will be deleted from the database
+    @ManyToOne
+    private Trip trip; //stores the trip(parent) this day belongs to, many days can belong to one trip, but a day can only belong to one trip
 
     @JsonManagedReference //b/c this is the parent side of the relationship, will manage the JSON serialization of the activities list, prevents infinite recursion
     private List<Activity> activities; //stores the list of activities for this day

@@ -14,15 +14,15 @@ public class TripDTO {
     @Size(min = 1, max = 100, message = "Trip name must be between 1 and 100 characters long.")
     private String name;
 
-    private int userId;
+    private String userEmail;
     private List<DayDTO> days;
 
     public TripDTO() {
     }
 
-    public TripDTO(String name, int userId, List<DayDTO> days) {
+    public TripDTO(String name, String userEmail, List<DayDTO> days) {
         this.name = name;
-        this.userId = userId;
+        this.userEmail = userEmail;
         this.days = days;
     }
 
@@ -38,8 +38,8 @@ public class TripDTO {
         this.name = name;
     }
 
-    public int getUserId() {
-        return userId;
+    public String getUserEmail() {
+        return userEmail;
     }
 
 
