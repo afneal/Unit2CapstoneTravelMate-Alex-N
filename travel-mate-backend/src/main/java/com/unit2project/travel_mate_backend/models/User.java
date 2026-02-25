@@ -3,7 +3,7 @@ package com.unit2project.travel_mate_backend.models;
 import jakarta.persistence.*;
 
 @Entity
-public class User {
+public class User { //stored in database as an object
 
     @Id  //primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) //lets Hibernate autogenerate id
