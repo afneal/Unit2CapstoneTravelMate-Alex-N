@@ -1,6 +1,8 @@
 package com.unit2project.travel_mate_backend.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.unit2project.travel_mate_backend.models.Activity;
+import jakarta.validation.constraints.Pattern;
 import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
@@ -10,13 +12,15 @@ public class DayDTO {
 
     private int id;
     private String city;
+
+    @JsonFormat(pattern = "MM-dd-yyyy")
     private LocalDate date;
-    private List<Activity> activities;
+    private List<ActivityDTO> activities;
 
     public DayDTO() {
     }
 
-    public DayDTO(String city, LocalDate date, List<Activity> activities) {
+    public DayDTO(String city, LocalDate date, List<ActivityDTO> activities) {
         this.city = city;
         this.date = date;
         this.activities = activities;
@@ -42,11 +46,11 @@ public class DayDTO {
         this.date = date;
     }
 
-    public List<Activity> getActivities() {
+    public List<ActivityDTO> getActivities() {
         return activities;
     }
 
-    public void setActivities(List<Activity> activities) {
+    public void setActivities(List<ActivityDTO> activities) {
         this.activities = activities;
     }
 }

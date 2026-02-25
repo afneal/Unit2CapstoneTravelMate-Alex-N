@@ -9,6 +9,7 @@ import jakarta.validation.constraints.Size;
 
 public class UserDTO {  //DTO is data transfer object, used to transfer data btwn processes
                         //an API object, what gets sent/received in HTTP requests
+                        //use DTO data structure for postman testing
     private int id;
 
     @NotBlank(message = "Username is required.")
