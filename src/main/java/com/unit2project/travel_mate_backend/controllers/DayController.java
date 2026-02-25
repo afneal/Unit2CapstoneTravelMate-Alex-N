@@ -39,21 +39,21 @@ public class DayController {
         }
 
         Day day = new Day(dayData.getCity(), dayData.getDate(), new ArrayList<>());
-        day.setTrip(trip); // Associate the day with the trip
+        day.setTrip(trip);
         dayRepository.save(day);
         return new ResponseEntity<>(day, HttpStatus.CREATED);
     }
 
 
 
-
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteDay(@PathVariable int id) {
-        if (dayRepository.existsById(id)) {
-            dayRepository.deleteById(id);
-            return new ResponseEntity<>("Day deleted successfully", HttpStatus.OK);
+    public ResponseEntity<?> deleteDay(@PathVariable int id) throws NoResourceFoundException {
+        Day day = dayRepository.findById(id).orElse(null);
+        if (day == null) {
+            throw new NoResourceFoundException(HttpMethod.DELETE, "/" + id, "Day with id " + " not found");
         } else {
-            return new ResponseEntity<>("Day not found", HttpStatus.NOT_FOUND);
+        dayRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
 
