@@ -33,7 +33,16 @@ public class Activity {
         this.time = time;
         this.notes = notes;
     }
+    //used to add an activity to a day in controller
+    public Day getDay() {
+        return day;
+    }
 
+    public void setDay(Day day) {
+        this.day = day;
+    }
+
+    //getters and setters
     public int getId() {
         return id;
     }

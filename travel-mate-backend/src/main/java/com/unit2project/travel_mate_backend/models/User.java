@@ -13,7 +13,7 @@ public class User { //stored in database as an object
     private String email;
     private String password;
 
-//    @OneToMany(mappedBy = "user")
+
 
     public User() { //default constructor needed by Hibernate to instantiate objects when retrieving from the database
     }
