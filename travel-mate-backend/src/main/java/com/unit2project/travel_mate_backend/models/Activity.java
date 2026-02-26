@@ -51,12 +51,23 @@ public class Activity {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public LocalTime getTime() {
         return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
     }
 
     public String getNotes() {
         return notes;
     }
 
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
 }

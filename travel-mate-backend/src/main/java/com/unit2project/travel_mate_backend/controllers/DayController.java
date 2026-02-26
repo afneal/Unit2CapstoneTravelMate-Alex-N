@@ -80,7 +80,7 @@ public class DayController {
     }
 
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/deleteDay/{id}")
     public ResponseEntity<?> deleteDay(@PathVariable int id) throws NoResourceFoundException {
         Day day = dayRepository.findById(id).orElse(null);
         if (day == null) {
