@@ -1,7 +1,9 @@
 package com.unit2project.travel_mate_backend.controllers;
 
 
+import com.unit2project.travel_mate_backend.dto.ActivityDTO;
 import com.unit2project.travel_mate_backend.dto.DayDTO;
+import com.unit2project.travel_mate_backend.models.Activity;
 import com.unit2project.travel_mate_backend.models.Day;
 import com.unit2project.travel_mate_backend.models.Trip;
 import com.unit2project.travel_mate_backend.repositories.DayRepository;
@@ -31,6 +33,17 @@ public class DayController {
         return dayRepository.findAll();
     }
 
+    @GetMapping("/{dayId}")
+    public ResponseEntity<?> getDayById(@PathVariable int dayId) throws NoResourceFoundException {
+        Day day = dayRepository.findById(dayId).orElse(null);
+        if (day == null) {
+            throw new NoResourceFoundException(HttpMethod.GET, "/" + dayId, "Day with id " + dayId + " not found");//404
+        } else {
+            return new ResponseEntity<>(day, HttpStatus.OK); //200
+        }
+    }
+
+
     @PostMapping("/addDay/{tripId}")
     public ResponseEntity<?> addNewDay(@PathVariable int tripId, @RequestBody DayDTO dayData) throws NoResourceFoundException {
         Trip trip = tripRepository.findById(tripId).orElse(null);
@@ -44,6 +57,27 @@ public class DayController {
         return new ResponseEntity<>(day, HttpStatus.CREATED);
     }
 
+    @PutMapping("/editDay/{dayId}")
+    public ResponseEntity<?> updateDayById(@PathVariable int dayId, @RequestBody DayDTO dayData) throws NoResourceFoundException {
+        Day existingDay = dayRepository.findById(dayId).orElse(null);
+        if (existingDay == null) {
+            throw new NoResourceFoundException(HttpMethod.PUT, "/" + dayId, "The day with id " + dayId + " not found");
+        } else {
+            existingDay.setCity(dayData.getCity());
+            existingDay.setDate(dayData.getDate());
+
+            existingDay.getActivities().clear();//to clear the list so avoid double items when submitting form after edit
+            //DayDTO has List<ActivityDTO> so have to map to Activity entities b/c repository accepts only the entity
+            for (ActivityDTO activityDTO : dayData.getActivities()) {
+                Activity activity = new Activity(activityDTO.getName(), activityDTO.getTime(), activityDTO.getNotes());
+                activity.setDay(existingDay);
+                existingDay.getActivities().add(activity);
+            }
+            dayRepository.save(existingDay);
+
+        }return ResponseEntity.ok(existingDay);//200
+
+    }
 
 
     @DeleteMapping("/delete/{id}")
@@ -52,7 +86,7 @@ public class DayController {
         if (day == null) {
             throw new NoResourceFoundException(HttpMethod.DELETE, "/" + id, "Day with id " + " not found");
         } else {
-        dayRepository.deleteById(id);
+            dayRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
