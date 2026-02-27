@@ -1,7 +1,11 @@
 package com.unit2project.travel_mate_backend.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import org.springframework.cglib.core.Local;
+
+import java.time.LocalTime;
 
 @Entity
 public class Activity {
@@ -11,7 +15,9 @@ public class Activity {
     private int id;
 
     private String name;
-    private int time;
+
+    @JsonFormat(pattern = "HH:mm")  //LocalTime in JSON will be formatted as "HH:mm"
+    private LocalTime time;
     @Lob                                    //large object, for longer text
     private String notes;
 
@@ -19,16 +25,24 @@ public class Activity {
     @JsonBackReference  //prevents infinite recursion during JSON serialization
     private Day day;    //stores the day(parent) this activity belongs to
 
-    public Activity() {
+    public Activity() {//default constructor needed by Hibernate to instantiate objects when retrieving from the database
     }
 
-    public Activity(int id, String name, int time, String notes) {
-        this.id = id;
+    public Activity(String name, LocalTime time, String notes) {
         this.name = name;
         this.time = time;
         this.notes = notes;
     }
+    //used to add an activity to a day in controller
+    public Day getDay() {
+        return day;
+    }
 
+    public void setDay(Day day) {
+        this.day = day;
+    }
+
+    //getters and setters
     public int getId() {
         return id;
     }
@@ -37,12 +51,23 @@ public class Activity {
         return name;
     }
 
-    public int getActivityTime() {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public LocalTime getTime() {
         return time;
     }
 
-    public String getActivityNotes() {
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
+
+    public String getNotes() {
         return notes;
     }
 
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
 }
