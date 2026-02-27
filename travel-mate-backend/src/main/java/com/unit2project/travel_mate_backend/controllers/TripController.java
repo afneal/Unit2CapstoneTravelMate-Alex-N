@@ -56,28 +56,22 @@ public class TripController {
             return new ResponseEntity<>("User with email " + tripData.getUserEmail() + " not found", HttpStatus.BAD_REQUEST); // 400
         }
 
-        List<Day> days = new ArrayList<>();// creates an empty ArrayList to store the Day entities associated with the Trip.
-        Trip trip = new Trip(tripData.getName(), user, days);//creates new Trip entity with empty list of days with name of trip from TripDTO, User entity pulled from  TripDTO using email
-
-        for (DayDTO dayDTO : tripData.getDays()) {// iterates over the List<DayDTO> (from TripDTO, getDays() getter)
-            //and assigns each DayDTO(city, date, List<Activity>) to variable day
-            Day newDay = new Day(dayDTO.getCity(), dayDTO.getDate(), new ArrayList<>());//creates new Day entity from the data in the DayDTO (city, date, activities)
-            newDay.setTrip(trip);//sets association btwn trip and day so day with have the trip fk
-
-            //use map to change ActivityDTO to Activity
-            if (dayDTO.getActivities() != null) {
-                for (ActivityDTO activityDTO : dayDTO.getActivities()) {//loop over ActivityDTO and create Activity entities
-                    Activity newActivity = new Activity(activityDTO.getName(), activityDTO.getTime(), activityDTO.getNotes());
-                    newActivity.setDay(newDay);//sets association btwn day and activity so activity will have the day fk
-                    newDay.getActivities().add(newActivity);//add the new Activity to the day
-                }
-            }
-
-            days.add(newDay);//adds the new Day object to the empty array list of days
-        }
+        Trip trip = new Trip(tripData.getName(), user, new ArrayList<>());//creates new Trip entity with empty list of days with name of trip from TripDTO, User entity pulled from  TripDTO using email
 
         tripRepository.save(trip);
         return new ResponseEntity<>(trip, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/editTripName/{id}")
+    public ResponseEntity<?> updateTripNameById(@PathVariable int id, @RequestBody TripDTO tripData) throws NoResourceFoundException {
+        Trip existingTrip = tripRepository.findById(id).orElse(null);
+        if (existingTrip == null) {
+            throw new NoResourceFoundException(HttpMethod.PUT, "/" + id, "The trip with id " + id + " not found");
+        } else {
+            existingTrip.setName(tripData.getName());
+        }
+        tripRepository.save(existingTrip);
+        return ResponseEntity.ok(existingTrip);
     }
 
     @DeleteMapping("/delete/{id}")
