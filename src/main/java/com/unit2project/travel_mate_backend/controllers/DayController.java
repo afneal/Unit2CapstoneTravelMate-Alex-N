@@ -57,7 +57,7 @@ public class DayController {
         return new ResponseEntity<>(day, HttpStatus.CREATED);
     }
 
-    @PutMapping("/editDay/{dayId}")
+    @PutMapping("/editDay/{dayId}") //edit day and associated activities
     public ResponseEntity<?> updateDayById(@PathVariable int dayId, @RequestBody DayDTO dayData) throws NoResourceFoundException {
         Day existingDay = dayRepository.findById(dayId).orElse(null);
         if (existingDay == null) {
