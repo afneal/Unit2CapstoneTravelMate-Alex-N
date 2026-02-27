@@ -14,7 +14,6 @@ public class DayDTO {
     private String city;
 
     @JsonFormat(pattern = "MM-dd-yyyy")
-    @Uni
     private LocalDate date;
     private List<ActivityDTO> activities;
 

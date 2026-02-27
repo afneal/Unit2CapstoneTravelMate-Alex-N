@@ -49,7 +49,7 @@ public class TripController {
     }
 
 
-    @PostMapping("/addTrip")//add complete trip object
+    @PostMapping("/addTrip")//add only trip name, add days/activities through other endpoints
     public ResponseEntity<?> addNewTrip(@RequestBody TripDTO tripData) {//Spring converts the incoming JSON data from the HTTP request body into a TripDTO object (called tripData). JSON has to match structure of TripDTO (name, userId, days)
         User user = userRepository.findByEmail(tripData.getUserEmail());//finds the user in the db using the email in the TripDTO (tripData.getUserEmail())
         if (user == null) {
@@ -74,7 +74,7 @@ public class TripController {
         return ResponseEntity.ok(existingTrip);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}") //add "are you sure" button to front end
     public ResponseEntity<?> deleteTrip(@PathVariable int id) throws NoResourceFoundException {
         Trip trip = tripRepository.findById(id).orElse(null);
         if (trip == null) {
