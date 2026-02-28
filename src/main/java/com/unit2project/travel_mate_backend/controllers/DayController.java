@@ -66,13 +66,8 @@ public class DayController {
             existingDay.setCity(dayData.getCity());
             existingDay.setDate(dayData.getDate());
 
-            existingDay.getActivities().clear();//to clear the list so avoid double items when submitting form after edit
-            //DayDTO has List<ActivityDTO> so have to map to Activity entities b/c repository accepts only the entity
-            for (ActivityDTO activityDTO : dayData.getActivities()) {
-                Activity activity = new Activity(activityDTO.getName(), activityDTO.getTime(), activityDTO.getNotes());
-                activity.setDay(existingDay);
-                existingDay.getActivities().add(activity);
-            }
+            //ActivityController will edit activities
+
             dayRepository.save(existingDay);
 
         }return ResponseEntity.ok(existingDay);//200
