@@ -1,0 +1,884 @@
+
+
+header {
+    background-color: rgba(211, 211, 211, 0.9);
+    color: black;
+    font-size: 2em;
+    padding: 0 20px;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "zalando sans", sans-serif;
+}
+
+.header-logo {
+    width: 100px;
+    padding: 10px;
+    display: block;
+}
+
+footer div{
+
+    position: fixed;
+    bottom: 0px;
+    padding: 0px 20px;
+    width: 100%;
+    height: 60px;
+    background-color: rgba(211, 211, 211, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-sizing: border-box;
+    
+}
+
+.footer-text {
+    font-size: 15px;
+}
+
+
+
+.footer-logo {
+    width: 40px;
+    padding: 10px;
+    display: block;
+}
+
+.nav-menu {
+    padding: 0;
+    margin: 0;
+    font-size: 17px;
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.nav-menu ul {
+    display: flex;
+    align-items: flex-end;
+
+}
+
+
+
+.nav-menu li {
+    padding: 5px 10px;
+    align-items: flex-end;
+
+}
+
+.nav-menu li a {
+    padding: 14px 16px;
+    text-decoration: none;
+    color: black;
+    display: flex;
+
+}
+
+
+
+.nav-menu a:hover {
+    text-decoration: underline;
+    color: rgb(180, 63, 63);
+}
+
+.homepage {
+    text-align: center;
+    background-color: rgba(211, 211, 211, 0.9);
+    color: black;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    max-width: 80%;
+    margin: auto;
+    margin-top: 20px;
+    border-radius: 10px;
+
+}
+
+.homepage-text {
+    text-align: center;
+    background-color: dimgray;
+    border-radius: 10px;
+    padding: 16px 20px;
+    box-shadow: 0 2px 8px black;
+    color: white;
+    width: 80%;
+    margin: 20px auto;
+
+}
+
+.homepage-main {
+    color: black;
+    text-decoration: none;
+    border: 2px solid deepskyblue;
+    border-radius: 8px;
+    background-color: deepskyblue;
+    padding: 10px;
+    display: inline-block;
+    font-family: "zalando sans", sans-serif;
+}
+
+.homepage a:hover {
+    display: inline-block;
+    transform: scale(1.1);
+}
+
+body {
+    margin: auto;
+    margin-bottom: 60px;
+    padding: 0;
+
+}
+
+.traveltips {
+    text-align: center;
+    background-color: rgba(211, 211, 211, 0.9);
+    color: black;
+    padding: 10px;
+    max-width: 80%;
+    margin: auto;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+.traveltips-text {
+    text-align: center;
+    background-color: dimgray;
+    border-radius: 10px;
+    padding: 16px 20px;
+    box-shadow: 0 2px 8px black;
+    color: white;
+    width: 80%;
+    margin: 20px auto;
+    font-family: "zalando sans", sans-serif;
+}
+
+
+li {
+    text-align: left;
+}
+
+p {
+    font-size: 20px;
+    font-family: "zalando sans", sans-serif;
+}
+
+h1 {
+    font-size: 40px;
+    font-family: "zalando sans", sans-serif;
+
+}
+
+
+
+
+/*Exchange Rates */
+
+.exchange-rates-box {
+    text-align: center;
+    background-color: rgba(211, 211, 211, 0.9);
+    color: black;
+    padding: 20px;
+    max-width: 80%;
+    margin: 20px auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    
+}
+
+
+.exchange-rates-text {
+    text-align: center;
+    background-color: dimgray;
+    border-radius: 10px;
+    padding: 16px 20px;
+    box-shadow: 0 2px 8px black;
+    color: white;
+    width: 90%;
+    margin: 20px auto;
+}
+
+.base-currency-box,
+.target-currency-box {
+    background-color: rgba(252, 250, 250, 0.7);
+    margin: 0px;
+    padding-left: 10px;
+    border-radius: 12px;
+    box-shadow: 0 0 5px;
+    font-size: 1em;
+    padding: 10px;
+    width: 80%;
+    margin: 20px auto;
+}
+
+.show-exchange-text {
+    background-color: deepskyblue;
+    margin: 0px;
+    padding-left: 10px;
+    border-radius: 12px;
+    box-shadow: 0 0 5px;
+    padding: 10px;
+    width: 80%;
+    margin: 20px auto;
+}
+
+.amount-input input {
+    border-radius: 8px;
+    font-size: 1em;
+    padding: 10px;
+    outline: none;
+    box-shadow: 0 0 4px;
+    border: 1px solid black;
+    background-color: rgba(252, 250, 250, 0.7);
+}
+
+
+
+.base-target-currency-container {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    width: 100%;
+
+    box-sizing: border-box;
+    align-items: stretch;
+}
+
+.base-currency-box select,
+.target-currency-box select {
+    padding: 10px 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: rgba(211, 211, 211, 0.9);
+    width: 80%;
+}
+
+/* savedtrips */
+.main-trip-container,
+.flights-reminders-container,
+.trip-packing-container {
+    display: flex;
+    gap: 10px;
+    flex-direction: row;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    align-items: stretch;
+
+}
+
+.destination-text,
+.packing-list-text,
+.flights-text,
+.reminder-list-text {
+    text-align: center;
+    background-color: dimgray;
+    border-radius: 10px;
+    padding: 16px 20px;
+    box-shadow: 0 2px 8px black;
+    color: white;
+}
+
+
+.outer-wrapper-trips {
+    padding: 20px;
+    box-sizing: border-box;
+
+}
+
+
+.trip-box,
+.flights-box {
+    flex: 7;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.reminder-box,
+.packing-box {
+    flex: 3;
+
+
+}
+
+#saved-trip-data,
+.packing-list-container,
+.reminder-list-container,
+.flights-container {
+    background-color: rgba(211, 211, 211, 0.9);
+    border-radius: 10px;
+    padding: 16px 20px;
+    box-shadow: 0 2px 8px black;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    min-height: 0;
+    font-size: 1rem;
+}
+
+
+#saved-activity-data,
+.saved-connections-data {
+    background-color: rgba(252, 250, 250, 0.7);
+    margin: 10px;
+    padding-left: 10px;
+    border-radius: 12px;
+    box-shadow: 0 0 5px;
+    font-size: 1rem;
+}
+
+.saved-activity, .saved-connection {
+
+    padding: 10px 12px;
+    margin-bottom: 10px;
+    border-bottom: 1px dashed black;
+    background-color: rgba(248, 247, 247, 0.8);
+    border-radius: 8px;
+}
+
+.saved-activity p {
+    line-height: 0.7;
+}
+
+.saved-flight p {
+    line-height: 0.7;
+}
+
+
+.saved-connection {
+    padding: 10px;
+    border-radius: 8px;
+    background: white;
+    font-size: 0.95rem;
+}
+
+.saved-connection p {
+    line-height: 1.4;
+    margin: 6px 0;
+}
+
+.saved-activity:last-child,
+.saved-connection:last-child {
+    border-bottom: none;
+}
+
+#saved-trip-data,
+.saved-connection,
+#saved-activity-data,
+#saved-flights-data,
+.reminder-list,
+.saved-packing-list {
+    font-size: 18px;
+
+}
+
+.saved-packing-list-bullet,
+.saved-reminder-list-bullet,
+.traveltips li {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    padding-left: 30px;
+    font-family: "zalando sans", sans-serif;
+}
+
+.saved-packing-list li::before,
+.saved-reminder-list-bullet li::before,
+.traveltips li::before {
+    content: "\2713";
+}
+
+
+.flight-date-box {
+    font-size: 25px;
+    text-align: center;
+    font-family: "zalando sans", sans-serif;
+}
+
+.trip-date-box {
+    font-size: 25px;
+    text-align: center;
+    font-family: "zalando sans", sans-serif;
+}
+
+
+
+/*Build Trip */
+
+
+.outer-wrapper-buildTrips {
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+
+.packing-reminder-buildTrips {
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    gap: 20px;
+    padding: 0 40px;
+    font-family: "zalando sans", sans-serif;
+}
+
+
+.packing-box-buildTrips,
+.reminder-box-buildTrips {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+
+
+
+
+/* Planner Form */
+
+.outer-wrapper-planner {
+    padding: 0 40px;
+    box-sizing: border-box;
+    max-width: 100%;
+    margin: 0 auto;
+    font-family: "zalando sans", sans-serif;
+}
+
+.planner-form {
+    max-width: 100%;
+    width: 100%;
+    margin: 20px auto;
+    padding: 20px 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px black;
+    background-color: rgba(211, 211, 211, 0.9);
+    box-sizing: border-box;
+
+}
+
+.planner-form fieldset {
+    border: 2px solid black;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.planner-form legend {
+    font-weight: bold;
+    padding: 0 10px;
+
+}
+
+.planner-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 300;
+}
+
+.activity-component {
+    margin-left: 20px;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+#city,
+#date,
+#activity,
+#time,
+#notes {
+    width: 90%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.delete-activity-button,
+.activity-button,
+.delete-day-button,
+.add-day-button,
+.trip-submit-button {
+    padding: 8px 15px;
+    margin: 5px 5px 0 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-activity-button,
+.delete-day-button {
+    background-color: dimgray;
+    color: black;
+}
+
+.activity-button,
+.add-day-button {
+    background-color: deepskyblue;
+}
+
+
+.trip-submit-button {
+    background-color: dodgerblue;
+}
+
+.form-button-group {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+/*flight form*/
+
+.outer-flight-wrapper {
+    padding: 40px 40px;
+    box-sizing: border-box;
+    max-width: 100%;
+    margin: 0 auto;
+    font-family: "zalando sans", sans-serif;
+}
+
+
+.flight-form {
+    max-width: 100%;
+    margin: 20px auto;
+    padding: 20px 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px black;
+    background-color: rgba(211, 211, 211, 0.9);
+    box-sizing: border-box;
+}
+
+.flight-form fieldset {
+    border: 2px solid black;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.flight-form legend {
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+.flight-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 300;
+}
+
+.flight-connections-box {
+    margin-left: 20px;
+    padding: 15px;
+}
+
+#date,
+#deptCode,
+#deptTime,
+#connCode,
+#connTime,
+#arrCode,
+#arrTime,
+#seatNumber {
+    width: 90%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.delete-connection-button,
+.add-connecting-button,
+.delete-flight-button,
+.add-flight-button,
+.flight-submit-button {
+    padding: 8px 15px;
+    margin: 5px 5px 0 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+
+.delete-connection-button,
+.delete-flight-button {
+    background-color: dimgray;
+    color: black;
+    margin: 10px;
+}
+
+.add-connecting-button,
+.add-flight-button {
+    background-color: deepskyblue;
+}
+
+.flight-submit-button {
+    background-color: dodgerblue;
+}
+
+.flight-details {
+    text-align: center;
+    background-color: dimgray;
+    border-radius: 10px;
+    padding: 16px 20px;
+    box-shadow: 0 2px 8px black;
+    color: white;
+}
+
+.trip-details {
+    text-align: center;
+    background-color: dimgray;
+    border-radius: 10px;
+    padding: 16px 20px;
+    box-shadow: 0 2px 8px black;
+    color: white;
+}
+
+.packing-list-input-container,
+.reminder-list-input-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px black;
+    background-color: rgba(211, 211, 211, 0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+
+#list {
+    width: 100%;
+}
+
+#list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#list input#list-item {
+    flex: 1;
+    padding: 10px 12px;
+    margin: 10px;
+    font-size: 15px;
+    border-radius: 8px;
+    border: 1px solid black;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+    outline: none;
+}
+
+
+.packing-list-title,
+.reminder-list-title {
+    text-align: center;
+    margin: 0;
+    padding: 16px 20px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: dimgray;
+    border-radius: 10px;
+    padding: 16px 20px;
+    box-shadow: 0 2px 8px black;
+    color: white;
+}
+
+.list-item {
+    width: 90%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+
+
+#add-item-button {
+    background-color: deepskyblue;
+    padding: 8px 15px;
+    margin: 5px 5px 0 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.packing-list-submit-button,
+.reminder-list-submit-button {
+    padding: 8px 15px;
+    margin: 5px 5px 0 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: dodgerblue;
+}
+
+.delete-item-button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: dimgray;
+    color: black;
+    vertical-align: middle;
+    line-height: 24px;
+    margin: 10px;
+}
+
+
+
+.reminder-list-form li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style-position: inside;
+    padding-left: 0;
+}
+
+.reminder-list-form li::before {
+    content: "\2713";
+    color: black;
+    font-size: 25px;
+    margin-right: 20px;
+}
+
+
+.packing-list-form li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style-position: inside;
+    padding-left: 0;
+}
+
+.packing-list-form li::before {
+    content: "\2713";
+    color: black;
+    margin-right: 20px;
+    font-size: 25px;
+}
+
+@media (max-width: 430px) {
+    .main-trip-container,
+    .flights-reminders-container,
+    .trip-packing-container,
+    .packing-reminder-buildTrips {
+        flex-direction: column;
+        gap: 10px;
+    }
+   
+}
+
+
+
+
+@media (min-width: 1024px) {
+    .main-trip-container,
+    .flights-reminders-container,
+    .trip-packing-container,
+    .packing-reminder-buildTrips {
+        flex-direction: row;
+        font-size: 20px;
+        align-items: stretch;
+    }
+}
+
+/* Nav Icon */
+
+header .nav-menu ul {
+    display: none;
+}
+
+.nav-icon-button {
+    display: block;
+}
+
+
+
+nav ul li {
+    list-style: none;
+}
+
+
+@media (min-width: 768px) {
+
+    .main-trip-container,
+    .flights-reminders-container,
+    .trip-packing-container,
+    .packing-reminder-buildTrips {
+        flex-direction: row;
+        gap: 10px;
+        align-items: stretch;
+    }
+
+    nav a {
+        display: inline-block;
+    }
+
+    nav ul {
+        display: flex;
+        gap: 10px;
+    }
+
+    .nav-icon-button {
+        display: none;
+
+    }
+
+    header .nav-menu ul {
+        display: flex;
+        gap: 20px;
+    }
+}
+
+
+.nav-icon-button {
+    cursor: pointer;
+    color: black;
+    background: none;
+    border: none;
+    padding: 10px;
+    font-size: 2rem;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.nav-icon-button :hover {
+    background-color: #e0e0e0;
+
+}
+
+.isExpanded {
+    display: block;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.isExpanded li a {
+    display: block;
+    padding: 14px 20px;
+    color: black;
+    text-decoration: none;
+    font-size: 17px;
+    background-color: #f0f0f0;
+}
+
+.isExpanded li a:hover {
+    color: rgb(180, 63, 63);
+    text-decoration: underline;
+    background-color: #e0e0e0;
+}
