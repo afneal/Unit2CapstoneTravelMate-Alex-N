@@ -152,7 +152,7 @@ function ActivityForm({ dayId, activities, setActivities }) {
                 {!isEditing ? "Edit Activities" : "Cancel Edit"}
             </button>
             {isEditing &&
-                <button onClick={() => handleSaveUpdateActivities(activity)}>Save All</button>
+                <button onClick={() => handleSaveUpdateActivities(activity)}>Save Activities</button>
             }
         </div>
     );
