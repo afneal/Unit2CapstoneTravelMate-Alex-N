@@ -1,27 +1,10 @@
 
 
 
-
-const onActivityChange = (dayIndex, activityIndex, fieldName, newValue) => {
-        
-        const daysCopy = [...days];
-        const dayObjectCopy = {...days[dayIndex]};
-        const activitiesCopy = [...dayObjectCopy.activities];
-        const activityObjectCopy = {...activities[activityIndex]}
-
-        activityObjectCopy[fieldName] = newValue;
-        activitiesCopy[activityIndex] = activityObjectCopy; 
-
-        const updatedDay = {...days[dayIndex], activities: activitiesCopy };
-        daysCopy[dayIndex] = updatedDay
-        setDays(daysCopy);  //update reacts state to let it know that data was updated to re-render that portion
-    }
-
-}
+function ActivityService() {
 
 
-
-const fetchAllActivities = async () => {
+    const fetchAllActivities = async () => {
         try {
             const response = await fetch(
                 'http://localhost:8080/api/activities',
@@ -29,14 +12,14 @@ const fetchAllActivities = async () => {
                     method: 'GET',
                     headers: { 'Content-Type': 'application/json' },
                 });
+                return await response.json();
 
         } catch (error) {
             errorData.message || 'ERROR - Status ${response.status}'
         }
-        fetchAllActivities();
     }
 
-    const addActivity = async () => {
+    const updateActivity = async () => {
         try {
             const response = await fetch('http://localhost:8080/api/activities/addActivity/{dayId}', {
                 method: "POST",
@@ -48,3 +31,7 @@ const fetchAllActivities = async () => {
             errorData.message || `ERROR - Status ${response.status}`
         }
     };
+
+}
+
+export default ActivityService;
