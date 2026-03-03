@@ -11,6 +11,7 @@ import TravelTips from './components/Pages/TravelTips'
 import BuildTrips from './components/Pages/BuildTrip';
 import ExchangeRates from './components/Pages/Resources';
 import { ToastContainer } from 'react-toastify';
+import ItineraryForm from './components/form-components/ItineraryForm';
 
 
 function App() { //App owns the states so is the parent
@@ -50,6 +51,8 @@ function App() { //App owns the states so is the parent
             />} />
 
             <Route path="/resources" element={<ExchangeRates />} />
+
+            <Route path="/itineraryform" element={<ItineraryForm trips={trips} setTrips={setTrips} days={days} setDays={setDays}/>} />
           </Routes>
 
           <Footer />

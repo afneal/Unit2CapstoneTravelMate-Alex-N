@@ -13,20 +13,7 @@ function ActivityForm({ dayId, activities, setActivities }) {
                 { ...existingActivity, [fieldName]: newValue } : existingActivity))
     }
 
-    // const handleActivityDelete = async id => {
-    //     try {
-    //         const response = await fetch(`http://localhost:8080/api/activities/deleteActivity/{activityId}`, {
-    //             method: 'DELETE',
-    //             headers: { 'Content-Type': 'application/json' },
-    //         });
-    //         setActivities(activities.filter(activity => activity.id !== activityId));
-    //     }catch (error) {
-    //          const errorData = await response.json();
-    //          throw new Error(
-    //         errorData.message || `ERROR - Status ${response.status}`,
-    //          );
-    //     }
-    // }
+
 
     const handleActivityDelete = async (activityId) => {
         try {
@@ -62,30 +49,24 @@ function ActivityForm({ dayId, activities, setActivities }) {
     }
 
     const handleSaveUpdateActivities = async (activityId) => {
-        try {
+       
             const updatedActivities = await Promise.all(
                 activities.map(activity =>
                     `http://localhost:8080/api/activities/editActivity/${activity.id}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(activity),
-                }).then(response => response.json())
+                }).then(async response => {
+                    if (!response.ok) throw new Error(await response.text());
+                    return response.json();
+                })
             );
             setActivities(updatedActivities);
             setIsEditing(false);
-        } catch (error) {
-            const errorData = await response.json();
-            throw new Error(
-                errorData.message || `ERROR - Status ${response.status}`,
-            );
+        
         }
-    }
+    
 
-
-    // const handleSave = async (activity) => {
-    //     await ActivityService.updateActivity(activity.id, activity);
-    //     setIsEditing(false);
-    // }
 
 
 

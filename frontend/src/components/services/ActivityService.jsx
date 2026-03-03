@@ -15,11 +15,11 @@ function ActivityService() {
                 return await response.json();
 
         } catch (error) {
-            errorData.message || 'ERROR - Status ${response.status}'
+            errorData.message || `ERROR - Status ${response.status}`
         }
     }
 
-    const updateActivity = async () => {
+    const addActivity = async () => {
         try {
             const response = await fetch('http://localhost:8080/api/activities/addActivity/{dayId}', {
                 method: "POST",

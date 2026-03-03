@@ -3,12 +3,23 @@ import DayForm from "./DayForm";
 import ActivityForm from "./ActivityForm";
 import TripForm from "./TripForm";
 
-function ItineraryForm({ trips, setTrips, days, setDays }) {
+function ItineraryForm({ trips, setTrips, days, setDays, onTripChange }) {
+
+
+
+    // const onTripChange = (tripId, fieldName, newValue) => {
+    //     setTrips(
+    //         trips.map(existingTrip => existingTrip.id === tripId ?
+    //             { ...existingTrip, [fieldName]: newValue } : existingTrip))
+    // }
 
     return (
 
         <div className="itinerary-form">
-            <TripForm trips = {trips} setTrips={setTrips} />
+            <TripForm
+                trips={trips}
+                setTrips={setTrips}
+                onTripChange={onTripChange} />
 
             <DayForm days={days} setDays={setDays} />
 

@@ -1,4 +1,4 @@
-
+import { useState } from "react";
 
 
 function DayForm({ tripId, days, setDays }) {
@@ -14,22 +14,39 @@ function DayForm({ tripId, days, setDays }) {
     }
 
     const handleSaveUpdateDay = async (dayId) => {
-        try {
+       
             const updatedDay = await Promise.all(
                 days.map(day =>
                     `http://localhost:8080/api/days/editDay/${day.id}`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(day),
-                }).then(response => response.json())
+                }).then(async response => {
+                    if (!response.ok) throw new Error(await response.text());
+                    return response.json();
+                })
             );
             setDays(updatedDay);
             setIsEditing(false);
-        } catch (error) {
-            const errorData = await response.json();
-            throw new Error(
-                errorData.message || `ERROR - Status ${response.status}`,
+    
+    }
+
+
+    const handleAddNewDay = async () => {
+        try {
+            const response = await fetch(
+                `http://localhost:8080/api/trips/addTrip`, {
+                    method: 'POST',
+                    headers: { 'Content-Type' : 'application/json' },
+                    body: JSON.stringify(newDay)
+                }
             );
+            const savedDay = await response.json();
+            setDays([...days, savedDay]);
+            setNewDay({ city: "", date: "" });
+        } catch (error) {
+            console.error(error);
+            
         }
     }
 
@@ -75,12 +92,12 @@ function DayForm({ tripId, days, setDays }) {
                     <input
                         placeholder="City"
                         value={newDay.city}
-                        onChange={(e => setNewDay({ ...newDay, city, e.target.value }))}
+                        onChange={(e => setNewDay({ ...newDay, city: e.target.value }))}
                     />
                     <input
                         placeholder="Date"
                         value={newDay.date}
-                        onChange={(e => setNewDay({ ...newDay, date, e.target.value }))}
+                        onChange={(e => setNewDay({ ...newDay, date: e.target.value }))}
                     />
                     <button onClick={() => handleAddNewDay(tripId)}>Add Day </button>
                 </div>
