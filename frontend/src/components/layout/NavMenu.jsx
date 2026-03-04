@@ -13,6 +13,7 @@ function NavMenu() {
                 <li><Link to="/buildtrips">Build Trip</Link></li>
                 <li><Link to="/savedtrips">Saved Trips</Link></li>
                 <li><Link to="/itineraryform">View Trips</Link></li>
+                <li><Link to="/trippage">All Trips</Link></li>
             </ul>
         </nav>
     )

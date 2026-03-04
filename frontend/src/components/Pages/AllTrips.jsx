@@ -1,14 +1,11 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router";
+import { Link } from "react-router";
+
 
 
 function AllTrips({ trips, setTrips }) {
 
-const navigate = useNavigate();
 
-    const onTripClick = (tripId) => {
-        navigate(`/trips/${tripId}`);
-    };
 
     const fetchTrips = async () => {
         try {
@@ -20,10 +17,7 @@ const navigate = useNavigate();
             const allTrips = await response.json();
             setTrips(allTrips);
         } catch (error) {
-            const errorData = await response.json();
-            throw new Error(
-                errorData.message || `ERROR - Status ${response.status}`,
-            );
+            console.error("Failed to get trips:", error.message);
         }
     }
 
@@ -39,19 +33,19 @@ const navigate = useNavigate();
             ) : (
                 <div>
                     {trips.map(trip => (
-                        <button className="trip-button" onClick={() => onTripClick(trip.id)} >
-                            {trip.name}
-                        </button>
+                        <Link 
+                            key={trip.id}
+                            to={`/trips/${trip.id}`} 
+                            className='trip-name-links'>{trip.name}</Link>
                     ))}
                 </div>
+                
             )}
         </div >
     );
 }
 
-//<Route path="/trips/:tripId" element={<TripDisplay />} />
-//in the display page:
-//const { tripId } = useParams();
+
 
 export default AllTrips;
 

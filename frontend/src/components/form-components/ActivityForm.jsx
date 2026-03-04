@@ -1,4 +1,5 @@
 import DayForm from "./DayForm";
+import { useState } from "react";
 
 
 function ActivityForm({ dayId, activities, setActivities }) {
@@ -49,21 +50,29 @@ function ActivityForm({ dayId, activities, setActivities }) {
     }
 
     const handleSaveUpdateActivities = async (activityId) => {
-       
+        try {
             const updatedActivities = await Promise.all(
-                activities.map(activity =>
-                    `http://localhost:8080/api/activities/editActivity/${activity.id}`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(activity),
-                }).then(async response => {
-                    if (!response.ok) throw new Error(await response.text());
-                    return response.json();
+                activities.map(async activity => {
+                    const response = await fetch(
+                        `http://localhost:8080/api/activities/editActivity/${activity.id}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(activity),
+                    })
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        throw new Error(
+                            errorData.message || `ERROR - Status ${response.status}`,
+                        );
+                    }
+                        return response.json();
                 })
             );
             setActivities(updatedActivities);
             setIsEditing(false);
-        
+
+        } catch (error) {
+            console.error("Failed to save activities:", error.message);
         }
     
 
@@ -71,74 +80,75 @@ function ActivityForm({ dayId, activities, setActivities }) {
 
 
     return (
-        <div className="activity-form">
-            {activities.map(activity => (
-                <div key={activity.id}>
-                    {isEditing ? (
+            <div className="activity-form">
+                {activities.map(activity => (
+                    <div key={activity.id}>
+                        {isEditing ? (
 
-                        <>
-                            <input
-                                value={activity.name}
-                                placeholder="Activity Name"
-                                onChange={e => onActivityChange(activity.id, 'name', e.target.value)}
-                            />
-
-
-                            <input
-                                value={activity.time}
-                                placeholder="Activity Time"
-                                onChange={e => onActivityChange(activity.id, 'time', e.target.value)}
-                            />
+                            <>
+                                <input
+                                    value={activity.name}
+                                    placeholder="Activity Name"
+                                    onChange={e => onActivityChange(activity.id, 'name', e.target.value)}
+                                />
 
 
-                            <textarea
-                                value={activity.notes}
-                                placeholder="Notes"
-                                onChange={e => onActivityChange(activity.id, 'notes', e.target.value)}
-                            />
-                            <button onClick={() => handleActivityDelete(activity.id)}>Delete Activity</button>
-                        </>
-                    ) : (
-                        <>
-                            <p>{activity.name}</p>
-                            <p>{activity.time}</p>
-                            <p>{activity.notes}</p>
-                        </>
-                    )}
-                </div>
-            ))}
+                                <input
+                                    value={activity.time}
+                                    placeholder="Activity Time"
+                                    onChange={e => onActivityChange(activity.id, 'time', e.target.value)}
+                                />
 
-            {isEditing && (
-                <div>
-                    <input
-                        placeholder="Name"
-                        value={newActivity.name}
-                        onChange={(e => setNewActivity({ ...newActivity, name: e.target.value }))}
-                    />
-                    <input
-                        placeholder="Time"
-                        value={newActivity.time}
-                        onChange={(e => setNewActivity({ ...newActivity, time: e.target.value }))}
-                    />
-                    <input
-                        placeholder="Notes"
-                        value={newActivity.notes}
-                        onChange={(e => setNewActivity({ ...newActivity, notes: e.target.value }))}
-                    />
-                    <button onClick={() => handleAddNewActivity(dayId)}>Add New Activity</button>
-                </div>
-            )}
 
-            <button onClick={() => setIsEditing(isEditing)}>
-                {!isEditing ? "Edit Activities" : "Cancel Edit"}
-            </button>
-            {isEditing &&
-                <button onClick={() => handleSaveUpdateActivities(activity)}>Save Activities</button>
-            }
-        </div>
-    );
+                                <textarea
+                                    value={activity.notes}
+                                    placeholder="Notes"
+                                    onChange={e => onActivityChange(activity.id, 'notes', e.target.value)}
+                                />
+                                <button onClick={() => handleActivityDelete(activity.id)}>Delete Activity</button>
+                            </>
+                        ) : (
+                            <>
+                                <p>{activity.name}</p>
+                                <p>{activity.time}</p>
+                                <p>{activity.notes}</p>
+                            </>
+                        )}
+                    </div>
+                ))}
+
+                {isEditing && (
+                    <div>
+                        <input
+                            placeholder="Name"
+                            value={newActivity.name}
+                            onChange={(e => setNewActivity({ ...newActivity, name: e.target.value }))}
+                        />
+                        <input
+                            placeholder="Time"
+                            value={newActivity.time}
+                            onChange={(e => setNewActivity({ ...newActivity, time: e.target.value }))}
+                        />
+                        <input
+                            placeholder="Notes"
+                            value={newActivity.notes}
+                            onChange={(e => setNewActivity({ ...newActivity, notes: e.target.value }))}
+                        />
+                        <button onClick={() => handleAddNewActivity(dayId)}>Add New Activity</button>
+                    </div>
+                )}
+
+                <button onClick={() => setIsEditing(!isEditing)}>
+                    {!isEditing ? "Edit Activities" : "Cancel Edit"}
+                </button>
+                {isEditing &&
+                    <button onClick={() => handleSaveUpdateActivities}>Save Activities</button>
+                }
+            </div>
+        );
+    }
 }
 
 
 
-export default ActivityForm;
+    export default ActivityForm;

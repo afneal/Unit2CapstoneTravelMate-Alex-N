@@ -12,11 +12,13 @@ import BuildTrips from './components/Pages/BuildTrip';
 import ExchangeRates from './components/Pages/Resources';
 import { ToastContainer } from 'react-toastify';
 import ItineraryForm from './components/form-components/ItineraryForm';
+import AllTrips from './components/Pages/AllTrips';
+import TripPage from './components/form-components/Trips.jsx/TripPage';
 
 
 function App() { //App owns the states so is the parent
-
   const [days, setDays] = useState([]);
+  // const [days, setDays] = useState([{city: "", date: "", activities: []}]);
   const [activities, setActivities] = useState([]);
 
   const [trips, setTrips] = useState([]);
@@ -52,7 +54,9 @@ function App() { //App owns the states so is the parent
 
             <Route path="/resources" element={<ExchangeRates />} />
 
-            <Route path="/itineraryform" element={<ItineraryForm trips={trips} setTrips={setTrips} days={days} setDays={setDays}/>} />
+            {/* <Route path="/trips/:tripId" element={<ItineraryForm />} /> */}
+
+            <Route path="/trippage" element={<TripPage trips={trips} setTrips={setTrips} />} />
           </Routes>
 
           <Footer />
