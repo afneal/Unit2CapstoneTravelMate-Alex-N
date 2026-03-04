@@ -50,13 +50,14 @@ public class TripController {
 
 
     @PostMapping("/addTrip")//add only trip name, add days/activities through other endpoints
-    public ResponseEntity<?> addNewTrip(@RequestBody TripDTO tripData) {//Spring converts the incoming JSON data from the HTTP request body into a TripDTO object (called tripData). JSON has to match structure of TripDTO (name, userId, days)
-        User user = userRepository.findByEmail(tripData.getUserEmail());//finds the user in the db using the email in the TripDTO (tripData.getUserEmail())
-        if (user == null) {
-            return new ResponseEntity<>("User with email " + tripData.getUserEmail() + " not found", HttpStatus.BAD_REQUEST); // 400
-        }
-
-        Trip trip = new Trip(tripData.getName(), user, new ArrayList<>());//creates new Trip entity with empty list of days with name of trip from TripDTO, User entity pulled from  TripDTO using email
+    public ResponseEntity<?> addNewTrip(@RequestBody TripDTO tripData) throws NoResourceFoundException {//Spring converts the incoming JSON data from the HTTP request body into a TripDTO object (called tripData). JSON has to match structure of TripDTO (name, userId, days)
+        //Add this back in after user login created, and change Trip trip from
+        //null param to user param
+//        User user = userRepository.findByEmail(tripData.getUserEmail());//finds the user in the db using the email in the TripDTO (tripData.getUserEmail())
+//        if (user == null) {
+//            throw new NoResourceFoundException(HttpMethod.POST, "/addTrip", "User with email " + tripData.getUserEmail() + " not found"); // 400
+//        }
+        Trip trip = new Trip(tripData.getName(), null, new ArrayList<>());//creates new Trip entity with empty list of days with name of trip from TripDTO, User entity pulled from  TripDTO using email
 
         tripRepository.save(trip);
         return new ResponseEntity<>(trip, HttpStatus.CREATED);
@@ -66,7 +67,7 @@ public class TripController {
     public ResponseEntity<?> updateTripNameById(@PathVariable int id, @RequestBody TripDTO tripData) throws NoResourceFoundException {
         Trip existingTrip = tripRepository.findById(id).orElse(null);
         if (existingTrip == null) {
-            throw new NoResourceFoundException(HttpMethod.PUT, "/" + id, "The trip with id " + id + " not found");
+            throw new NoResourceFoundException(HttpMethod.PUT, "/editTripName" + id, "The trip with id " + id + " not found");
         } else {
             existingTrip.setName(tripData.getName());
         }
@@ -78,7 +79,7 @@ public class TripController {
     public ResponseEntity<?> deleteTrip(@PathVariable int id) throws NoResourceFoundException {
         Trip trip = tripRepository.findById(id).orElse(null);
         if (trip == null) {
-            throw new NoResourceFoundException(HttpMethod.DELETE, "/" + id, "Trip with id " + id + " not found");
+            throw new NoResourceFoundException(HttpMethod.DELETE, "/delete" + id, "Trip with id " + id + " not found");
         } else {
             tripRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
