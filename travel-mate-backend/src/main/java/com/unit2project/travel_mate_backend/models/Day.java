@@ -22,6 +22,7 @@ public class Day {
     private LocalDate date;
 
     @ManyToOne
+    @JsonBackReference
     private Trip trip; //stores the trip(parent) this day belongs to, many days can belong to one trip, but a day can only belong to one trip
 
     @JsonManagedReference //b/c this is the parent side of the relationship, will manage the JSON serialization of the activities list, prevents infinite recursion
