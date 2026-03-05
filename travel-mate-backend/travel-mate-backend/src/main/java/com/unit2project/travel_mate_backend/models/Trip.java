@@ -19,6 +19,7 @@ public class Trip {
     @ManyToOne
     private User user; //stores the user who created this trip, many trips can belong to one user, but a trip can only belong to one user
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, orphanRemoval = true) //one trip can have many days, mappedBy points to the field in Day that owns the relationship, cascade ALL means all operations on Trip will cascade to its days, orphanRemoval means if a day is removed from the trip's list, it will be deleted from the database
     private List<Day> days; //stores the list of days for this trip
 
