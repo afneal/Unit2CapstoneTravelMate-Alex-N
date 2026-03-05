@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import SubmitButton from '../PlannerComponents/SubmitButton';
+import SubmitButton from '../planner-components/SubmitButton';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
