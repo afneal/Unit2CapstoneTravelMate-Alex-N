@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function AddDayCard({ tripId, getTrips, onDone }) {
+function AddDayCard({ tripId, getTrips, closeDayForm }) {
     const [city, setCity] = useState("");
     const [date, setDate] = useState("");
 
@@ -16,9 +16,7 @@ function AddDayCard({ tripId, getTrips, onDone }) {
 
         setCity("");
         setDate("");
-
-        onDone();
-
+        closeDayForm();//From TripCard
     };
 
     return (

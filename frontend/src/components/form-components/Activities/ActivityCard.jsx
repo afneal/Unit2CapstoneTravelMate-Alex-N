@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-function ActivityCard({ activity, dayId, getTrips }) {
+function ActivityCard({ activity, getTrips }) {
     const [isEditing, setIsEditing] = useState(false);
     const [name, setName] = useState(activity.name);
     const [time, setTime] = useState(activity.time);
@@ -16,7 +16,7 @@ function ActivityCard({ activity, dayId, getTrips }) {
         await getTrips();
         
 
-    };
+    }
 
     useEffect(() => {
         if (!isEditing) {
@@ -60,4 +60,4 @@ function ActivityCard({ activity, dayId, getTrips }) {
 
 }
 
-export default ActivityCard;
+export default ActivityCard; 

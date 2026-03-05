@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function AddActivityCard({ dayId, getTrips, onDone }) {
+function AddActivityCard({ dayId, getTrips, closeActivityForm }) {
     const [name, setName] = useState("");
     const [time, setTime] = useState("");
     const [notes, setNotes] = useState("");
@@ -14,7 +14,7 @@ function AddActivityCard({ dayId, getTrips, onDone }) {
         });
         
         await getTrips();
-        onDone();
+        closeActivityForm(); //from TripCard
 
 
     };

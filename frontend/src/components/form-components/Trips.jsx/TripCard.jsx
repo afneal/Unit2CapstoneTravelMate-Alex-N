@@ -5,12 +5,16 @@ import DayCard from "../Days.jsx/DayCard";
 import { useState } from "react";
 
 
-function TripCard({ trip, getTrips, onDone }) {
+function TripCard({ trip, getTrips }) {
     const [isAddingDay, setisAddingDay] = useState(false);
-    const [isAddingActivityForDayId, setIsAddingActivityForDayId] = useState(null);
+    const [addedActivityOnDayId, setAddedActivityOnDayId] = useState(null);
 
 
-    const sortedDays = trip.days.slice().sort((a, b) => new Date(a.date) - new Date(b.date));
+    const sortedDays = [...trip.days].sort((a, b) => new Date(a.date) - new Date(b.date));
+    const closeDayForm = () => setisAddingDay(false);
+    const closeActivityForm = () => setAddedActivityOnDayId(null);
+    //close form sets default back to null, shows button and closes the input form
+
 
     return (
         <div className="trip-card">
@@ -18,7 +22,7 @@ function TripCard({ trip, getTrips, onDone }) {
 
             {sortedDays.map(day => {
 
-                const sortedActivities = day.activities.slice().sort((a, b) => {
+                const sortedActivities = [...day.activities].sort((a, b) => {
                     return a.time.localeCompare(b.time);
                 });
 
@@ -35,17 +39,17 @@ function TripCard({ trip, getTrips, onDone }) {
 
                         ))}
 
-                        {isAddingActivityForDayId === day.id ? (
-                            <AddActivityCard
-                                dayId={day.id}
+                        {addedActivityOnDayId=== day.id ? ( //state defaults to null, so no match
+                            <AddActivityCard                //shows button instead which updates state to match day.id,
+                                dayId={day.id}              //which then shows activity card
                                 getTrips={getTrips}
-                                onDone={() => setIsAddingActivityForDayId(null)} />
+                                closeActivityForm={closeActivityForm} /> 
 
                         ) : (
-                            <button onClick={() => setIsAddingActivityForDayId(day.id)}>
+                            <button onClick={() => setAddedActivityOnDayId(day.id)}>
                                 Add Activity
                             </button>
-                        )};
+                        )}
                     </div>
                 );
             })}
@@ -53,7 +57,7 @@ function TripCard({ trip, getTrips, onDone }) {
                 <AddDayCard
                     tripId={trip.id}
                     getTrips={getTrips}
-                    onDone={() => setisAddingDay(false)} />
+                    closeDayForm={closeDayForm} />
             ) : (
                 <button onClick={() => setisAddingDay(true)}>Add Day</button>
             )}
