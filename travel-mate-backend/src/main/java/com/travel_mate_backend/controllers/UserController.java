@@ -24,7 +24,7 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<?> addNewUser(@RequestBody UserDTO userData) {
         if (userRepository.findByUsername(userData.getUsername()) != null) {
-            return new ResponseEntity<>("Username already exists", HttpStatus.CONFLICT);
+            return new ResponseEntity<>("Username already exists", HttpStatus.CONFLICT);//409
         }
 
         UserServices userServices = new UserServices();
