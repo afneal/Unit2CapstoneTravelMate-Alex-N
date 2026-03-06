@@ -10,7 +10,7 @@ public class User { //stored in database as an object
     private int id;
 
     private String firstName;
-    private String email;
+
     private String password;
 
 
@@ -18,9 +18,8 @@ public class User { //stored in database as an object
     public User() { //default constructor needed by Hibernate to instantiate objects when retrieving from the database
     }
 
-    public User(String firstName, String email, String password) {
+    public User(String firstName, String password) {
         this.firstName = firstName;
-        this.email = email;
         this.password = password;
     }
 
@@ -41,13 +40,13 @@ public class User { //stored in database as an object
         this.firstName = firstName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+//    public String getEmail() {
+//        return email;
+//    }
+//
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
 
     public String getPassword() {
         return password;
