@@ -31,7 +31,7 @@ function UserLogin({ isLoggedIn, setIsLoggedIn }) {
     const handleRegisterUser = async () => {
         await fetch(`http://localhost:8080/api/users/register`, {
             method: "POST",
-            headers: { "Content-Type": "application/json"},
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, password })
         })
 
@@ -43,9 +43,10 @@ function UserLogin({ isLoggedIn, setIsLoggedIn }) {
             throw new Error(
                 response.message || `ERROR - Status ${response.status}`,
             );
-            setUsername("");
-            setPassword("");
+
         }
+        setUsername("");
+        setPassword("");
     }
 
 
