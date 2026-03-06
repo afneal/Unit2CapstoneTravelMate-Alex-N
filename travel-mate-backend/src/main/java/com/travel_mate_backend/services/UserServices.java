@@ -4,7 +4,9 @@ package com.travel_mate_backend.services;
 import com.travel_mate_backend.dto.UserDTO;
 import com.travel_mate_backend.models.User;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserServices {
 
 

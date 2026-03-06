@@ -41,7 +41,7 @@ public class UserController {
         User user = userRepository.findByUsername(userData.getUsername()); //creates a new User object by searching the database for a user with the userName provided in the login request(userData).
         // If a user with that username exists, it will be stored in the user variable; otherwise, user will be null.
         UserServices userServices = new UserServices();
-        if (userServices.checkPassword(user, plainPassword) {
+        if (user != null && userServices.checkPassword(user, userData.getPassword())) {
             return new ResponseEntity<>(user, HttpStatus.OK); // 200 response indicating successful login and returning user object in the response body
         } else {
             return new ResponseEntity<>("Invalid email or password", HttpStatus.UNAUTHORIZED); // 401 response indicating unauthorized access
