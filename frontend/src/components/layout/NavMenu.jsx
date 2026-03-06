@@ -2,10 +2,10 @@ import { Link } from 'react-router';
 import UserLogin from '../Pages/UserLogin';
 
 
-function NavMenu({ isLoggedIn, setIsLoggedIn }) {
+function NavMenu({ isLoggedIn }) {
+    if (!isLoggedIn) return null;
 
     return (
-        isLoggedIn ? ( //dont use { before state because have to return an element (ex: <>, <div>) first and not an expression
         <nav className='nav-menu'>
             
             <ul>
@@ -18,8 +18,7 @@ function NavMenu({ isLoggedIn, setIsLoggedIn }) {
                 <li><Link to="/trippage">All Trips</Link></li>
             </ul>
         </nav>
-            ) : ( <UserLogin isLoggedIn={isLoggedIn} />
-    ))}
+    )}
 
 
 export default NavMenu;

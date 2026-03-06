@@ -9,7 +9,7 @@ public class User { //stored in database as an object
     @GeneratedValue(strategy = GenerationType.IDENTITY) //lets Hibernate autogenerate id
     private int id;
 
-    private String firstName;
+    private String username;
 
     private String password;
 
@@ -18,8 +18,8 @@ public class User { //stored in database as an object
     public User() { //default constructor needed by Hibernate to instantiate objects when retrieving from the database
     }
 
-    public User(String firstName, String password) {
-        this.firstName = firstName;
+    public User(String username, String password) {
+        this.username = username;
         this.password = password;
     }
 
@@ -32,12 +32,12 @@ public class User { //stored in database as an object
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
 //    public String getEmail() {

@@ -11,14 +11,14 @@ import TravelTips from './components/Pages/TravelTips'
 import BuildTrips from './components/Pages/BuildTrip';
 import ExchangeRates from './components/Pages/Resources';
 import { ToastContainer } from 'react-toastify';
-import ItineraryForm from './components/form-components/ItineraryForm';
-import AllTrips from './components/Pages/AllTrips';
+import UserLogin from './components/Pages/UserLogin';
 import TripPage from './components/form-components/Trips.jsx/TripPage';
+import NavMenu from './components/layout/NavMenu';
 
 
 function App() { //App owns the states so is the parent
+
   const [days, setDays] = useState([]);
-  // const [days, setDays] = useState([{city: "", date: "", activities: []}]);
   const [activities, setActivities] = useState([]);
 
   const [trips, setTrips] = useState([]);
@@ -27,41 +27,43 @@ function App() { //App owns the states so is the parent
   const [flightData, setFlightData] = useState([]);
   const [reminderList, setReminderList] = useState([])
 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-       //test
+  //test
 
 
   return (
     <>
-        <div className='App'style={{
-          backgroundImage: `url(${worldMapImage5})`, backgroundSize: 'cover', backgroundPosition: 'center', minHeight: "100vh", 
-          margin: '0',  opacity: 0.9, backgroundRepeat: "no-repeat", backgroundAttachment: "fixed", padding: "0 0 20px 0" }}>
+      <div className='App' style={{
+        backgroundImage: `url(${worldMapImage5})`, backgroundSize: 'cover', backgroundPosition: 'center', minHeight: "100vh",
+        margin: '0', opacity: 0.9, backgroundRepeat: "no-repeat", backgroundAttachment: "fixed", padding: "0 0 20px 0"
+      }}>
 
-          < Header />
+        < Header isLoggedIn={isLoggedIn} />
 
-          < ToastContainer position="top-right" autoClose={1000} />
-
-          <Routes>
-            <Route path="/" element={<Homepage />} />
-            <Route path="/traveltips" element={<TravelTips />} />
-            <Route path="/buildtrips" element={<BuildTrips trips={trips} setTrips={setTrips} flightData={flightData} setFlightData={setFlightData}
-              packingList={packingList} setPackingList={setPackingList} list={list} setList={setList} reminderList={reminderList} setReminderList={setReminderList}
-            />} />
-
-            <Route path="/savedtrips" element={<SavedTrips trips={trips} setTrips={setTrips} packingList={packingList} setPackingList={setPackingList}
-              list={list} setList={setList} flightData={flightData} setFlightData={setFlightData} reminderList={reminderList} setReminderList={setReminderList}
-            />} />
-
-            <Route path="/resources" element={<ExchangeRates />} />
-
-            {/* <Route path="/trips/:tripId" element={<ItineraryForm />} /> */}
-
-            <Route path="/trippage" element={<TripPage trips={trips} setTrips={setTrips} />} />
-          </Routes>
-
-          <Footer />
-
+        < ToastContainer position="top-right" autoClose={1000} />
         
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/traveltips" element={<TravelTips />} />
+          <Route path="/buildtrips" element={<BuildTrips trips={trips} setTrips={setTrips} flightData={flightData} setFlightData={setFlightData}
+            packingList={packingList} setPackingList={setPackingList} list={list} setList={setList} reminderList={reminderList} setReminderList={setReminderList}
+          />} />
+
+          <Route path="/savedtrips" element={<SavedTrips trips={trips} setTrips={setTrips} packingList={packingList} setPackingList={setPackingList}
+            list={list} setList={setList} flightData={flightData} setFlightData={setFlightData} reminderList={reminderList} setReminderList={setReminderList}
+          />} />
+
+
+          <Route path="/resources" element={<ExchangeRates />} />
+          <Route path="/trippage" element={<TripPage trips={trips} setTrips={setTrips} />} />
+          <Route path="/login" element={<UserLogin isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
+          
+        </Routes>
+
+        <Footer />
+
+
       </div>
     </>
 

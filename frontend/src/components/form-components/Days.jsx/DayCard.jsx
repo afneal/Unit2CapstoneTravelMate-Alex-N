@@ -29,7 +29,7 @@ function DayCard({ day, getTrips }) {
 
     return (
         <div className="day-card">
-            {isEditing ? (
+            {isEditing ? ( //use a {  because its an "embedded expression(evaluates to a value like 'yes', 'no' etc)"
                 <>
                     <input
                         value={city}
@@ -51,16 +51,9 @@ function DayCard({ day, getTrips }) {
                     <p>{date}</p>
 
                     <button onClick={() => setIsEditing(true)}>Edit</button>
-
-
                 </>
             )
-
-
             }
-
-
-
         </div>
     )
 }
