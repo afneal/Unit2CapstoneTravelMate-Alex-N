@@ -2,13 +2,12 @@ import { useEffect, useState } from "react";
 import Button from "../../planner-components/Button";
 import Card from "../../planner-components/Card";
 
-function DayCard({ day, getTrips }) {
-    const [isEditing, setIsEditing] = useState(false);
+function DayCard({ day, trip, getTrips }) {
+    const [isEditingInput, setIsEditingInput] = useState(null);
     const [city, setCity] = useState(day.city);
     const [date, setDate] = useState(day.date ?? "");
 
     const handleSave = async () => {
-        setIsEditing(false);
         await fetch(`http://localhost:8080/api/days/editDay/${day.id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
@@ -19,54 +18,77 @@ function DayCard({ day, getTrips }) {
         });
 
         await getTrips();
+        setIsEditingInput(null);
 
     };
 
-    useEffect(() => {
-        if (!isEditing) {
-            setCity(day.city);
-            setDate(day.date ?? "");
-        }
 
-    }, [day, isEditing]);
+
+    // useEffect(() => {
+    //     if (!isEditingInput) {
+    //         setCity(day.city);
+    //         setDate(day.date ?? "");
+    //     }
+
+    // }, [day, isEditingInput]);
 
 
 
     return (
         <Card className="day-card">
-            {isEditing ? ( //use a {  because its an "embedded expression(evaluates to a value like 'yes', 'no' etc)"
-                <>
-                    <input
-                        value={city}
-                        onChange={e => setCity(e.target.value)}
-                    />
+
+
+            {isEditingInput === "date" ? ( //use a {  because its an "embedded expression(evaluates to a value like 'yes', 'no' etc)"
+                <div>
 
                     <input
+                        className="planner-input"
                         type="date"
-                        value={date ?? ""} 
+                        value={date ?? ""}
                         onChange={e => setDate(e.target.value)}
                     />
 
-                    <Button className="save-day-button"
-                        onClick={handleSave}
-                        label="Save Day"
-                    />
-
-                </>
+                    <div className="button-row">
+                        <Button className="save-button"
+                            onClick={handleSave}
+                            label="Save Date"
+                        />
+                    </div>
+                </div>
             ) : (
-                <>
-                    <p><strong>{city}</strong></p>
-                    <p>{date}</p>
+                <div className="trip-date-box" onClick={() => setIsEditingInput("date")}>
+                    <strong>Date:</strong> {date}
+                    </div>
+                    )}
 
-                    <Button className="edit-day-button"
-                        onClick={() => setIsEditing(true)}
-                        label="Edit Day"
-                    />
-                </>
-            )
-            }
-        </Card>
-    )
-}
+                    {isEditingInput === "city" ? (
+                        <div>
+                            < input
+                                className="planner-input"
+                                value={city}
+                                onChange={e => setCity(e.target.value)}
+                            />
+
+                            <div className="button-row">
+                                <Button className="save-button"
+                                    onClick={handleSave}
+                                    label="Save Day"
+                                />
+                            </div>
+                        </div>
+
+                    ) : (
+
+                        <p onClick={() => setIsEditingInput("city")}><strong>City: </strong>{city}</p>
+
+
+                    )}
+
+                </Card >
+        
+                )
+                }
+
+
 
 export default DayCard;

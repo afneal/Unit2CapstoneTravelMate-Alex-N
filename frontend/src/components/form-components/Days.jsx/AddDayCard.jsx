@@ -23,20 +23,23 @@ function AddDayCard({ tripId, getTrips, closeDayForm }) {
     return (
         <div className="day-card-add-card">
             <input
+                className="planner-input"
                 placeholder="City"
                 value={city}
                 onChange={e => setCity(e.target.value)}
             />
 
             <input
+                className="planner-input"
                 type="date"
                 value={date}
                 onChange={e => setDate(e.target.value)}
             />
 
-            <Button className="save-day-button"
+            <Button className="save-button"
                     onClick={handleAddDay}
                     label="Save Day"
+                    disabled={!city && !date}
                     />
 
         </div>

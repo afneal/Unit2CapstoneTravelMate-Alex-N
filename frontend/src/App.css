@@ -1,5 +1,3 @@
-
-
 header {
     background-color: rgba(211, 211, 211, 0.9);
     color: black;
@@ -18,7 +16,7 @@ header {
     display: block;
 }
 
-footer div{
+footer div {
 
     position: fixed;
     bottom: 0px;
@@ -31,7 +29,7 @@ footer div{
     justify-content: center;
     gap: 10px;
     box-sizing: border-box;
-    
+
 }
 
 .footer-text {
@@ -78,7 +76,8 @@ footer div{
 
 }
 
-.nav-menu li a, .nav-menu li button {
+.nav-menu li a,
+.nav-menu li button {
     padding: 14px 16px;
     text-decoration: none;
     color: black;
@@ -199,7 +198,7 @@ h1 {
     margin: 20px auto;
     border-radius: 10px;
     margin-bottom: 20px;
-    
+
 }
 
 
@@ -346,18 +345,64 @@ h1 {
     font-size: 1rem;
 }
 
-.saved-activity, .saved-connection {
+.saved-activity,
+.saved-connection {
 
     padding: 10px 12px;
     margin-bottom: 10px;
     border-bottom: 1px dashed black;
+    background-color: transparent;
+
+}
+
+.activities-container {
     background-color: rgba(248, 247, 247, 0.8);
-    border-radius: 8px;
+    padding: 10px;
+    border-radius: 12px;
+    box-shadow: 0 0 5px;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
 }
 
 .saved-activity p {
     line-height: 0.7;
 }
+
+.activity-card-add-card,
+.day-card-add-card {
+    border: 1px solid black;
+    margin-bottom: 20px;
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 12px;
+}
+
+/* .activity-card-add-card {
+    width: 90%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid black;
+    border-radius: 5px;
+} */
+
+
+/* .planner-form fieldset {
+    border: 2px solid black;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.planner-form legend {
+    font-weight: bold;
+    padding: 0 10px;
+
+}
+
+.planner-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 300;
+} */
 
 .saved-flight p {
     line-height: 0.7;
@@ -371,6 +416,8 @@ h1 {
     font-size: 0.95rem;
 }
 
+
+
 .saved-connection p {
     line-height: 1.4;
     margin: 6px 0;
@@ -378,6 +425,10 @@ h1 {
 
 .saved-activity:last-child,
 .saved-connection:last-child {
+    border-bottom: none;
+}
+
+.saved-activity:last-of-type {
     border-bottom: none;
 }
 
@@ -417,6 +468,7 @@ h1 {
 .trip-date-box {
     font-size: 25px;
     text-align: center;
+    margin-bottom: 20px;
     font-family: "zalando sans", sans-serif;
 }
 
@@ -507,11 +559,27 @@ h1 {
 #activity,
 #time,
 #notes {
-    width: 90%;
+    width: 95%;
     padding: 8px;
     margin-bottom: 15px;
     border: 1px solid black;
     border-radius: 5px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: "zalando sans", sans-serif;
+}
+
+.planner-input {
+    width: 95%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid black;
+    border-radius: 5px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: "zalando sans", sans-serif;
 }
 
 .delete-activity-button,
@@ -524,6 +592,7 @@ h1 {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+
 }
 
 .delete-activity-button,
@@ -782,6 +851,7 @@ h1 {
 }
 
 @media (max-width: 430px) {
+
     .main-trip-container,
     .flights-reminders-container,
     .trip-packing-container,
@@ -789,13 +859,14 @@ h1 {
         flex-direction: column;
         gap: 10px;
     }
-   
+
 }
 
 
 
 
 @media (min-width: 1024px) {
+
     .main-trip-container,
     .flights-reminders-container,
     .trip-packing-container,
@@ -893,4 +964,102 @@ nav ul li {
     color: rgb(180, 63, 63);
     text-decoration: underline;
     background-color: #e0e0e0;
+}
+
+/*Card*/
+/* .card {
+    background-color: rgba(211, 211, 211, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 0 10px black;
+    padding: 20px 40px;
+    margin-bottom: 20px;
+    font-family: "zalando sans", sans-serif;
+    box-sizing: border-box;
+    max-width: 100%;
+} */
+
+/*
+.day-section {
+    margin-left: 0;
+    margin-top: 15px;
+}
+
+.activity-card {
+    margin-left: 20px;
+    margin-top: 10px;
+} */
+
+/* Card headers and text */
+/* .card h2,
+.card p strong {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card p {
+    margin: 5px 0;
+    font-weight: 300;
+}
+
+.card input[type="text"],
+.card input[type="date"],
+.card input[type="time"],
+.card textarea {
+    width: 90%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-sizing: border-box;
+} */
+
+.card button {
+    padding: 8px 15px;
+    margin: 5px 5px 0 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: "zalando sans", sans-serif;
+}
+
+.card .delete-button {
+    background-color: dimgray;
+    color: black;
+}
+
+.card .edit-button,
+.card .add-button,
+.card .save-button {
+    padding: 8px 15px;
+    margin: 5px 5px 0 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+
+}
+
+.button-row {
+    justify-content: flex-end;
+    display: flex;
+}
+
+.card .edit-button,
+.card .save-button {
+    background-color: deepskyblue;
+
+}
+
+.card .add-button {
+    background-color: dodgerblue;
+    color: black;
+}
+
+.save-button[disabled] {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.card .edit-button {
+    margin: 10px;
 }

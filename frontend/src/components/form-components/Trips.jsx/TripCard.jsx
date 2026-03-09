@@ -3,11 +3,11 @@ import ActivityCard from "../Activities/ActivityCard";
 import AddActivityCard from "../Activities/AddActivityCard";
 import AddDayCard from "../Days.jsx/AddDayCard";
 import DayCard from "../Days.jsx/DayCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "../../planner-components/Card";
 
 
-function TripCard({ trip, getTrips }) {
+function TripCard({ trip, getTrips }) { //getTrips passed from TripPage
     const [isAddingDay, setisAddingDay] = useState(false);
     const [addedActivityOnDayId, setAddedActivityOnDayId] = useState(null);
 
@@ -18,59 +18,82 @@ function TripCard({ trip, getTrips }) {
     //close form sets default back to null, shows button and closes the input form
 
 
+
+
     return (
-        <Card className="trip-card">
-            <h2>{trip.name}</h2>
+        <div className="outer-wrapper-planner">
+            <div className="planner-form">
+                <Card className="trip-card">
+                    <h1 className="trip-details">{trip.name}</h1>
 
-            {sortedDays.map(day => {
+                    {sortedDays.map(day => {
 
-                const sortedActivities = [...day.activities].sort((a, b) => {
-                    const timeA = a.time ?? ""; //localeCompare cant sort null
-                    const timeB = b.time ?? "";
-                    return timeA.localeCompare(timeB);
-                });
+                        const sortedActivities = [...day.activities].sort((a, b) => {
+                            const timeA = a.time ?? ""; //localeCompare cant sort null
+                            const timeB = b.time ?? "";
+                            return timeA.localeCompare(timeB);
+                        });
 
-                return (
-                    <div key={day.id} className="day-section">
-                        <DayCard day={day} getTrips={getTrips} />
+                        return (
+                            <div key={day.id} className="day-section">
+                                
+                                <DayCard day={day} trip={trip} getTrips={getTrips} />
 
-                        {sortedActivities.map(activity => (
-                            <ActivityCard
-                                key={activity.id}
-                                activity={activity}
-                                dayId={day.id}
-                                getTrips={getTrips} />
 
-                        ))}
 
-                        {addedActivityOnDayId=== day.id ? ( //state defaults to null, so no match
-                            <AddActivityCard                //shows button instead which updates state to match day.id,
-                                dayId={day.id}              //which then shows activity card
-                                getTrips={getTrips}
-                                closeActivityForm={closeActivityForm} /> 
+                                <div className="activities-container">
+                                    {sortedActivities.map(activity => (
+                                        <ActivityCard
+                                            key={activity.id}
+                                            activity={activity}
+                                            dayId={day.id}
+                                            getTrips={getTrips}
+                                            trip={trip}
+                                            activities={day.activities} />
 
-                        ) : (
-                            <Button className="add-activity-button" 
-                                    onClick={() => setAddedActivityOnDayId(day.id)}
-                                    label="Add Activity"
-                               />
-                        )}
-                    </div>
-                );
-            })}
-            {isAddingDay ? (
-                <AddDayCard
-                    tripId={trip.id}
-                    getTrips={getTrips}
-                    closeDayForm={closeDayForm} />
-            ) : (
-                <Button className="add-day-button" 
-                        onClick={() => setisAddingDay(true)}
-                        label="Add Day"
-                        />
-            )}
+                                    ))}</div>
+                                {Array.isArray(trip?.days) && trip.days.length > 1 && (
+                                    <hr style={{ margin: "20px 0" }} />
+                                )}
 
-        </Card>
+
+                                {addedActivityOnDayId === day.id ? ( //state defaults to null, so no match
+                                    <AddActivityCard                //shows button instead which updates state to match day.id,
+                                        dayId={day.id}              //which then shows activity card
+                                        getTrips={getTrips}
+                                        closeActivityForm={closeActivityForm} />
+
+                                ) : (
+                                    <div className="button-row">
+                                        <Button className="add-button"
+                                            onClick={() => setAddedActivityOnDayId(day.id)}
+                                            label="Add Activity"
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                        );
+                    })}
+                    {isAddingDay ? (
+                        <AddDayCard
+                            tripId={trip.id}
+                            getTrips={getTrips}
+                            closeDayForm={closeDayForm} />
+                    ) : (
+                        <div className="button-row">
+                            <Button className="add-button"
+                                onClick={() => setisAddingDay(true)}
+                                label="Add Day"
+                            />
+                        </div>
+
+                    )}
+
+
+
+                </Card>
+            </div>
+        </div>
     );
 }
 export default TripCard;

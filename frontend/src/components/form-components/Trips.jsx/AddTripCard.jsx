@@ -31,13 +31,13 @@ return (
             value={tripName}
             onChange={e => setTripName(e.target.value)} />
 
-            <Button className="save-trip-button"
+            <Button className="save-button"
                     onClick={handleSaveTrip}
                     label="Save Trip"
                     />
             </>
         ) : (
-            <Button className="add-trip-button"
+            <Button className="add-button"
                     onClick={() => setIsAddingTrip(true)}
                     label="Add Trip"
                     />
