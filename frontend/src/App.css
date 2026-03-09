@@ -50,38 +50,50 @@ footer div{
     padding: 0;
     margin: 0;
     font-size: 17px;
-    list-style-type: none;
+    /* list-style-type: none;
     display: flex;
     gap: 20px;
     display: flex;
-    align-items: flex-end;
+    align-items: flex-end; */
 }
 
 .nav-menu ul {
     display: flex;
-    align-items: flex-end;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    align-items: center;
 
 }
 
 
 
 .nav-menu li {
-    padding: 5px 10px;
-    align-items: flex-end;
+    /* padding: 5px 10px;
+    align-items: flex-end; */
+    display: flex;
+    align-items: center;
+    padding: 0;
 
 }
 
-.nav-menu li a {
+.nav-menu li a, .nav-menu li button {
     padding: 14px 16px;
     text-decoration: none;
     color: black;
-    display: flex;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 17px;
+    font-family: "zalando sans", sans-serif;
 
 }
 
 
 
-.nav-menu a:hover {
+.nav-menu a:hover,
+.nav-menu li button:hover {
     text-decoration: underline;
     color: rgb(180, 63, 63);
 }

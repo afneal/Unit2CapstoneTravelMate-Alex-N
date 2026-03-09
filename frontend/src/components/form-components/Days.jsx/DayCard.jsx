@@ -1,26 +1,31 @@
 import { useEffect, useState } from "react";
+import Button from "../../planner-components/Button";
+import Card from "../../planner-components/Card";
 
 function DayCard({ day, getTrips }) {
     const [isEditing, setIsEditing] = useState(false);
     const [city, setCity] = useState(day.city);
-    const [date, setDate] = useState(day.date);
+    const [date, setDate] = useState(day.date ?? "");
 
     const handleSave = async () => {
         setIsEditing(false);
         await fetch(`http://localhost:8080/api/days/editDay/${day.id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ city, date })
+            body: JSON.stringify({
+                city: city || null, //to prevent 400 bad req for submitting "" default
+                date: date || null
+            })
         });
 
         await getTrips();
-        
+
     };
 
     useEffect(() => {
         if (!isEditing) {
             setCity(day.city);
-            setDate(day.date);
+            setDate(day.date ?? "");
         }
 
     }, [day, isEditing]);
@@ -28,7 +33,7 @@ function DayCard({ day, getTrips }) {
 
 
     return (
-        <div className="day-card">
+        <Card className="day-card">
             {isEditing ? ( //use a {  because its an "embedded expression(evaluates to a value like 'yes', 'no' etc)"
                 <>
                     <input
@@ -38,11 +43,14 @@ function DayCard({ day, getTrips }) {
 
                     <input
                         type="date"
-                        value={date}
+                        value={date ?? ""} 
                         onChange={e => setDate(e.target.value)}
                     />
 
-                    <button onClick={handleSave}>Save</button>
+                    <Button className="save-day-button"
+                        onClick={handleSave}
+                        label="Save Day"
+                    />
 
                 </>
             ) : (
@@ -50,11 +58,14 @@ function DayCard({ day, getTrips }) {
                     <p><strong>{city}</strong></p>
                     <p>{date}</p>
 
-                    <button onClick={() => setIsEditing(true)}>Edit</button>
+                    <Button className="edit-day-button"
+                        onClick={() => setIsEditing(true)}
+                        label="Edit Day"
+                    />
                 </>
             )
             }
-        </div>
+        </Card>
     )
 }
 

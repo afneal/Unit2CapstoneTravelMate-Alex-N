@@ -5,7 +5,7 @@ import Header from './components/layout/Header'
 import worldMapImage5 from './assets/worldMapImage5.jpg';
 import Footer from './components/layout/Footer'
 import SavedTrips from './components/Pages/SavedTrips'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import TravelTips from './components/Pages/TravelTips'
 import BuildTrips from './components/Pages/BuildTrip';
@@ -26,10 +26,18 @@ function App() { //App owns the states so is the parent
   const [list, setList] = useState([])
   const [flightData, setFlightData] = useState([]);
   const [reminderList, setReminderList] = useState([])
+  const [isNewUser, setIsNewUser] = useState(false);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return localStorage.getItem("isLoggedIn") === "true";
+  });
 
-  //test
+  useEffect(() => {
+    localStorage.setItem("isLoggedIn", isLoggedIn);
+  }, [isLoggedIn]);
+
+
+
 
 
   return (
@@ -39,12 +47,12 @@ function App() { //App owns the states so is the parent
         margin: '0', opacity: 0.9, backgroundRepeat: "no-repeat", backgroundAttachment: "fixed", padding: "0 0 20px 0"
       }}>
 
-        < Header isLoggedIn={isLoggedIn} />
+        < Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
 
         < ToastContainer position="top-right" autoClose={1000} />
-        
+
         <Routes>
-          <Route path="/" element={<Homepage />} />
+          <Route path="/" element={<Homepage isLoggedIn={isLoggedIn} />} />
           <Route path="/traveltips" element={<TravelTips />} />
           <Route path="/buildtrips" element={<BuildTrips trips={trips} setTrips={setTrips} flightData={flightData} setFlightData={setFlightData}
             packingList={packingList} setPackingList={setPackingList} list={list} setList={setList} reminderList={reminderList} setReminderList={setReminderList}
@@ -57,8 +65,7 @@ function App() { //App owns the states so is the parent
 
           <Route path="/resources" element={<ExchangeRates />} />
           <Route path="/trippage" element={<TripPage trips={trips} setTrips={setTrips} />} />
-          <Route path="/login" element={<UserLogin isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
-          
+          <Route path="/login" element={<UserLogin isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} isNewUser={isNewUser} setIsNewUser={setIsNewUser} />} />
         </Routes>
 
         <Footer />

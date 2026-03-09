@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Button from "../../planner-components/Button";
 
 function AddDayCard({ tripId, getTrips, closeDayForm }) {
     const [city, setCity] = useState("");
@@ -33,7 +34,10 @@ function AddDayCard({ tripId, getTrips, closeDayForm }) {
                 onChange={e => setDate(e.target.value)}
             />
 
-            <button onClick={handleAddDay}>Save</button>
+            <Button className="save-day-button"
+                    onClick={handleAddDay}
+                    label="Save Day"
+                    />
 
         </div>
     )

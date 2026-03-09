@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
+import Button from "../../planner-components/Button";
+import Card from "../../planner-components/Card";
 
 function ActivityCard({ activity, getTrips }) {
     const [isEditing, setIsEditing] = useState(false);
     const [name, setName] = useState(activity.name);
-    const [time, setTime] = useState(activity.time);
+    const [time, setTime] = useState(activity.time ?? "");//to prevent breaking of trip card's time sort(cant sort null)
     const [notes, setNotes] = useState(activity.notes);
 
     const handleSaveActivity = async () => {
@@ -21,26 +23,30 @@ function ActivityCard({ activity, getTrips }) {
     useEffect(() => {
         if (!isEditing) {
             setName(activity.name);
-            setTime(activity.time);
+            setTime(activity.time ?? "");//to prevent null time
             setNotes(activity.notes);
         }
         }, [activity, isEditing]);
 
 
     return (
-        <div className="activity-card">
+        <Card className="activity-card">
             {isEditing ? (
                 <>
                     <input
                         value={name}
                         onChange={(e) => setName(e.target.value)} />
                     <input
-                        value={time}
+                        type="time"
+                        value={time ?? ""} //to prevent null data error on edit of empty input
                         onChange={e => setTime(e.target.value)} />
                     <input
                         value={notes}
                         onChange={(e => setNotes(e.target.value))} />
-                        <button onClick={handleSaveActivity}>Save Activity</button>
+                        <Button className="save-activity-button"
+                                onClick={handleSaveActivity}
+                                label="Save Activity"
+                                />
                 </>
             ) : (
                 <>
@@ -48,13 +54,16 @@ function ActivityCard({ activity, getTrips }) {
                     <p>{time}</p>
                     <p>{notes}</p>
 
-                    <button onClick={() => setIsEditing(true)}>Edit</button>
+                    <Button className="edit-activity-button"
+                    onClick={() => setIsEditing(true)}
+                    label="Edit Activity"
+                    />
 
                 </>
             )
 
             }
-        </div>
+        </Card>
     )
 
 

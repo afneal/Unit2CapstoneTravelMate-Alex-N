@@ -1,8 +1,10 @@
+import Button from "../../planner-components/Button";
 import ActivityCard from "../Activities/ActivityCard";
 import AddActivityCard from "../Activities/AddActivityCard";
 import AddDayCard from "../Days.jsx/AddDayCard";
 import DayCard from "../Days.jsx/DayCard";
 import { useState } from "react";
+import Card from "../../planner-components/Card";
 
 
 function TripCard({ trip, getTrips }) {
@@ -17,13 +19,15 @@ function TripCard({ trip, getTrips }) {
 
 
     return (
-        <div className="trip-card">
+        <Card className="trip-card">
             <h2>{trip.name}</h2>
 
             {sortedDays.map(day => {
 
                 const sortedActivities = [...day.activities].sort((a, b) => {
-                    return a.time.localeCompare(b.time);
+                    const timeA = a.time ?? ""; //localeCompare cant sort null
+                    const timeB = b.time ?? "";
+                    return timeA.localeCompare(timeB);
                 });
 
                 return (
@@ -46,9 +50,10 @@ function TripCard({ trip, getTrips }) {
                                 closeActivityForm={closeActivityForm} /> 
 
                         ) : (
-                            <button onClick={() => setAddedActivityOnDayId(day.id)}>
-                                Add Activity
-                            </button>
+                            <Button className="add-activity-button" 
+                                    onClick={() => setAddedActivityOnDayId(day.id)}
+                                    label="Add Activity"
+                               />
                         )}
                     </div>
                 );
@@ -59,10 +64,13 @@ function TripCard({ trip, getTrips }) {
                     getTrips={getTrips}
                     closeDayForm={closeDayForm} />
             ) : (
-                <button onClick={() => setisAddingDay(true)}>Add Day</button>
+                <Button className="add-day-button" 
+                        onClick={() => setisAddingDay(true)}
+                        label="Add Day"
+                        />
             )}
 
-        </div>
+        </Card>
     );
 }
 export default TripCard;

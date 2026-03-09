@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Button from "../../planner-components/Button";
 
 function AddTripCard({ getTrips }) {
     const [isAddingTrip, setIsAddingTrip] = useState(false);
@@ -30,10 +31,16 @@ return (
             value={tripName}
             onChange={e => setTripName(e.target.value)} />
 
-            <button onClick={handleSaveTrip}>Save Trip</button>
+            <Button className="save-trip-button"
+                    onClick={handleSaveTrip}
+                    label="Save Trip"
+                    />
             </>
         ) : (
-            <button onClick={() => setIsAddingTrip(true)}>Add Trip</button>
+            <Button className="add-trip-button"
+                    onClick={() => setIsAddingTrip(true)}
+                    label="Add Trip"
+                    />
         )}
     </div>
 );

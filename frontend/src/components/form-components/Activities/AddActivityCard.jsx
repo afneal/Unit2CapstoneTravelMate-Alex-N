@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Button from "../../planner-components/Button";
 
 function AddActivityCard({ dayId, getTrips, closeActivityForm }) {
     const [name, setName] = useState("");
@@ -38,7 +39,10 @@ function AddActivityCard({ dayId, getTrips, closeActivityForm }) {
                 onChange={e => setNotes(e.target.value)}
             />
 
-            <button onClick={handleAddActivity}>Save</button>
+            <Button className="save-activity-button"
+                    onClick={handleAddActivity}
+                    label="Save Activity"
+                    />
 
         </div>
     )
