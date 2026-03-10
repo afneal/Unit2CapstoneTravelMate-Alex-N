@@ -18,7 +18,7 @@ public class Day {
 
     private String city;
 
-    @JsonFormat(pattern = "MM-dd-yyyy")  //LocalDate in JSON will be formatted as "MM-dd-yyyy")
+    @JsonFormat  //defaults format to YYYY-MM-DD, reformat in frontend
     private LocalDate date;
 
     @ManyToOne

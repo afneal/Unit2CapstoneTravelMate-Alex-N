@@ -1,13 +1,25 @@
 import { Link } from 'react-router';
 import UserLogin from '../Pages/UserLogin';
 import Button from '../planner-components/Button';
+import { useNavigate } from 'react-router';
 
 
-function NavMenu({ isLoggedIn, setIsLoggedIn }) {
+function NavMenu({ isLoggedIn, setIsLoggedIn, setUsername }) {
+    const navigate = useNavigate();
+
     if (!isLoggedIn) return null;
 
+    const handleLogout = () => {
+        setIsLoggedIn(false);
+        setUsername("");
+        localStorage.removeItem("isLoggedIn");
+        navigate("/login")
+    }
+
     return (
+        
         <nav className='nav-menu'>
+
 
             <ul>
                 
@@ -20,13 +32,16 @@ function NavMenu({ isLoggedIn, setIsLoggedIn }) {
                 <li><Link to="/trips">All Trips</Link></li>
                 <li>
                     <Button className="logout-button"
-                        onClick={() => setIsLoggedIn(false)}
+                        onClick={handleLogout}
                         label="Logout"
                     />
                 </li>
             </ul>
+            
         </nav>
+        
     )
+   
 }
 
 

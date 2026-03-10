@@ -1,6 +1,10 @@
 package com.travel_mate_backend.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class User { //stored in database as an object
@@ -13,7 +17,9 @@ public class User { //stored in database as an object
 
     private String password;
 
-
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user")
+    private List<Trip> trips;
 
     public User() { //default constructor needed by Hibernate to instantiate objects when retrieving from the database
     }

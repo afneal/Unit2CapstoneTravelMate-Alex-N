@@ -13,7 +13,7 @@ public class DayDTO {
     private int id;
     private String city;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat
     private LocalDate date;
     private List<ActivityDTO> activities;
 

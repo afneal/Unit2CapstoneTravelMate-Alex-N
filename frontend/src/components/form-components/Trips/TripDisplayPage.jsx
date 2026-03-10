@@ -26,8 +26,13 @@ function TripDisplayPage() {
     }, [tripId]);
 
     return (
-        <div>
-            <Button onClick={() => navigate("/trips")}>Back to Trips</Button>
+        <div className="back-button-container">
+            <Button className="back-button" 
+                    onClick={() => navigate("/trips")}
+                    label="Back to Trips"
+                    />
+
+
             <TripCard trip={trip} getTrip={getTrip} />
 
         </div>

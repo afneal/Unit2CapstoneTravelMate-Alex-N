@@ -5,12 +5,16 @@ import AddDayCard from "../Days/AddDayCard";
 import DayCard from "../Days/DayCard";
 import { useEffect, useState } from "react";
 import Card from "../../planner-components/Card";
+import { useNavigate } from "react-router";
 
 
 
-function TripCard({ trip = { days: [] }, getTrip }) { //getTrips passed from TripPage
+function TripCard({ trip = { days: [] }, getTrip }) { //getTrip and trip passed from TripDisplayPage
+  const navigate = useNavigate();
   const [isAddingDay, setIsAddingDay] = useState(false);
   const [addedActivityOnDayId, setAddedActivityOnDayId] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [newTripName, setNewTripName] = useState(null);
 
   const sortedDays = [...trip.days].sort((a, b) => new Date(a.date) - new Date(b.date));
   const isNewTrip = sortedDays.length === 0;
@@ -19,16 +23,75 @@ function TripCard({ trip = { days: [] }, getTrip }) { //getTrips passed from Tri
   const closeActivityForm = () => setAddedActivityOnDayId(null);
   //close form sets default back to null, shows button and closes the input form
 
+  useEffect(() => { //runs when component renders
+    setNewTripName(trip.name); //updates local state to backend prop (trip.name)
+  }, [trip.name]); //dependency array, react will run useEffect when trip.name changes
 
   const daysToRender = isNewTrip
     ? [{ id: "new", activities: [] }]
     : sortedDays;
 
+  const handleSave = async () => {
+    await fetch(`http://localhost:8080/api/trips/editTripName/${trip.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: newTripName }),
+    }); //sends the body to the API endpoint(editTripName by trip.id), changes trip.name to the new name
+
+    await getTrip(); //wait for server to update the new name
+    setIsEditing(false);
+  }
+
+  const handleDeleteTrip = async () => {
+    const confirmDelete = window.confirm("Are you sure you want to permanently delete this trip?");
+
+    if (!confirmDelete) {
+      return;
+    }
+
+    await fetch(`http://localhost:8080/api/trips/delete/${trip.id}`, {
+      method: "DELETE",
+    });
+
+    navigate("/trips");
+  }
+
+
   return (
     <div className="outer-wrapper-planner">
       <div className="planner-form">
         <Card className="trip-card">
-          <h1 className="trip-details">{trip.name}</h1>
+          {/* <h1 className="trip-details"> */}
+          {isEditing ? (
+            <>
+              <input
+                className="planner-input"
+                value={newTripName}
+                onChange={(e) => setNewTripName(e.target.value)}
+              />
+              <div className="button-row">
+                <Button
+                  className="save-button"
+                  onClick={handleSave}
+                  label="Save Name" />
+
+                <Button
+                  className="cancel-button"
+                  onClick={() => setIsEditing(false)}
+                  label="Cancel" />
+              </div>
+            </>
+          ) : (
+
+
+
+            <div className="editable-card" onClick={() => setIsEditing(true)}>
+              <h1 className="trip-details">{trip.name}</h1>
+            </div>
+          )}
+
+
+
 
           {daysToRender.map((day) => {
             const sortedActivities = [...(day.activities || [])].sort((a, b) => {
@@ -37,10 +100,10 @@ function TripCard({ trip = { days: [] }, getTrip }) { //getTrips passed from Tri
               return timeA.localeCompare(timeB);
             });
 
-            const isEmptyDay = sortedActivities.length === 0;
+            // const isEmptyDay = sortedActivities.length === 0;
             const isFirstDayOfNewTrip = isNewTrip && day.id === "new";
 
-            // Fake day for new trips
+            // Fake day for new trips (cant add empty activity unless day already exists)
             if (day.id === "new") {
               return (
                 <div key="new" className="day-section">
@@ -120,6 +183,13 @@ function TripCard({ trip = { days: [] }, getTrip }) { //getTrips passed from Tri
                 onClick={() => setIsAddingDay(true)}
                 label="Add Day"
               />
+
+              <Button
+                className="delete-button"
+                onClick={handleDeleteTrip}
+                label="Delete Trip"
+              />
+              
             </div>
           )}
         </Card>

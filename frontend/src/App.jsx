@@ -29,7 +29,8 @@ function App() { //App owns the states so is the parent
   const [flightData, setFlightData] = useState([]);
   const [reminderList, setReminderList] = useState([])
   const [isNewUser, setIsNewUser] = useState(false);
-  
+  const [username, setUsername] = useState("");
+
 
 
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
@@ -51,8 +52,7 @@ function App() { //App owns the states so is the parent
         margin: '0', opacity: 0.9, backgroundRepeat: "no-repeat", backgroundAttachment: "fixed", padding: "0 0 20px 0"
       }}>
 
-        < Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-
+        <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} />
         < ToastContainer position="top-right" autoClose={1000} />
 
         <Routes>
@@ -69,9 +69,10 @@ function App() { //App owns the states so is the parent
 
           <Route path="/resources" element={<ExchangeRates />} />
           {/* <Route path="/trippage" element={<TripPage trips={trips} setTrips={setTrips} />} /> */}
-          <Route path="/login" element={<UserLogin isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} isNewUser={isNewUser} setIsNewUser={setIsNewUser} />} />
-          <Route path="/trips" element={<TripList trips={trips} setTrips={setTrips} />} />
+          <Route path="/login" element={<UserLogin isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} isNewUser={isNewUser} setIsNewUser={setIsNewUser} username={username} setUsername={setUsername} />} />
+          <Route path="/trips" element={<TripList trips={trips} setTrips={setTrips} username={username} />} />
           <Route path="/trips/:tripId" element={<TripDisplayPage />} />
+
         </Routes>
 
         <Footer />

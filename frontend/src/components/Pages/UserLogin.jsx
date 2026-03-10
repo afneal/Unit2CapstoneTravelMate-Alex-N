@@ -3,8 +3,7 @@ import { useNavigate } from "react-router";
 
 
 
-function UserLogin({ isLoggedIn, setIsLoggedIn, isNewUser, setIsNewUser }) {
-    const [username, setUsername] = useState("");
+function UserLogin({ isLoggedIn, setIsLoggedIn, isNewUser, setIsNewUser, username, setUsername }) {
     const [password, setPassword] = useState("");
     
     const [hasErrors, setHasErrors] = useState(false);
@@ -29,6 +28,8 @@ function UserLogin({ isLoggedIn, setIsLoggedIn, isNewUser, setIsNewUser }) {
             setIsNewUser(false);
             setHasErrors(false);
             setErrorMessage("");
+            setUsername(username);
+            localStorage.setItem("isLoggedIn", "true");
             navigate("/");
         } else {
             setHasErrors(true),
@@ -52,6 +53,7 @@ function UserLogin({ isLoggedIn, setIsLoggedIn, isNewUser, setIsNewUser }) {
             setIsNewUser(false);
             setHasErrors(false);
             setErrorMessage("");
+            localStorage.setItem("isLoggedIn", "true");
             navigate("/");
         } else {
             setHasErrors(true),

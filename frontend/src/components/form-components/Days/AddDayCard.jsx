@@ -35,13 +35,17 @@ function AddDayCard({ tripId, getTrip, closeDayForm }) {
                 value={date}
                 onChange={e => setDate(e.target.value)}
             />
-
-            <Button className="save-button"
+            <div className="button-row">
+                <Button className="save-button"
                     onClick={handleAddDay}
                     label="Save Day"
                     disabled={!city && !date}
-                    />
-
+                />
+                <Button
+                    className="cancel-button"
+                    onClick={() => closeDayForm()}
+                    label="Cancel" />
+            </div>
         </div>
     )
 

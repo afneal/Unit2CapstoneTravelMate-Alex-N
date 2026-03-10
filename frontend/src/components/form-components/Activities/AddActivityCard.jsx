@@ -41,13 +41,19 @@ function AddActivityCard({ dayId, getTrip, closeActivityForm }) {
                 value={notes}
                 onChange={e => setNotes(e.target.value)}
             />
-            
+            <div className="button-row">
                 <Button className="save-button"
                     onClick={handleAddActivity}
                     label="Save Activity"
                     disabled={!name}
                 />
-           
+                <Button
+                    className="cancel-button"
+                    onClick={() => closeActivityForm()}
+                    label="Cancel" />
+
+            </div>
+
 
         </div >
 
