@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "../../planner-components/Button";
 
-function AddActivityCard({ dayId, getTrips, closeActivityForm }) {
+function AddActivityCard({ dayId, getTrip, closeActivityForm }) {
     const [name, setName] = useState("");
     const [time, setTime] = useState("");
     const [notes, setNotes] = useState("");
@@ -14,7 +14,7 @@ function AddActivityCard({ dayId, getTrips, closeActivityForm }) {
             body: JSON.stringify({ name, time, notes })
         });
 
-        await getTrips();
+        await getTrip();
         closeActivityForm(); //from TripCard
 
 

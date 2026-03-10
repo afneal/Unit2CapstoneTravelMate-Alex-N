@@ -17,7 +17,7 @@ function NavMenu({ isLoggedIn, setIsLoggedIn }) {
                 <li><Link to="/buildtrips">Build Trip</Link></li>
                 <li><Link to="/savedtrips">Saved Trips</Link></li>
                 <li><Link to="/itineraryform">View Trips</Link></li>
-                <li><Link to="/trippage">All Trips</Link></li>
+                <li><Link to="/trips">All Trips</Link></li>
                 <li>
                     <Button className="logout-button"
                         onClick={() => setIsLoggedIn(false)}

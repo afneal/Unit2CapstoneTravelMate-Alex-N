@@ -1,36 +1,43 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "../../planner-components/Button";
 import Card from "../../planner-components/Card";
 
-function DayCard({ day, trip, getTrips }) {
-    const [isEditingInput, setIsEditingInput] = useState(null);
+function DayCard({ day, trip, getTrip }) {
     const [city, setCity] = useState(day.city);
     const [date, setDate] = useState(day.date ?? "");
 
+    //inline editing
+    const [isEditingInput, setIsEditingInput] = useState(null);
+
+    
+
     const handleSave = async () => {
+        let body = {};
+
+        if (isEditingInput === "city") { //send only the edited field to prevent sending a null or "" in the other field(400 bad req)
+            body.city = city;
+        } else if (isEditingInput === "date") {
+            body.date = date;
+        }
+
         await fetch(`http://localhost:8080/api/days/editDay/${day.id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                city: city || null, //to prevent 400 bad req for submitting "" default
-                date: date || null
-            })
+            body: JSON.stringify(body)
         });
 
-        await getTrips();
+        await getTrip();
         setIsEditingInput(null);
 
     };
 
 
 
-    // useEffect(() => {
-    //     if (!isEditingInput) {
-    //         setCity(day.city);
-    //         setDate(day.date ?? "");
-    //     }
-
-    // }, [day, isEditingInput]);
+    function formatDate(dateString) { //backend defaults to YYYY-MM-DD, reformat to this
+        if (!dateString) return "";
+        const [year, month, day] = dateString.split("-");
+        return `${month} - ${day} - ${year}`;
+    }
 
 
 
@@ -44,7 +51,7 @@ function DayCard({ day, trip, getTrips }) {
                     <input
                         className="planner-input"
                         type="date"
-                        value={date ?? ""}
+                        value={date}
                         onChange={e => setDate(e.target.value)}
                     />
 
@@ -57,7 +64,7 @@ function DayCard({ day, trip, getTrips }) {
                 </div>
             ) : (
                 <div className="trip-date-box" onClick={() => setIsEditingInput("date")}>
-                    <strong>Date:</strong> {date}
+                    <strong>Date:</strong> {formatDate(date)}
                     </div>
                     )}
 
