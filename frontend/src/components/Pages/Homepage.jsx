@@ -13,7 +13,7 @@ function Homepage({ isLoggedIn }) {
                     <Link to="/login" className='homepage-main'>Login or Register</Link>
                 </p>
                 ) : (
-                    <p>Welcome back!</p>
+                    <Link to="/trips" className='homepage-main'>Get Started Now!</Link>
                 )}
             </div>
         </main>

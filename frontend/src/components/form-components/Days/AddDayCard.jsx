@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "../../planner-components/Button";
 
-function AddDayCard({ tripId, getTrip, closeDayForm }) {
+function AddDayCard({ tripId, getTrip, closeDayForm, hasExistingDays }) {
     const [city, setCity] = useState("");
     const [date, setDate] = useState("");
 
@@ -41,10 +41,12 @@ function AddDayCard({ tripId, getTrip, closeDayForm }) {
                     label="Save Day"
                     disabled={!city && !date}
                 />
+                {hasExistingDays && (
                 <Button
                     className="cancel-button"
                     onClick={() => closeDayForm()}
                     label="Cancel" />
+                )}
             </div>
         </div>
     )

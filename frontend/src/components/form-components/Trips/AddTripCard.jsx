@@ -7,10 +7,13 @@ function AddTripCard({ getTrips, username }) {
 
     const handleSaveTrip = async () => {
 
+        const trimmedTripName = tripName.trim();
+        if (!trimmedTripName) return;
+
         await fetch("http://localhost:8080/api/trips/addTrip", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name: tripName, username: username }),
+            body: JSON.stringify({ name: trimmedTripName, username: username }),
         });
 
         setTripName("");

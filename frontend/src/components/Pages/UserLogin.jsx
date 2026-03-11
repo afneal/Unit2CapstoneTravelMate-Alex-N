@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 
 function UserLogin({ isLoggedIn, setIsLoggedIn, isNewUser, setIsNewUser, username, setUsername }) {
     const [password, setPassword] = useState("");
-    
+
     const [hasErrors, setHasErrors] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
@@ -33,7 +33,7 @@ function UserLogin({ isLoggedIn, setIsLoggedIn, isNewUser, setIsNewUser, usernam
             navigate("/");
         } else {
             setHasErrors(true),
-            setErrorMessage(data.message)
+                setErrorMessage(data.message)
             setUsername("");
             setPassword("");
         }
@@ -57,37 +57,43 @@ function UserLogin({ isLoggedIn, setIsLoggedIn, isNewUser, setIsNewUser, usernam
             navigate("/");
         } else {
             setHasErrors(true),
-            setErrorMessage(data.message)
+                setErrorMessage(data.message)
 
         }
     }
 
-    
+
 
 
 
     return (
         <div className="user-login-form">
-            {!isNewUser ? (
+            {!isNewUser ? ( //ternary: not new user = login form
                 <>
-                    <h1>Log In</h1>
-                    <input
-                        value={username}
-                        placeholder="Username"
-                        onChange={e => setUsername(e.target.value)} />
+                    <div className="login-title">
+                        <h1>Log In</h1>
+                    </div>
+                    <div className="login-inputs">
+                        <input
+                            className="username-input"
+                            value={username}
+                            placeholder="Username"
+                            onChange={e => setUsername(e.target.value)} />
 
 
-                    <input
-                        value={password}
-                        type="password"
-                        placeholder="Password"
-                        onChange={e => setPassword(e.target.value)} />
+                        <input
+                            className="password-input"
+                            value={password}
+                            type="password"
+                            placeholder="Password"
+                            onChange={e => setPassword(e.target.value)} />
+                    </div>
 
-                    <button onClick={handleLogin}>Login</button>
+                    <button className="login-button" onClick={handleLogin}>Login</button>
 
 
                     <p>Don't have an account?</p>
-                    <button onClick={() => {
+                    <button className="create-account-button" onClick={() => {
                         setIsNewUser(true);
                         setErrorMessage("");
                         setHasErrors(false)
@@ -95,23 +101,31 @@ function UserLogin({ isLoggedIn, setIsLoggedIn, isNewUser, setIsNewUser, usernam
                     >Create Account</button>
                     {hasErrors && <p className="error-message-login">{errorMessage}</p>}
                 </>
-            ) : (
+            ) : ( //ternary: is new user = create new account form
+                //if clicks "create account", toggles to isNewUser(true) to show 
+                //"create an account" form
                 <>
-                    <h1>Create an Account</h1>
-                    <input
-                        value={username}
-                        placeholder="Username"
-                        onChange={e => setUsername(e.target.value)} />
+                    <div className="login-title">
+                        <h1>Create an Account</h1>
+                    </div>
+                    <div className="login-inputs">
+                        <input
+                            className="username-input"
+                            value={username}
+                            placeholder="Username"
+                            onChange={e => setUsername(e.target.value)} />
 
-                    <input
-                        value={password}
-                        placeholder="Password"
-                        type="password"
-                        onChange={e => setPassword(e.target.value)} />
+                        <input
+                            className="password-input"
+                            value={password}
+                            placeholder="Password"
+                            type="password"
+                            onChange={e => setPassword(e.target.value)} />
+                    </div>
                     {hasErrors && <p className="error-message-register">{errorMessage}</p>}
 
-                    <button onClick={handleRegisterUser}>Create Account</button>
-                    <button onClick={ () => setIsNewUser(false)}>Back to Login</button>
+                    <button className="create-account-button" onClick={handleRegisterUser}>Create Account</button>
+                    <button className="login-back-button" onClick={() => setIsNewUser(false)}>Back to Login</button>
 
                 </>
             )

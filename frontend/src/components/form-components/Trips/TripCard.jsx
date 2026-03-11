@@ -14,7 +14,7 @@ function TripCard({ trip = { days: [] }, getTrip }) { //getTrip and trip passed 
   const [isAddingDay, setIsAddingDay] = useState(false);
   const [addedActivityOnDayId, setAddedActivityOnDayId] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [newTripName, setNewTripName] = useState(null);
+  const [newTripName, setNewTripName] = useState("");
 
   const sortedDays = [...trip.days].sort((a, b) => new Date(a.date) - new Date(b.date));
   const isNewTrip = sortedDays.length === 0;
@@ -23,19 +23,22 @@ function TripCard({ trip = { days: [] }, getTrip }) { //getTrip and trip passed 
   const closeActivityForm = () => setAddedActivityOnDayId(null);
   //close form sets default back to null, shows button and closes the input form
 
-  useEffect(() => { //runs when component renders
-    setNewTripName(trip.name); //updates local state to backend prop (trip.name)
-  }, [trip.name]); //dependency array, react will run useEffect when trip.name changes
+  // useEffect(() => { //runs when component renders
+  //   setNewTripName(trip.name); //updates local state to backend prop (trip.name)
+  // }, [trip.name]); //dependency array, react will run useEffect when trip.name changes
 
-  const daysToRender = isNewTrip
-    ? [{ id: "new", activities: [] }]
-    : sortedDays;
+  // const daysToRender = isNewTrip
+  //   ? [{ id: "new", activities: [] }]
+  //   : sortedDays;
 
   const handleSave = async () => {
+    const trimmedTripName = newTripName.trim(); //prevent submitting empty trip name or "   " name(trim handles that edge case by removing white space)
+    if (!trimmedTripName) return;
+
     await fetch(`http://localhost:8080/api/trips/editTripName/${trip.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name: newTripName }),
+      body: JSON.stringify({ name: trimmedTripName }),
     }); //sends the body to the API endpoint(editTripName by trip.id), changes trip.name to the new name
 
     await getTrip(); //wait for server to update the new name
@@ -85,15 +88,24 @@ function TripCard({ trip = { days: [] }, getTrip }) { //getTrip and trip passed 
 
 
 
-            <div className="editable-card" onClick={() => setIsEditing(true)}>
+            <div className="editable-card" onClick={() => {
+              setNewTripName(trip.name);
+              setIsEditing(true);
+            }}>
               <h1 className="trip-details">{trip.name}</h1>
             </div>
           )}
 
+          {isNewTrip && !isAddingDay && (
+            <AddDayCard
+              tripId={trip.id}
+              getTrip={getTrip}
+              closeDayForm={closeDayForm}
+            />
+          )}
 
 
-
-          {daysToRender.map((day) => {
+          {sortedDays.map((day) => {
             const sortedActivities = [...(day.activities || [])].sort((a, b) => {
               const timeA = a.time ?? "";
               const timeB = b.time ?? "";
@@ -101,25 +113,25 @@ function TripCard({ trip = { days: [] }, getTrip }) { //getTrip and trip passed 
             });
 
             // const isEmptyDay = sortedActivities.length === 0;
-            const isFirstDayOfNewTrip = isNewTrip && day.id === "new";
+            // const isFirstDayOfNewTrip = isNewTrip && day.id === "new";
 
             // Fake day for new trips (cant add empty activity unless day already exists)
-            if (day.id === "new") {
-              return (
-                <div key="new" className="day-section">
-                  <AddDayCard
-                    tripId={trip.id}
-                    getTrip={getTrip}
-                    closeDayForm={closeDayForm}
-                  />
-                  <AddActivityCard
-                    dayId={day.id}
-                    getTrip={getTrip}
-                    closeActivityForm={closeActivityForm}
-                  />
-                </div>
-              );
-            }
+            // if (day.id === "new") {
+            //   return (
+            //     <div key="new" className="day-section">
+            //       <AddDayCard
+            //         tripId={trip.id}
+            //         getTrip={getTrip}
+            //         closeDayForm={closeDayForm}
+            //       />
+            //       <AddActivityCard
+            //         dayId={day.id}
+            //         getTrip={getTrip}
+            //         closeActivityForm={closeActivityForm}
+            //       />
+            //     </div>
+            //   );
+            // }
 
             // Real day
             return (
@@ -147,7 +159,7 @@ function TripCard({ trip = { days: [] }, getTrip }) { //getTrip and trip passed 
                 )}
 
                 {/* AddActivityCard or Add button below the list */}
-                {isFirstDayOfNewTrip || addedActivityOnDayId === day.id ? (
+                {addedActivityOnDayId === day.id ? (
                   <AddActivityCard
                     dayId={day.id}
                     getTrip={getTrip}
@@ -168,12 +180,13 @@ function TripCard({ trip = { days: [] }, getTrip }) { //getTrip and trip passed 
             );
           })}
 
-          {/* Show AddDay button only for trips with existing days */}
+          {/* show AddDay button only for trips with existing days */}
           {isAddingDay && (
             <AddDayCard
               tripId={trip.id}
               getTrip={getTrip}
               closeDayForm={closeDayForm}
+              hasExistingDays={trip.days.length > 0} //dont show cancel button on first day of new trip
             />
           )}
           {!isNewTrip && !isAddingDay && (
@@ -189,7 +202,7 @@ function TripCard({ trip = { days: [] }, getTrip }) { //getTrip and trip passed 
                 onClick={handleDeleteTrip}
                 label="Delete Trip"
               />
-              
+
             </div>
           )}
         </Card>

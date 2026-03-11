@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
                 .map(field -> field.getDefaultMessage())
                 .collect(Collectors.toList());
 
-        String combinedErrors = String.join("; ", errors);
+        String combinedErrors = String.join("\n", errors);
 
         ErrorObject errorObject = new ErrorObject(
                 HttpStatus.BAD_REQUEST.value(),
