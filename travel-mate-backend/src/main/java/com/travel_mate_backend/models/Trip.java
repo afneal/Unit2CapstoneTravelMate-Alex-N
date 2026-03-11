@@ -1,6 +1,7 @@
 package com.travel_mate_backend.models;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -15,7 +16,7 @@ public class Trip {
 
     private String name;
 
-    @JsonManagedReference
+    @JsonBackReference
     @ManyToOne
     private User user; //stores the user who created this trip, many trips can belong to one user, but a trip can only belong to one user
 

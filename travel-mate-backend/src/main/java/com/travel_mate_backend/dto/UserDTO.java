@@ -1,9 +1,6 @@
 package com.travel_mate_backend.dto;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.Email;
+//import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -13,30 +10,29 @@ public class UserDTO {  //DTO is data transfer object, used to transfer data btw
     private int id;
 
     @NotBlank(message = "Username is required.")
-    @Size(min = 3, max = 20, message = "First name must be 3-20 characters long.")
-    private String firstName;
+    @Size(min = 3, max = 20, message = "Username must be 3-20 characters long.")
+    private String username;
 
-    @NotBlank(message = "Email is required.")
-    @Email(message = "Email should be valid.")
-    private String email;
+//    @NotBlank(message = "Email is required.")
+//    @Email(message = "Email should be valid.")
+//    private String email;
 
     @NotBlank(message = "Password is required.")
     @Size(min = 6, max = 15, message = "Password must be 6-15 characters long.")
     private String password;
 
 
-    public UserDTO(String firstName, String email,String password) {
-        this.firstName = firstName;
-        this.email = email;
+    public UserDTO(String username, String password) {
+        this.username = username;
         this.password = password;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -47,11 +43,11 @@ public class UserDTO {  //DTO is data transfer object, used to transfer data btw
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+//    public String getEmail() {
+//        return email;
+//    }
+//
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
 }

@@ -1,6 +1,7 @@
 import { useState } from "react";
+import Button from "../../planner-components/Button";
 
-function AddActivityCard({ dayId, getTrips, closeActivityForm }) {
+function AddActivityCard({ dayId, getTrip, closeActivityForm }) {
     const [name, setName] = useState("");
     const [time, setTime] = useState("");
     const [notes, setNotes] = useState("");
@@ -12,8 +13,8 @@ function AddActivityCard({ dayId, getTrips, closeActivityForm }) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ name, time, notes })
         });
-        
-        await getTrips();
+
+        await getTrip();
         closeActivityForm(); //from TripCard
 
 
@@ -23,25 +24,41 @@ function AddActivityCard({ dayId, getTrips, closeActivityForm }) {
     return (
         <div className="activity-card-add-card">
             <input
+                className="planner-input"
                 placeholder="Activity"
                 value={name}
                 onChange={e => setName(e.target.value)}
             />
             <input
+                className="planner-input"
                 type="time"
                 value={time}
                 onChange={e => setTime(e.target.value)}
             />
             <textarea
+                className="planner-input"
                 placeholder="Notes"
                 value={notes}
                 onChange={e => setNotes(e.target.value)}
             />
+            <div className="button-row">
+                <Button className="save-button"
+                    onClick={handleAddActivity}
+                    label="Save Activity"
+                    disabled={!name}
+                />
+                <Button
+                    className="cancel-button"
+                    onClick={() => closeActivityForm()}
+                    label="Cancel" />
 
-            <button onClick={handleAddActivity}>Save</button>
+            </div>
 
-        </div>
+
+        </div >
+
     )
+
 
 }
 

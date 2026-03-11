@@ -1,63 +1,89 @@
 import { useEffect, useState } from "react";
+import Button from "../../planner-components/Button";
+import Card from "../../planner-components/Card";
 
-function ActivityCard({ activity, getTrips }) {
+function ActivityCard({ activity, trip, getTrip, activities }) {
     const [isEditing, setIsEditing] = useState(false);
     const [name, setName] = useState(activity.name);
-    const [time, setTime] = useState(activity.time);
+    const [time, setTime] = useState(activity.time ?? "");//to prevent breaking of trip card's time sort(cant sort null)
     const [notes, setNotes] = useState(activity.notes);
 
     const handleSaveActivity = async () => {
-        setIsEditing(false);
+
         await fetch(`http://localhost:8080/api/activities/editActivity/${activity.id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ name, time, notes })
         });
-        await getTrips();
-        
-
+        await getTrip();
+        setIsEditing(false);
     }
 
-    useEffect(() => {
-        if (!isEditing) {
-            setName(activity.name);
-            setTime(activity.time);
-            setNotes(activity.notes);
-        }
-        }, [activity, isEditing]);
+    const handleDelete = async () => {
+        await fetch(`http://localhost:8080/api/activities/deleteActivity/${activity.id}`, {
+            method: "DELETE"
+        });
+
+        await getTrip();
+    }
+
+    // useEffect(() => {
+    //     if (!isEditing) {
+    //         setName(activity.name);
+    //         setTime(activity.time ?? "");//to prevent null time
+    //         setNotes(activity.notes);
+    //     }
+    // }, [activity, isEditing]);
 
 
     return (
-        <div className="activity-card">
+        <Card className="saved-activity">
+
+            {/* <div onClick={() => setIsEditing(true)}> */}
             {isEditing ? (
+
                 <>
                     <input
+                        className="planner-input"
                         value={name}
                         onChange={(e) => setName(e.target.value)} />
                     <input
-                        value={time}
+                        className="planner-input"
+                        // id="time"
+                        type="time"
+                        value={time ?? ""} //to prevent null data error on edit of empty input
                         onChange={e => setTime(e.target.value)} />
-                    <input
+                    <textarea
+                        className="planner-input"
                         value={notes}
                         onChange={(e => setNotes(e.target.value))} />
-                        <button onClick={handleSaveActivity}>Save Activity</button>
+
+                    <div className="button-row">
+                        <Button className="save-button"
+                            onClick={handleSaveActivity}
+                            label="Save Activity"
+                        />
+
+                        <Button className="delete-button"
+                            onClick={handleDelete}
+                            label="Delete Activity" />
+                    </div>
                 </>
+
             ) : (
-                <>
-                    <p><strong>{name}</strong></p>
-                    <p>{time}</p>
-                    <p>{notes}</p>
 
-                    <button onClick={() => setIsEditing(true)}>Edit</button>
+                <div className="editable-card" onClick={() => setIsEditing(true)}>
+                    <p><strong>Activity:</strong> {name}</p>
+                    <p><strong>Time:</strong> {time}</p>
+                    <p><strong>Notes:</strong> {notes}</p>
+                    <span className="edit-icon">✎</span>
+                </div>
+            )}
 
-                </>
-            )
-
-            }
-        </div>
+        </Card>
     )
 
-
 }
+
 
 export default ActivityCard; 

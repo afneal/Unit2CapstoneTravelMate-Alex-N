@@ -1,6 +1,10 @@
 package com.travel_mate_backend.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class User { //stored in database as an object
@@ -9,18 +13,19 @@ public class User { //stored in database as an object
     @GeneratedValue(strategy = GenerationType.IDENTITY) //lets Hibernate autogenerate id
     private int id;
 
-    private String firstName;
-    private String email;
+    private String username;
+
     private String password;
 
-
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user")
+    private List<Trip> trips;
 
     public User() { //default constructor needed by Hibernate to instantiate objects when retrieving from the database
     }
 
-    public User(String firstName, String email, String password) {
-        this.firstName = firstName;
-        this.email = email;
+    public User(String username, String password) {
+        this.username = username;
         this.password = password;
     }
 
@@ -33,21 +38,21 @@ public class User { //stored in database as an object
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+//    public String getEmail() {
+//        return email;
+//    }
+//
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
 
     public String getPassword() {
         return password;

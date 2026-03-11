@@ -1,7 +1,6 @@
 package com.travel_mate_backend.dto;
 
 
-import com.travel_mate_backend.models.Day;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -14,15 +13,15 @@ public class TripDTO {
     @Size(min = 1, max = 100, message = "Trip name must be between 1 and 100 characters long.")
     private String name;
 
-    private String userEmail;
+    private String username;
     private List<DayDTO> days;
 
     public TripDTO() {
     }
 
-    public TripDTO(String name, String userEmail, List<DayDTO> days) {
+    public TripDTO(String name, String username, List<DayDTO> days) {
         this.name = name;
-        this.userEmail = userEmail;
+        this.username = username;
         this.days = days;
     }
 
@@ -38,8 +37,8 @@ public class TripDTO {
         this.name = name;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public String getUsername() {
+        return username;
     }
 
 
