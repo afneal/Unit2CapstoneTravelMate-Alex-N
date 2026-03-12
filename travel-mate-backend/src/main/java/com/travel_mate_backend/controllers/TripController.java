@@ -1,9 +1,12 @@
 package com.travel_mate_backend.controllers;
 
 
+import com.travel_mate_backend.dto.ItemListDTO;
 import com.travel_mate_backend.dto.TripDTO;
+import com.travel_mate_backend.models.ItemList;
 import com.travel_mate_backend.models.Trip;
 import com.travel_mate_backend.models.User;
+import com.travel_mate_backend.repositories.ItemListRepository;
 import com.travel_mate_backend.repositories.TripRepository;
 import com.travel_mate_backend.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -27,6 +31,9 @@ public class TripController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    ItemListRepository itemListRepository;
+
     @GetMapping("")
     public List<Trip> getTripsByUsername(@RequestParam String username) {
         return tripRepository.findByUserUsername(username);
@@ -37,10 +44,15 @@ public class TripController {
         Trip trip = tripRepository.findById(id).orElse(null);
         if (trip == null) {
             throw new NoResourceFoundException(HttpMethod.GET, "/" + id, "Trip with id " + id + " not found");
-        } else {
+        }
+
+            //get all lists for the specific trip id
+            List<ItemList> lists = itemListRepository.findByTripId(id);
+            trip.setLists(lists);
+
             return new ResponseEntity<>(trip, HttpStatus.OK);
         }
-    }
+
 
 
     @PostMapping("/addTrip")//add only trip name, add days/activities through other endpoints
@@ -53,7 +65,20 @@ public class TripController {
         }
         Trip trip = new Trip(tripData.getName(), user, new ArrayList<>());//creates new Trip entity with empty list of days with name of trip from TripDTO, User entity pulled from  TripDTO
 
+        //create default lists to add to each new trip
+        ItemList packingList = new ItemList("Packing", false, trip);
+        ItemList remindersList = new ItemList("Reminders", false, trip);
+
+        List<ItemList> lists = new ArrayList<>();
+        lists.add(packingList);
+        lists.add(remindersList);
+
+        //dont have to save to ItemListRepository b/c Trip has Cascasde all which will auto save all
+
+        trip.setLists(lists);
+
         tripRepository.save(trip);
+
         return new ResponseEntity<>(trip, HttpStatus.CREATED);
     }
 

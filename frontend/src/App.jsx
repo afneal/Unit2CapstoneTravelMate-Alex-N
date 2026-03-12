@@ -51,7 +51,7 @@ function App() { //App owns the states so is the parent
         backgroundImage: `url(${worldMapImage5})`, backgroundSize: 'cover', backgroundPosition: 'center', minHeight: "100vh",
         margin: '0', opacity: 0.9, backgroundRepeat: "no-repeat", backgroundAttachment: "fixed", padding: "0 0 20px 0"
       }}>
-
+        {/* <ReminderList list={list} setList={setList} reminderList={reminderList} setReminderList={setReminderList} /> */}
         <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} />
         < ToastContainer position="top-right" autoClose={1000} />
 

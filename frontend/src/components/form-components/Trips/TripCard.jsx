@@ -6,6 +6,7 @@ import DayCard from "../Days/DayCard";
 import { useEffect, useState } from "react";
 import Card from "../../planner-components/Card";
 import { useNavigate } from "react-router";
+import List from "../../planner-components/List";
 
 
 
@@ -23,13 +24,7 @@ function TripCard({ trip = { days: [] }, getTrip }) { //getTrip and trip passed 
   const closeActivityForm = () => setAddedActivityOnDayId(null);
   //close form sets default back to null, shows button and closes the input form
 
-  // useEffect(() => { //runs when component renders
-  //   setNewTripName(trip.name); //updates local state to backend prop (trip.name)
-  // }, [trip.name]); //dependency array, react will run useEffect when trip.name changes
 
-  // const daysToRender = isNewTrip
-  //   ? [{ id: "new", activities: [] }]
-  //   : sortedDays;
 
   const handleSave = async () => {
     const trimmedTripName = newTripName.trim(); //prevent submitting empty trip name or "   " name(trim handles that edge case by removing white space)
@@ -58,6 +53,9 @@ function TripCard({ trip = { days: [] }, getTrip }) { //getTrip and trip passed 
 
     navigate("/trips");
   }
+
+  const packingList = trip.lists?.find(list=> list.listType === "Packing");
+  const remindersList = trip.lists?.find(list => list.listType === "Reminders");
 
 
   return (
@@ -112,28 +110,9 @@ function TripCard({ trip = { days: [] }, getTrip }) { //getTrip and trip passed 
               return timeA.localeCompare(timeB);
             });
 
-            // const isEmptyDay = sortedActivities.length === 0;
-            // const isFirstDayOfNewTrip = isNewTrip && day.id === "new";
 
-            // Fake day for new trips (cant add empty activity unless day already exists)
-            // if (day.id === "new") {
-            //   return (
-            //     <div key="new" className="day-section">
-            //       <AddDayCard
-            //         tripId={trip.id}
-            //         getTrip={getTrip}
-            //         closeDayForm={closeDayForm}
-            //       />
-            //       <AddActivityCard
-            //         dayId={day.id}
-            //         getTrip={getTrip}
-            //         closeActivityForm={closeActivityForm}
-            //       />
-            //     </div>
-            //   );
-            // }
 
-            // Real day
+
             return (
               <div key={day.id} className="day-section">
                 <DayCard
@@ -156,6 +135,8 @@ function TripCard({ trip = { days: [] }, getTrip }) { //getTrip and trip passed 
                       />
                     ))}
                   </div>
+
+
                 )}
 
                 {/* AddActivityCard or Add button below the list */}
@@ -205,6 +186,18 @@ function TripCard({ trip = { days: [] }, getTrip }) { //getTrip and trip passed 
 
             </div>
           )}
+
+          <div className="lists-container">
+            <List
+              list={packingList || []}
+              tripId={trip.id}
+              getTrip={getTrip} />
+
+            <List
+              list={remindersList || []}
+              tripId={trip.id}
+              getTrip={getTrip} />
+          </div>
         </Card>
       </div>
     </div>

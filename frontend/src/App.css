@@ -775,13 +775,13 @@ h1 {
     color: white;
 }
 
-.list-item {
+/* .list-item {
     width: 90%;
     padding: 8px;
     margin-bottom: 15px;
     border: 1px solid black;
     border-radius: 5px;
-}
+} */
 
 
 
@@ -1091,7 +1091,7 @@ nav ul li {
     color: black;
 }
 
-.card .add-button:hover, 
+.card .add-button:hover,
 .add-trip-card .add-button:hover {
     background-color: #0056b3;
 }
@@ -1325,14 +1325,14 @@ nav ul li {
     text-align: center;
     background-color: dimgray;
     border-radius: 10px;
-    /* padding: 16px 20px; */
+
     box-shadow: 0 2px 8px black;
     color: white;
     width: 90%;
     font-size: 40px;
     font-family: "zalando sans", sans-serif;
 
-    /* padding: 0 40px; */
+
     box-sizing: border-box;
     max-width: 100%;
     margin-bottom: 10px;
@@ -1341,13 +1341,6 @@ nav ul li {
     display: flex;
     flex-direction: column;
 
-    /* max-width: 800px;
-    width: 90%;
-    margin: 40px auto;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px black;
-    background-color: rgba(211, 211, 211, 0.9); */
 
 }
 
@@ -1424,15 +1417,15 @@ nav ul li {
 
 
 .error-message-login {
-    display: block;            
-    background-color: #ffe6e6; 
-    color: #cc0000;           
-    padding: 10px;             
-    border: 1px solid #cc0000; 
-    border-radius: 5px;       
-    margin-top: 10px;         
-    line-height: 1.4;          
-    white-space: pre-wrap;  
+    display: block;
+    background-color: #ffe6e6;
+    color: #cc0000;
+    padding: 10px;
+    border: 1px solid #cc0000;
+    border-radius: 5px;
+    margin-top: 10px;
+    line-height: 1.4;
+    white-space: pre-wrap;
 }
 
 .login-back-button {
@@ -1450,5 +1443,139 @@ nav ul li {
 }
 
 .login-back-button:hover {
-     background-color: rgb(100, 100, 100);
+    background-color: rgb(100, 100, 100);
+}
+
+li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.list-edit-icon,
+.list-delete-icon {
+    cursor: pointer;
+    top: 10px;
+    right: 10px;
+    font-size: 0.9em;
+    color: #888;
+    transition: color 0.2s;
+
+    background: none;
+    border: none;
+
+
+}
+
+
+
+.list-edit-icon:hover,
+.list-delete-icon:hover {
+    color: #333;
+}
+
+.item-card {
+    padding: 8px 12px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    margin-bottom: 5px;
+}
+
+.item-card input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.list-icons {
+    display: flex;
+    gap: 5px;
+    /* space between edit & delete buttons */
+}
+
+.item-name {
+    flex: 1;
+    /* take remaining space between checkbox and icons */
+    font-family: "zalando sans", sans-serif;
+}
+
+.list-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+
+    justify-content: center;
+
+}
+
+.list-title {
+    text-align: center;
+    background-color: dimgray;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px black;
+    color: white;
+    font-size: 24px;
+    padding: 4px 8px;
+    margin-bottom: 10px;
+}
+
+.list-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+}
+
+.add-item {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.add-item input,
+.list-item-input {
+    flex: 1;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid black;
+    font-family: "zalando sans", sans-serif;
+}
+
+
+.item-name.completed {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.lists-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 20px;
+
+    justify-content: center;
+
+}
+
+
+.list-card {
+    flex: 1 1 300px;
+   
+    min-width: 250px;
+    box-sizing: border-box;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: rgba(211, 211, 211, 0.9);
+    box-shadow: 0 0 10px black;
+    margin-bottom: 20px;
+}
+
+/* Mobile view: full width */
+@media (max-width: 600px) {
+    .list-card {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
 }

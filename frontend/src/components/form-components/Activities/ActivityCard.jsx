@@ -27,13 +27,7 @@ function ActivityCard({ activity, trip, getTrip, activities }) {
         await getTrip();
     }
 
-    // useEffect(() => {
-    //     if (!isEditing) {
-    //         setName(activity.name);
-    //         setTime(activity.time ?? "");//to prevent null time
-    //         setNotes(activity.notes);
-    //     }
-    // }, [activity, isEditing]);
+ 
 
 
     return (
@@ -49,7 +43,6 @@ function ActivityCard({ activity, trip, getTrip, activities }) {
                         onChange={(e) => setName(e.target.value)} />
                     <input
                         className="planner-input"
-                        // id="time"
                         type="time"
                         value={time ?? ""} //to prevent null data error on edit of empty input
                         onChange={e => setTime(e.target.value)} />
