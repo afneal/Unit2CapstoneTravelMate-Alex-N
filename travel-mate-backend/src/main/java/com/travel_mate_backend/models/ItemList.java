@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -21,9 +22,11 @@ public class ItemList {
     @ManyToOne
     @JsonBackReference
     private Trip trip;
+    //foreign key relationship
+    //define relationship to each trip, each ItemList belongs to a Trip
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "itemList", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "itemList", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> items;
 
 
@@ -31,9 +34,10 @@ public class ItemList {
     }
 
 
-    public ItemList(String listType, boolean completed) {
+    public ItemList(String listType, boolean completed, Trip trip) {
         this.listType = listType;
         this.completed = completed;
+        this.trip = trip;
     }
 
     public int getId() {

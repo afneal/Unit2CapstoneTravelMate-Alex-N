@@ -29,11 +29,11 @@ function UserLogin({ isLoggedIn, setIsLoggedIn, isNewUser, setIsNewUser, usernam
             setHasErrors(false);
             setErrorMessage("");
             setUsername(username);
-            localStorage.setItem("isLoggedIn", "true");
+            sessionStorage.setItem("isLoggedIn", "true");
             navigate("/");
         } else {
             setHasErrors(true),
-                setErrorMessage(data.message)
+            setErrorMessage(data.message)
             setUsername("");
             setPassword("");
         }
@@ -53,11 +53,11 @@ function UserLogin({ isLoggedIn, setIsLoggedIn, isNewUser, setIsNewUser, usernam
             setIsNewUser(false);
             setHasErrors(false);
             setErrorMessage("");
-            localStorage.setItem("isLoggedIn", "true");
+            sessionStorage.setItem("isLoggedIn", "true"); //log out on browser close or app close
             navigate("/");
         } else {
             setHasErrors(true),
-                setErrorMessage(data.message)
+            setErrorMessage(data.message)
 
         }
     }

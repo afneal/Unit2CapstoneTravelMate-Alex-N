@@ -35,10 +35,9 @@ public class ItemController {
             throw new NoResourceFoundException(HttpMethod.POST, "/" + listId + "addItem", "List with id " + listId + " not found");
         }
 
-        Item newItem = new Item();
-        newItem.setName(itemData.getName());
-        newItem.setCompleted(false);
-        newItem.setItemList(itemList);
+       Item newItem = new Item(itemData.getName(), itemData.isCompleted(), itemList);
+
+        itemList.getItems().add(newItem);
 
         itemRepository.save(newItem);
 

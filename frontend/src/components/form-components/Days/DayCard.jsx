@@ -47,26 +47,26 @@ function DayCard({ day, trip, getTrip }) {
             placeholder="City"
           />
           <input
-          className="planner-input"
-                        type="date"
+            className="planner-input"
+            type="date"
             value={date ?? ""}
             onChange={(e) => setDate(e.target.value)}
           />
           <div className="button-row">
             <Button 
-                className="save-button" 
-             onClick={handleSave} 
-                label="Save Day" />
+              className="save-button" 
+              onClick={handleSave} 
+              label="Save Day" />
 
             <Button 
-                className="cancel-button" 
-                onClick={() => setIsEditing(false)} 
-                label="Cancel" />
+              className="cancel-button" 
+              onClick={() => setIsEditing(false)} 
+              label="Cancel" />
 
-                <Button
-                    className="delete-button"
-                    onClick={handleDelete}
-                    label="Delete Day" />
+            <Button
+              className="delete-button"
+              onClick={handleDelete}
+              label="Delete Day" />
           </div>
         </>
       ) : (

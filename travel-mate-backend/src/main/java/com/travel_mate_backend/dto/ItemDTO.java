@@ -10,12 +10,16 @@ public class ItemDTO {
     private boolean completed;
 
 
-    public ItemDTO(int id, String name, boolean completed) {
-        this.id = id;
+    public ItemDTO( String name, boolean completed) {
         this.name = name;
         this.completed = completed;
 
     }
+
+    public ItemDTO() {
+
+    }
+
 
     public int getId() {
         return id;
@@ -40,5 +44,6 @@ public class ItemDTO {
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
+
 
 }

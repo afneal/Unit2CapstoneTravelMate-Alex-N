@@ -27,7 +27,7 @@ public class Trip {
 
     @JsonManagedReference
     @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
-    private List<ItemList> lists;
+    private List<ItemList> lists = new ArrayList<>();
 
     public Trip() {//default constructor needed by Hibernate to instantiate objects when retrieving from the database
     }

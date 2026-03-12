@@ -16,9 +16,11 @@ public class ItemListDTO {
     public ItemListDTO() {
     }
 
+    //doesnt need to pass Trip as reference like in ItemList entity b/c DTO is just
+    //for the data needed by the list. not for database relationships
 
-    public ItemListDTO(int id, String listType, boolean completed, List<ItemDTO> items) {
-        this.id = id;
+
+    public ItemListDTO(String listType, boolean completed, List<ItemDTO> items) {
         this.listType = listType;
         this.completed = completed;
         this.items = items;
