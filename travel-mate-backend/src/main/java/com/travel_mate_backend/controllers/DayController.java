@@ -79,7 +79,7 @@ public class DayController {
     public ResponseEntity<?> deleteDay(@PathVariable int id) throws NoResourceFoundException {
         Day day = dayRepository.findById(id).orElse(null);
         if (day == null) {
-            throw new NoResourceFoundException(HttpMethod.DELETE, "/" + id, "Day with id " + " not found");
+            throw new NoResourceFoundException(HttpMethod.DELETE, "/" + id, "Day with id " + id + " not found");
         } else {
             dayRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
