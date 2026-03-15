@@ -3,12 +3,12 @@ import Button from "../../planner-components/Button";
 import Card from "../../planner-components/Card";
 
 
-function DayCard({ day, trip, getTrip }) {
+function DayCard({ day, trip, getTrip, formatDate }) { //day coming from tripcard map??
     //inline editing
   const [isEditing, setIsEditing] = useState(false);
 
-  const [city, setCity] = useState(day.city ?? "");
-  const [date, setDate] = useState(day.date ?? "");
+  const [city, setCity] = useState(day.city ?? ""); //day.city to keep original input when clicking edit
+  const [date, setDate] = useState(day.date ?? "");//.city and .date to match dto variable names
 
   const handleSave = async () => {
     await fetch(`http://localhost:8080/api/days/editDay/${day.id}`, {
@@ -29,23 +29,21 @@ function DayCard({ day, trip, getTrip }) {
 
   }
 
-  function formatDate(dateString) { //backend defaults to YYYY-MM-DD, reformat to this
-         if (!dateString) return "";
-        const [year, month, day] = dateString.split("-");
-         return `${month}-${day}-${year}`;
-     }
+  
 
   return (
     <Card className="day-card">
       {isEditing ? (
         //edit form
         <>
+        <label>City Name:</label>
           <input
             className="planner-input"
             value={city}
             onChange={(e) => setCity(e.target.value)}
             placeholder="City"
           />
+          <label>Date:</label>
           <input
             className="planner-input"
             type="date"
@@ -72,8 +70,12 @@ function DayCard({ day, trip, getTrip }) {
       ) : (
         // display form
         <div className="editable-day-card" onClick={() => setIsEditing(true)}>
+          <div className="day-date">
+              <p className="day-date"><strong>Date:</strong> {formatDate(date)}</p>
+          </div>
+          
           <p><strong>City:</strong> {city}</p>
-          <p><strong>Date:</strong> {formatDate(date)}</p>
+          
           <span className="edit-icon">✎</span>
         </div>
       )}

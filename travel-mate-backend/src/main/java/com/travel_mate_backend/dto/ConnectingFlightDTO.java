@@ -8,7 +8,6 @@ import java.time.LocalTime;
 public class ConnectingFlightDTO {
 
     private int id;
-
     private String connectingCode;
 
     @JsonFormat(pattern = "HH:mm")

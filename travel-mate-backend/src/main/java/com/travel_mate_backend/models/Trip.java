@@ -23,11 +23,15 @@ public class Trip {
 
     @JsonManagedReference
     @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, orphanRemoval = true) //one trip can have many days, mappedBy points to the field in Day that owns the relationship, cascade ALL means all operations on Trip will cascade to its days, orphanRemoval means if a day is removed from the trip's list, it will be deleted from the database
-    private List<Day> days; //stores the list of days for this trip
+    private List<Day> days = new ArrayList<>(); //stores the list of days for this trip
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemList> lists = new ArrayList<>();
+
+    @JsonManagedReference
+    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Flight> flights = new ArrayList<>();
 
     public Trip() {//default constructor needed by Hibernate to instantiate objects when retrieving from the database
     }
@@ -72,5 +76,13 @@ public class Trip {
 
     public void setLists(List<ItemList> lists) {
         this.lists = lists;
+    }
+
+    public List<Flight> getFlights() {
+        return flights;
+    }
+
+    public void setFlights(List<Flight> flights) {
+        this.flights = flights;
     }
 }

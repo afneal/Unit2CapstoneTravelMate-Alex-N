@@ -20,7 +20,7 @@ public class ConnectingFlight {
 
     @ManyToOne
     @JsonBackReference
-    private MainFlight mainFlight;
+    private Flight flight;
 
     public ConnectingFlight() {
     }
@@ -54,11 +54,11 @@ public class ConnectingFlight {
         this.connectingTime = connectingTime;
     }
 
-    public MainFlight getMainFlights() {
-        return mainFlight;
+    public Flight getFlight() {
+        return flight;
     }
 
-    public void setMainFlights(MainFlight mainFlight) {
-        this.mainFlight = mainFlight;
+    public void setFlight(Flight flight) {
+        this.flight = flight;
     }
 }

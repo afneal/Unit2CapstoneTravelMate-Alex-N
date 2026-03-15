@@ -2,8 +2,9 @@ import { Link } from 'react-router';
 import { useState, useEffect } from 'react';
 import { FaBars } from 'react-icons/fa';
 import UserLogin from '../Pages/UserLogin';
+import Button from '../planner-components/Button';
 
-function NavIcon({ isLoggedIn }) {
+function NavIcon({ isLoggedIn, handleLogout }) {
     const [isExpanded, setIsExpanded] = useState(false); //set initial state to closed navIcon window
 
 
@@ -30,9 +31,14 @@ function NavIcon({ isLoggedIn }) {
                             <li><Link to="/">Home</Link></li>
                             <li><Link to="/traveltips">Travel Tips</Link></li>
                             <li><Link to="/resources">Resources</Link></li>
-                            <li><Link to="/buildtrips">Build Trip</Link></li>
-                            <li><Link to="/savedtrips">Saved Trips</Link></li>
-                            <li><Link to="/trippage">All Trips</Link></li>
+                            <li><Link to="/trips">My Trips</Link></li>
+                            <li>
+                                <Button className="logout-button"
+                                    onClick={handleLogout}
+                                    label="Logout"
+                                />
+                            </li>
+
                         </ul>
                     </>
                 ) : (

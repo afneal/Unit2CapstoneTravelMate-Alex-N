@@ -22,13 +22,14 @@ function AddDayCard({ tripId, getTrip, closeDayForm, hasExistingDays }) {
 
     return (
         <div className="day-card-add-card">
+            <label>City Name:</label>
             <input
                 className="planner-input"
                 placeholder="City"
                 value={city}
                 onChange={e => setCity(e.target.value)}
             />
-
+            <label>Date:</label>
             <input
                 className="planner-input"
                 type="date"

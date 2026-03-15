@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "../../planner-components/Button";
 
-function AddActivityCard({ dayId, getTrip, closeActivityForm }) {
+function AddActivityCard({ dayId, getTrip, closeActivityForm }) { //dayId passed from TripCard as day.id
     const [name, setName] = useState("");
     const [time, setTime] = useState("");
     const [notes, setNotes] = useState("");
@@ -23,18 +23,21 @@ function AddActivityCard({ dayId, getTrip, closeActivityForm }) {
 
     return (
         <div className="activity-card-add-card">
+            <label>Activity Name:</label>
             <input
                 className="planner-input"
                 placeholder="Activity"
                 value={name}
                 onChange={e => setName(e.target.value)}
             />
+            <label>Activity Time:</label>
             <input
                 className="planner-input"
                 type="time"
                 value={time}
                 onChange={e => setTime(e.target.value)}
             />
+            <label>Notes:</label>
             <textarea
                 className="planner-input"
                 placeholder="Notes"

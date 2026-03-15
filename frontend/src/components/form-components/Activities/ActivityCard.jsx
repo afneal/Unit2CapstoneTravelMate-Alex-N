@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Button from "../../planner-components/Button";
 import Card from "../../planner-components/Card";
 
-function ActivityCard({ activity, trip, getTrip, activities }) {
+function ActivityCard({ activity, trip, getTrip, activities }) {//activity from tripcard map, getTrip from tripdisplaypage
     const [isEditing, setIsEditing] = useState(false);
     const [name, setName] = useState(activity.name);
     const [time, setTime] = useState(activity.time ?? "");//to prevent breaking of trip card's time sort(cant sort null)
@@ -27,7 +27,7 @@ function ActivityCard({ activity, trip, getTrip, activities }) {
         await getTrip();
     }
 
- 
+
 
 
     return (
@@ -37,15 +37,18 @@ function ActivityCard({ activity, trip, getTrip, activities }) {
             {isEditing ? (
 
                 <>
+                    <label>Activity Name:</label>
                     <input
                         className="planner-input"
                         value={name}
                         onChange={(e) => setName(e.target.value)} />
+                    <label>Activity Time:</label>
                     <input
                         className="planner-input"
                         type="time"
                         value={time ?? ""} //to prevent null data error on edit of empty input
                         onChange={e => setTime(e.target.value)} />
+                    <label>Notes:</label>
                     <textarea
                         className="planner-input"
                         value={notes}

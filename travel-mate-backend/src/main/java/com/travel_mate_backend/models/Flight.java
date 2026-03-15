@@ -6,15 +6,19 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
 @Entity
-public class MainFlight {
+public class Flight {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @JsonFormat //defaults format to YYYY-MM-DD, reformat in frontend
+    private LocalDate departureDate;
 
     private String departureCode;
 
@@ -32,13 +36,14 @@ public class MainFlight {
     private Trip trip;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "mainFlights", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ConnectingFlight> connectingFlights;
 
-    public MainFlight() {
+    public Flight() {
     }
 
-    public MainFlight(String departureCode, LocalTime departureTime, String arrivalCode, LocalTime arrivalTime, List<ConnectingFlight> connectingFlights) {
+    public Flight(LocalDate departureDate, String departureCode, LocalTime departureTime, String arrivalCode, LocalTime arrivalTime, List<ConnectingFlight> connectingFlights) {
+        this.departureDate = departureDate;
         this.departureCode = departureCode;
         this.departureTime = departureTime;
         this.arrivalCode = arrivalCode;
@@ -52,6 +57,14 @@ public class MainFlight {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public LocalDate getDepartureDate() {
+        return departureDate;
+    }
+
+    public void setDepartureDate(LocalDate departureDate) {
+        this.departureDate = departureDate;
     }
 
     public String getDepartureCode() {

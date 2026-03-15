@@ -2,12 +2,16 @@ package com.travel_mate_backend.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-public class MainFlightDTO {
+public class FlightDTO {
 
     private int id;
+
+    @JsonFormat
+    private LocalDate departureDate;
     private String departureCode;
 
     @JsonFormat
@@ -20,10 +24,11 @@ public class MainFlightDTO {
 
     private List<ConnectingFlightDTO> connectingFlights;
 
-    public MainFlightDTO() {
+    public FlightDTO() {
     }
 
-    public MainFlightDTO(String departureCode, LocalTime departureTime, String arrivalCode, LocalTime arrivalTime, List<ConnectingFlightDTO> connectingFlights) {
+    public FlightDTO(LocalDate departureDate, String departureCode, LocalTime departureTime, String arrivalCode, LocalTime arrivalTime, List<ConnectingFlightDTO> connectingFlights) {
+        this.departureDate = departureDate;
         this.departureCode = departureCode;
         this.departureTime = departureTime;
         this.arrivalCode = arrivalCode;
@@ -37,6 +42,14 @@ public class MainFlightDTO {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public LocalDate getDepartureDate() {
+        return departureDate;
+    }
+
+    public void setDepartureDate(LocalDate departureDate) {
+        this.departureDate = departureDate;
     }
 
     public String getDepartureCode() {

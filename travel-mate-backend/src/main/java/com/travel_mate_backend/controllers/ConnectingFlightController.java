@@ -1,14 +1,11 @@
 package com.travel_mate_backend.controllers;
 
 
-import com.travel_mate_backend.dto.ActivityDTO;
 import com.travel_mate_backend.dto.ConnectingFlightDTO;
-import com.travel_mate_backend.models.Activity;
 import com.travel_mate_backend.models.ConnectingFlight;
-import com.travel_mate_backend.models.Day;
-import com.travel_mate_backend.models.MainFlight;
+import com.travel_mate_backend.models.Flight;
 import com.travel_mate_backend.repositories.ConnectingFlightRepository;
-import com.travel_mate_backend.repositories.MainFlightRepository;
+import com.travel_mate_backend.repositories.FlightRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -24,17 +21,17 @@ public class ConnectingFlightController {
     ConnectingFlightRepository connectingFlightRepository;
 
     @Autowired
-    MainFlightRepository mainFlightRepository;
+    FlightRepository flightRepository;
 
-    @PostMapping("/addConnectingFlight/{mainFlightId}")
+    @PostMapping("/addConnectingFlight/{flightId}")
 
-    public ResponseEntity<?> addNewConnectingFlight(@PathVariable int mainFlightId, @RequestBody ConnectingFlightDTO connectingFlightData) throws NoResourceFoundException {
+    public ResponseEntity<?> addNewConnectingFlight(@PathVariable int flightId, @RequestBody ConnectingFlightDTO connectingFlightData) throws NoResourceFoundException {
         ConnectingFlight connectingFlight = new ConnectingFlight(connectingFlightData.getConnectingCode(), connectingFlightData.getConnectingTime());
-        MainFlight mainFlight = mainFlightRepository.findById(mainFlightId).orElse(null);
-        if (mainFlight == null) {
-            throw new NoResourceFoundException(HttpMethod.POST, "/" + mainFlightId, "Flight with id " + mainFlightId + " not found"); // 404
+        Flight flight = flightRepository.findById(flightId).orElse(null);
+        if (flight == null) {
+            throw new NoResourceFoundException(HttpMethod.POST, "/" + flightId, "Flight with id " + flightId + " not found"); // 404
         }
-        connectingFlight.setMainFlights(mainFlight);
+        connectingFlight.setFlight(flight);
         connectingFlightRepository.save(connectingFlight);
         return new ResponseEntity<>(connectingFlight, HttpStatus.CREATED);
 
