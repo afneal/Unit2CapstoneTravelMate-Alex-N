@@ -19,6 +19,8 @@ public class ActivityDTO {
     private LocalTime time;
     private String notes;
 
+    //dont need Day day reference b/c its in the Activity model and can be accessed in the controller
+
     public ActivityDTO() {
     }
 

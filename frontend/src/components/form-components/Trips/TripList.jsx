@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import { useEffect } from "react";
 
 
-function TripList({ trips, setTrips, username }) {
+function TripList({ trips, setTrips, username }) { //trips, setTrips, username from parent App.jsx
 
 
     const getTrips = async () => {
@@ -11,7 +11,7 @@ function TripList({ trips, setTrips, username }) {
             method: "GET"
         });
         const tripData = await response.json();
-        setTrips(tripData);
+        setTrips(tripData); //updates parent App.jsx with new trip data
         return tripData;
     };
 

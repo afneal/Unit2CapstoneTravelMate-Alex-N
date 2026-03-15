@@ -1,5 +1,5 @@
 
-import { Routes, Route } from 'react-router'
+import { Routes, Route, useNavigate } from 'react-router'
 import Homepage from './components/Pages/Homepage'
 import Header from './components/layout/Header'
 import worldMapImage5 from './assets/worldMapImage5.jpg';
@@ -17,9 +17,11 @@ import NavMenu from './components/layout/NavMenu';
 import TripList from './components/form-components/Trips/TripList';
 import TripDisplayPage from './components/form-components/Trips/TripDisplayPage';
 import DayCard from './components/form-components/Days/DayCard';
+import NavIcon from './components/layout/NavIcon';
 
 function App() { //App owns the states so is the parent
 
+  const navigate = useNavigate();
   const [days, setDays] = useState([]);
   const [activities, setActivities] = useState([]);
 
@@ -34,12 +36,19 @@ function App() { //App owns the states so is the parent
 
 
   const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    return localStorage.getItem("isLoggedIn") === "true";
+    return sessionStorage.getItem("isLoggedIn") === "true";
   });
 
   useEffect(() => {
-    localStorage.setItem("isLoggedIn", isLoggedIn);
+    sessionStorage.setItem("isLoggedIn", isLoggedIn);
   }, [isLoggedIn]);
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setUsername("");
+    sessionStorage.removeItem("isLoggedIn");
+    navigate("/login")
+  };
 
 
 
@@ -52,8 +61,10 @@ function App() { //App owns the states so is the parent
         margin: '0', opacity: 0.9, backgroundRepeat: "no-repeat", backgroundAttachment: "fixed", padding: "0 0 20px 0"
       }}>
         {/* <ReminderList list={list} setList={setList} reminderList={reminderList} setReminderList={setReminderList} /> */}
-        <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} />
+        <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} handleLogout={handleLogout} setUsername={setUsername} />
+       
         < ToastContainer position="top-right" autoClose={1000} />
+         
 
         <Routes>
           <Route path="/" element={<Homepage isLoggedIn={isLoggedIn} />} />

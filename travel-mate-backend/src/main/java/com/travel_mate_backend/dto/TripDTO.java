@@ -17,15 +17,18 @@ public class TripDTO {
     private String username;
     private List<DayDTO> days;
     private List<ItemListDTO> lists;
+    private List<FlightDTO> flights;
 
     public TripDTO() {
     }
 
-    public TripDTO(String name, String username, List<DayDTO> days, List<ItemListDTO> lists) {
+    public TripDTO(String name, String username, List<DayDTO> days, List<ItemListDTO> lists,
+     List<FlightDTO> flights) {
         this.name = name;
         this.username = username;
         this.days = days;
         this.lists = (lists != null) ? lists : new ArrayList<>();
+        this.flights = flights;
     }
 
     public int getId() {
@@ -59,5 +62,13 @@ public class TripDTO {
 
     public void setLists(List<ItemListDTO> lists) {
         this.lists = lists;
+    }
+
+    public List<FlightDTO> getFlights() {
+        return flights;
+    }
+
+    public void setFlights(List<FlightDTO> flights) {
+        this.flights = flights;
     }
 }
