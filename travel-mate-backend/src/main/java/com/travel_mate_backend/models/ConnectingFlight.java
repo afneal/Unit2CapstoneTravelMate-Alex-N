@@ -18,11 +18,11 @@ public class ConnectingFlight {
     @JsonFormat(pattern = "HH:mm")
     private LocalTime connectingTime;
 
-    @ManyToOne
-    @JsonBackReference
+    @ManyToOne //many connecting flights can belong to one flight
+    @JsonBackReference //connecting flight is child to flight
     private Flight flight;
 
-    public ConnectingFlight() {
+    public ConnectingFlight() { //default constructor needed by Hibernate to instantiate objects when retrieving from the database
     }
 
     public ConnectingFlight(String connectingCode, LocalTime connectingTime) {

@@ -8,7 +8,7 @@ function AddTripCard({ getTrips, username }) {
     const handleSaveTrip = async () => {
 
         const trimmedTripName = tripName.trim();
-        if (!trimmedTripName) return;
+        if (!trimmedTripName) return; //prevent empty trip name or "   "
 
         await fetch("http://localhost:8080/api/trips/addTrip", {
             method: "POST",
@@ -19,7 +19,7 @@ function AddTripCard({ getTrips, username }) {
         setTripName("");
 
         setIsAddingTrip(false);
-        getTrips();
+        getTrips(); //updates parent trips state to include the new trip
 
     };
 
@@ -45,22 +45,16 @@ function AddTripCard({ getTrips, username }) {
                             className="cancel-button"
                             onClick={() => setIsAddingTrip(false)}
                             label="Cancel" />
-
                     </div>
                 </>
             ) : (
                 <Button className="add-button"
                     onClick={() => setIsAddingTrip(true)}
-                    label="Add Trip"
-                    
+                    label="Add Trip"             
                 />
-
-
             )}
         </div>
     );
-
-
 }
 
 export default AddTripCard;

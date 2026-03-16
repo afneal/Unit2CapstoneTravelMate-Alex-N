@@ -21,11 +21,11 @@ public class Activity {
     @Lob                                    //large object, for longer text
     private String notes;
 
-    @ManyToOne //many activities can belong to one day, does not need mappedBy since this is the owning side of the relationship and will have the foreign key
-    @JsonBackReference  //prevents infinite recursion during JSON serialization
+    @ManyToOne //many activities can belong to one day
+    @JsonBackReference  //activity is child to day, prevents infinite recursion during JSON serialization
     private Day day;    //stores the day(parent) this activity belongs to
 
-    public Activity() {//default constructor needed by Hibernate to instantiate objects when retrieving from the database
+    public Activity() { //default constructor needed by Hibernate to instantiate objects when retrieving from the database
     }
 
     public Activity(String name, LocalTime time, String notes) {
@@ -42,7 +42,6 @@ public class Activity {
         this.day = day;
     }
 
-    //getters and setters
     public int getId() {
         return id;
     }

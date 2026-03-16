@@ -11,16 +11,16 @@ function TripList({ trips, setTrips, username }) { //trips, setTrips, username f
             method: "GET"
         });
         const tripData = await response.json();
-        setTrips(tripData); //updates parent App.jsx with new trip data
+        setTrips(tripData); //updates parent App.jsx with trips from backend, triggers rerender of trips
         return tripData;
     };
 
 
-    useEffect(() => {
-        if (username) {
+    useEffect(() => { //make sure trips are loaded when the page loads without other input from user
+        if (username) { //if username exists, call getTrips from parent to fetch trips from backend
         getTrips();
         }
-    }, [username]);
+    }, [username]); //only runs when username changes
 
 
     return (
@@ -41,7 +41,7 @@ function TripList({ trips, setTrips, username }) { //trips, setTrips, username f
                         <Link
                             key={trip.id}
                             className="trip-button"
-                            to={`/trips/${trip.id}`}
+                            to={`/trips/${trip.id}`} //link to trip by id
                         >{trip.name}</Link>
 
                     ))}

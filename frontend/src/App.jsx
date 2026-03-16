@@ -4,49 +4,40 @@ import Homepage from './components/Pages/Homepage'
 import Header from './components/layout/Header'
 import worldMapImage5 from './assets/worldMapImage5.jpg';
 import Footer from './components/layout/Footer'
-import SavedTrips from './components/Pages/SavedTrips'
 import { useState, useEffect } from 'react'
 import './App.css'
 import TravelTips from './components/Pages/TravelTips'
-import BuildTrips from './components/Pages/BuildTrip';
 import ExchangeRates from './components/Pages/Resources';
-import { ToastContainer } from 'react-toastify';
 import UserLogin from './components/Pages/UserLogin';
-// import TripPage from './components/form-components/Trips.jsx/TripPage';
 import NavMenu from './components/layout/NavMenu';
 import TripList from './components/form-components/Trips/TripList';
 import TripDisplayPage from './components/form-components/Trips/TripDisplayPage';
-import DayCard from './components/form-components/Days/DayCard';
-import NavIcon from './components/layout/NavIcon';
+
 
 function App() { //App owns the states so is the parent
 
   const navigate = useNavigate();
-  const [days, setDays] = useState([]);
-  const [activities, setActivities] = useState([]);
+  
 
   const [trips, setTrips] = useState([]);
-  const [packingList, setPackingList] = useState([])
-  const [list, setList] = useState([])
-  const [flightData, setFlightData] = useState([]);
-  const [reminderList, setReminderList] = useState([])
+ 
   const [isNewUser, setIsNewUser] = useState(false);
   const [username, setUsername] = useState("");
 
 
 
-  const [isLoggedIn, setIsLoggedIn] = useState(() => {
-    return sessionStorage.getItem("isLoggedIn") === "true";
+  const [isLoggedIn, setIsLoggedIn] = useState(() => { //useState reads "isLoggedIn" initially
+    return sessionStorage.getItem("isLoggedIn") === "true"; //reads sessionStorage and checks if loggedIn is "true" then will set useState to true
   });
 
-  useEffect(() => {
-    sessionStorage.setItem("isLoggedIn", isLoggedIn);
-  }, [isLoggedIn]);
+  useEffect(() => { //runs every time is isLoggedIn changes and keeps "isLoggedIn" updated
+    sessionStorage.setItem("isLoggedIn", isLoggedIn); //sets the isLoggedIn state to sessionStorage, browser session remembers the state
+  }, [isLoggedIn]); //dependecny conrolls when the effect is run
 
   const handleLogout = () => {
     setIsLoggedIn(false);
     setUsername("");
-    sessionStorage.removeItem("isLoggedIn");
+    sessionStorage.removeItem("isLoggedIn"); //on page refresh, not considered logged in anymore because removed key from session storage
     navigate("/login")
   };
 
@@ -60,26 +51,16 @@ function App() { //App owns the states so is the parent
         backgroundImage: `url(${worldMapImage5})`, backgroundSize: 'cover', backgroundPosition: 'center', minHeight: "100vh",
         margin: '0', opacity: 0.9, backgroundRepeat: "no-repeat", backgroundAttachment: "fixed", padding: "0 0 20px 0"
       }}>
-        {/* <ReminderList list={list} setList={setList} reminderList={reminderList} setReminderList={setReminderList} /> */}
+        
         <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} handleLogout={handleLogout} setUsername={setUsername} />
        
-        < ToastContainer position="top-right" autoClose={1000} />
+       
          
 
         <Routes>
           <Route path="/" element={<Homepage isLoggedIn={isLoggedIn} />} />
           <Route path="/traveltips" element={<TravelTips />} />
-          <Route path="/buildtrips" element={<BuildTrips trips={trips} setTrips={setTrips} flightData={flightData} setFlightData={setFlightData}
-            packingList={packingList} setPackingList={setPackingList} list={list} setList={setList} reminderList={reminderList} setReminderList={setReminderList}
-          />} />
-
-          <Route path="/savedtrips" element={<SavedTrips trips={trips} setTrips={setTrips} packingList={packingList} setPackingList={setPackingList}
-            list={list} setList={setList} flightData={flightData} setFlightData={setFlightData} reminderList={reminderList} setReminderList={setReminderList}
-          />} />
-
-
           <Route path="/resources" element={<ExchangeRates />} />
-          {/* <Route path="/trippage" element={<TripPage trips={trips} setTrips={setTrips} />} /> */}
           <Route path="/login" element={<UserLogin isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} isNewUser={isNewUser} setIsNewUser={setIsNewUser} username={username} setUsername={setUsername} />} />
           <Route path="/trips" element={<TripList trips={trips} setTrips={setTrips} username={username} />} />
           <Route path="/trips/:tripId" element={<TripDisplayPage />} />

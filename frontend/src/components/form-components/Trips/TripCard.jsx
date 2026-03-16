@@ -14,28 +14,30 @@ import AddConnectingFlightCard from "../ConnectingFlights/AddConnectingFlightCar
 
 
 
-function TripCard({ trip = { days: [], flights: [] }, getTrip }) {
+function TripCard({ trip = { days: [], flights: [] }, getTrip }) { //props default to empty arrays to prevent errors, getTrip from TripDisplayPage to refresh the trip data
 
 
   const navigate = useNavigate();
   const [isAddingDay, setIsAddingDay] = useState(false);
-  const [addedActivityOnDayId, setAddedActivityOnDayId] = useState(null);
+  const [addedActivityOnDayId, setAddedActivityOnDayId] = useState(null); //track which day is adding new activity
   const [isAddingFlight, setIsAddingFlight] = useState(false);
-  const [addedConnectingFlightOnFlightId, setAddedConnectingFlightOnFlightId] = useState(null);
+  const [addedConnectingFlightOnFlightId, setAddedConnectingFlightOnFlightId] = useState(null); //track which flight is adding new connection
   const [isEditing, setIsEditing] = useState(false);
   const [newTripName, setNewTripName] = useState("");
-  const [isEditingFlightId, setIsEditingFlightId] = useState(null);
+  const [isEditingFlightId, setIsEditingFlightId] = useState(null); //track which flight is being edited
 
-  const sortedDays = [...trip.days].sort((a, b) => new Date(a.date) - new Date(b.date));
-  const sortedFlights = [...(trip.flights || [])].sort((a, b) => new Date(a.departureDate) - new Date(b.departureDate));
+  //sort days and flight chronologically
+  const sortedDays = [...trip.days].sort((a, b) => new Date(a.date) - new Date(b.date)); //trip.days from backend
+  const sortedFlights = [...(trip.flights || [])].sort((a, b) => new Date(a.departureDate) - new Date(b.departureDate)); //trip.flights from backend
 
   const isNewTrip = sortedDays.length === 0;
 
+  //close form sets default back to null, shows button and closes the input form
   const closeDayForm = () => setIsAddingDay(false);
   const closeActivityForm = () => setAddedActivityOnDayId(null);
   const closeFlightForm = () => setIsAddingFlight(false);
   const closeConnectingFlightForm = () => setAddedConnectingFlightOnFlightId(null);
-  //close form sets default back to null, shows button and closes the input form
+
 
 
 
@@ -55,7 +57,10 @@ function TripCard({ trip = { days: [], flights: [] }, getTrip }) {
   }
 
 
-
+  //find lists by listType and pass to List compenent
+  //find: searches list for matching listType field, set in trip controller on new trip creation
+  //lists?: only try to "find" if trip.lists not null or not undefined. 
+  //go through the array list of lists until a listType matches, then return that list
   const packingList = trip.lists?.find(list => list.listType === "Packing");
   const remindersList = trip.lists?.find(list => list.listType === "Reminders");
 
@@ -74,8 +79,8 @@ function TripCard({ trip = { days: [], flights: [] }, getTrip }) {
         <div className="flights-days-container">
           <div className="planner-form planner-days">
 
-
-            {isEditing ? (
+            {/*Edit trip name */}
+            {isEditing ? ( //isEditing: show input, save button, cancel. Handle save function above
               <>
                 <input
                   className="planner-input"
@@ -95,9 +100,7 @@ function TripCard({ trip = { days: [], flights: [] }, getTrip }) {
                 </div>
               </>
             ) : (
-
-
-
+              //notEditing: show trip name
               <div className="editable-card" onClick={() => {
                 setNewTripName(trip.name);
                 setIsEditing(true);
@@ -106,6 +109,7 @@ function TripCard({ trip = { days: [], flights: [] }, getTrip }) {
               </div>
             )}
 
+            {/*automatically show addDayForm for newly created trip*/}
             {isNewTrip && !isAddingDay && (
               <AddDayCard
                 tripId={trip.id}
@@ -115,10 +119,11 @@ function TripCard({ trip = { days: [], flights: [] }, getTrip }) {
             )}
 
 
-
-            {sortedDays.map((day) => { //create 1 daycard for each day, pass day object as prop to daycard */}
-              const sortedActivities = [...(day.activities || [])].sort((a, b) =>
+            {/*show days*/}
+            {sortedDays.map((day) => { //iterates thru each day in trip, creates <DayCard> for each day, pass day object as prop to daycard */}
+              const sortedActivities = [...(day.activities || [])].sort((a, b) => //sort activities by time for each day
                 (a.time ?? "").localeCompare(b.time ?? ""));
+
               return (
                 <div key={day.id} className="day-section">
                   <DayCard
@@ -129,24 +134,24 @@ function TripCard({ trip = { days: [], flights: [] }, getTrip }) {
                     formatDate={formatDate}
                     closeDayForm={closeDayForm} />
 
+                  {/*maps through activities and shows activites for that specific day (already sorted from above function)*/}
                   {sortedActivities.length > 0 && (
                     <div className="activities-container">
                       {sortedActivities.map((activity) => (
                         <ActivityCard
-                          key={activity.id}
-                          activity={activity}
-                          dayId={day.id}
+                          key={activity.id} //need uniqe key to map over lists
+                          activity={activity} //rom sortedActivites map, data for each activity, ActivityCard needs to know what to display
+                          dayId={day.id} //track days that each activity is attached to, from backend
                           getTrip={getTrip}
                           trip={trip}
-                          activities={day.activities}
+                          activities={day.activities} //list of all activities for the day
                         />
                       ))}
                     </div>
-
-
                   )}
 
-
+                  {/*on "add activity" button click, sets state to the day.id, since state matches the day.id,
+                   will open the AddActivity form for that day only */}
                   {addedActivityOnDayId === day.id ? (
                     <AddActivityCard
                       dayId={day.id}
@@ -168,7 +173,8 @@ function TripCard({ trip = { days: [], flights: [] }, getTrip }) {
               );
             })}
 
-            {isAddingDay && (//show AddDay button only for trips with existing days
+            {/*show AddDayCard if addingDay is true (on button click)*/}
+            {isAddingDay && (
               <AddDayCard
                 tripId={trip.id}
                 getTrip={getTrip}
@@ -176,28 +182,24 @@ function TripCard({ trip = { days: [], flights: [] }, getTrip }) {
                 hasExistingDays={trip.days.length > 0} //dont show cancel button on first day of new trip
               />
             )}
-            {!isNewTrip && !isAddingDay && (
+            {!isNewTrip && !isAddingDay && ( //show AddDay button only for trips with existing days, changes state and displays AddDayCard
               <div className="button-row">
                 <Button
                   className="add-button"
                   onClick={() => setIsAddingDay(true)}
                   label="Add Day"
                 />
-
-
-
               </div>
             )}
           </div>
+
+
 
           <div className="planner-form planner-flights">
             <div className="flights-container">
               <h1 className="trip-details">Flights</h1>
 
-
-
-
-
+            {/*show AddFlightCard if addingFlights state is true (on addFLight button click)*/}
               {isAddingFlight && (
                 <AddFlightCard
                   tripId={trip.id}
@@ -206,9 +208,9 @@ function TripCard({ trip = { days: [], flights: [] }, getTrip }) {
                   formatDate={formatDate} />
               )}
 
-              {/*flight list*/}
-              {sortedFlights.map((flight) => {
 
+              {/*flight list*/}
+              {sortedFlights.map((flight) => { //map through sortedFlights and display FlightCard for each flight
                 return (
                   <div key={flight.id}
                     className="flight-section">
@@ -222,10 +224,7 @@ function TripCard({ trip = { days: [], flights: [] }, getTrip }) {
                       setIsEditingFlightId={setIsEditingFlightId}
                       formatDate={formatDate} />
 
-
-
-
-
+                    {/*on button click, sets state to flight.id, adds AddConnectingFlightCard to that flight*/}
                     {addedConnectingFlightOnFlightId === flight.id ? (
                       <AddConnectingFlightCard
                         flightId={flight.id}
@@ -239,7 +238,7 @@ function TripCard({ trip = { days: [], flights: [] }, getTrip }) {
                           onClick={() => setAddedConnectingFlightOnFlightId(flight.id)}
                           disabled={isEditingFlightId !== null || isAddingFlight || (addedConnectingFlightOnFlightId !== flight.id && addedConnectingFlightOnFlightId !== null)}
                           label="Add Connecting Flight"
-                        />
+                        /> {/*disable add button if is already adding flight, if is already editing flight, if already adding another connection */}
                       </div>
 
                     )}
@@ -250,29 +249,19 @@ function TripCard({ trip = { days: [], flights: [] }, getTrip }) {
               })}
 
 
-
-
-
-
               <div className="button-row">
                 <Button
                   className="add-button"
                   label="Add Flight"
                   onClick={() => setIsAddingFlight(true)}
                   disabled={isAddingFlight || isEditingFlightId !== null || addedConnectingFlightOnFlightId !== null} />
-              </div>
-
-
-
-
+              </div> {/*disable add flight button if is already adding flight, if is already editing flight, if is already adding connections*/}
             </div>
           </div>
         </div>
 
 
-
-
-
+          {/*display lists*/}
         <div className="lists-container">
           <List
             list={packingList || []}

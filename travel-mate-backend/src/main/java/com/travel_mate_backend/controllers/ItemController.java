@@ -23,39 +23,40 @@ import java.util.List;
 public class ItemController {
 
     @Autowired
-    ItemListRepository itemListRepository;
+    ItemListRepository itemListRepository; //access itemlist data from db
 
     @Autowired
-    ItemRepository itemRepository;
+    ItemRepository itemRepository; //access item data from db
 
     @PostMapping("{listId}/addItem")
-    public ResponseEntity<?> addNewItemByListId(@PathVariable int listId, @RequestBody ItemDTO itemData) throws NoResourceFoundException {
-        ItemList itemList = itemListRepository.findById(listId).orElse(null);
+    public ResponseEntity<?> addNewItemByListId(@PathVariable int listId, @RequestBody ItemDTO itemData) throws NoResourceFoundException {//converts JSON payload to ItemDTO, stores in itemData
+        ItemList itemList = itemListRepository.findById(listId).orElse(null); //find itemList by id
         if (itemList == null) {
             throw new NoResourceFoundException(HttpMethod.POST, "/" + listId + "addItem", "List with id " + listId + " not found");
         }
 
-       Item newItem = new Item(itemData.getName(), itemData.isCompleted(), itemList);
+       Item newItem = new Item(itemData.getName(), itemData.isCompleted(), itemList); //create new item from itemData (from itemDTO)
 
-        itemList.getItems().add(newItem);
+        itemList.getItems().add(newItem); //add the new item to the list
 
-        itemRepository.save(newItem);
+        itemRepository.save(newItem); //save item to item Repository (has itemList_id already associated)
 
         return new ResponseEntity<>(newItem, HttpStatus.CREATED);
 
     }
 
-    @PutMapping("/editItem/{itemId}")
+    @PutMapping("/editItem/{itemId}") //pathvariable: id of item to edit, from url, requestbody: JSON payload converted to itemData in itemDTO format
     public ResponseEntity<?> editItemById(@PathVariable int itemId, @RequestBody ItemDTO itemData) throws NoResourceFoundException {
-        Item item = itemRepository.findById(itemId).orElse(null);
+        Item item = itemRepository.findById(itemId).orElse(null); //find item in item repo by id
         if (item == null) {
             throw new NoResourceFoundException(HttpMethod.PUT, "/editTripName" + itemId, "The item with id " + itemId + " not found");
 
         } else {
+            //updates item with new data
             item.setName(itemData.getName());
             item.setCompleted(itemData.isCompleted());
         }
-        itemRepository.save(item);
+        itemRepository.save(item); //save item to item repo
         return ResponseEntity.ok(item);
 
     }

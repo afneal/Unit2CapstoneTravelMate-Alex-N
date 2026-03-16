@@ -6,6 +6,7 @@ import Button from "../../planner-components/Button";
 function FlightCard({ flight, getTrip, formatDate, connectingFlights = [], isEditingFlightId, setIsEditingFlightId }) {
     const isEditing = isEditingFlightId === flight.id; //isEditing is true only when editing id matches flight.id
 
+    //show empty strings instead of null or undefined
     const [departureDate, setDepartureDate] = useState(flight.departureDate ?? "");
     const [departureCode, setDepartureCode] = useState(flight.departureCode);
     const [departureTime, setDepartureTime] = useState(flight.departureTime ?? "");
@@ -14,7 +15,7 @@ function FlightCard({ flight, getTrip, formatDate, connectingFlights = [], isEdi
     const [connections, setConnections] = useState(flight.connectingFlights || []);
 
     //update flightcard after tripcard updates with a connecting flight (fixed bug where edit form did not show new connecitons)
-    useEffect(() => {
+    useEffect(() => { //sets setConnections when connectingFlights changes
         setConnections(connectingFlights);
     }, [connectingFlights]);
 
@@ -28,10 +29,25 @@ function FlightCard({ flight, getTrip, formatDate, connectingFlights = [], isEdi
                 departureCode: departureCode,
                 departureTime: departureTime,
                 arrivalCode: arrivalCode,
-                arrivalTime: arrivalTime
+                arrivalTime: arrivalTime,
+
             }),
         });
 
+
+
+        for (let conn of connections) {
+            if (conn.id) {
+                await fetch(`http://localhost:8080/api/connectingFlights/editConnectingFlight/${conn.id}`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        connectingCode: conn.connectingCode,
+                        connectingTime: conn.connectingTime,
+                    }),
+                });
+            }
+        }
         await getTrip();
 
         setIsEditingFlightId(null);
@@ -43,8 +59,19 @@ function FlightCard({ flight, getTrip, formatDate, connectingFlights = [], isEdi
             method: "DELETE",
         });
         await getTrip();
+        setIsEditingFlightId(null);
     }
 
+    const handleDeleteConnection = async (connectingFlightId) => {
+        await fetch(`http://localhost:8080/api/connectingFlights/deleteConnectingFlight/${connectingFlightId}`, {
+            method: "DELETE",
+        });
+        await getTrip();
+        
+    }
+
+    //spread operator to make shallow copy of array since sort() mutates. avoid mutating original array
+    //?? prevents localeCompare crashing if null or undefined times
     const sortedConnections = [...(connectingFlights || [])].sort((a, b) => (a.connectingTime ?? "").localeCompare(b.connectingTime ?? ""));
 
 
@@ -104,6 +131,14 @@ function FlightCard({ flight, getTrip, formatDate, connectingFlights = [], isEdi
                                         setConnections(newConnections);
                                     }}
                                 />
+
+                                {isEditing && conn.id && (
+                                    <Button
+                                        className="list-delete-icon"
+                                        onClick={() => handleDeleteConnection(conn.id)}
+                                        label="🗑️" ></Button>
+                                )}
+
                             </div>
                         ))}
                     </div>
@@ -143,7 +178,7 @@ function FlightCard({ flight, getTrip, formatDate, connectingFlights = [], isEdi
                     </div>
                 </>
             ) : (
-                // display form
+                // display card
                 <div className="editable-day-card" onClick={() => setIsEditingFlightId(flight.id)}>
                     <p><strong>Departure Date:</strong> {formatDate(departureDate)}</p>
                     <p><strong>Departure Airport Code:</strong> {departureCode}</p>
@@ -162,9 +197,6 @@ function FlightCard({ flight, getTrip, formatDate, connectingFlights = [], isEdi
                             ))}
                         </div>
                     )}
-
-
-
                     <p><strong>Arrival Airport Code:</strong> {arrivalCode}</p>
                     <p><strong>Arrival Time:</strong> {arrivalTime}</p>
                     <span className="edit-icon">✎</span>

@@ -16,10 +16,10 @@ public class Item {
     private boolean completed;
 
     @JsonBackReference
-    @ManyToOne
+    @ManyToOne //many items in one itemList
     private ItemList itemList;
 
-    public Item() {
+    public Item() { //default constructor needed by Hibernate to instantiate objects when retrieving from the database
     }
 
     public Item(String name, boolean completed, ItemList itemList) {

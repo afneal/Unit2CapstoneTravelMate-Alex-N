@@ -8,7 +8,9 @@ import org.springframework.cglib.core.Local;
 import java.time.LocalDate;
 import java.util.List;
 
-public class DayDTO {
+public class DayDTO { //DTO is data transfer object, used to transfer data btwn processes
+                         //an API object, what gets sent/received in HTTP requests
+                         //use DTO data structure for postman testing
 
     private int id;
     private String city;

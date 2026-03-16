@@ -1,13 +1,13 @@
 import { Link } from 'react-router';
 import UserLogin from '../Pages/UserLogin';
 import Button from '../planner-components/Button';
-import { useNavigate } from 'react-router';
+
 
 
 function NavMenu({ isLoggedIn, handleLogout }) {
-    const navigate = useNavigate();
+   
 
-    if (!isLoggedIn) return null;
+    if (!isLoggedIn) return null; //does not show nav menu if not logged in
 
    
 

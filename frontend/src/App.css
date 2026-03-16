@@ -319,10 +319,7 @@ h1 {
 .packing-list-container,
 .reminder-list-container,
 .flights-container {
-    /* background-color: rgba(211, 211, 211, 0.9); */
-    /* border-radius: 10px; */
-    /* padding: 16px 20px; */
-    /* box-shadow: 0 2px 8px black; */
+   
     display: flex;
     flex-direction: column;
     overflow-y: auto;
@@ -343,7 +340,7 @@ h1 {
 
 .saved-activity
 
-/* ,.saved-connection  */
+
     {
 
     padding: 10px 12px;
@@ -384,38 +381,13 @@ h1 {
 }
 
 
-/* .saved-connection {
-    padding: 10px;
-    border-radius: 8px;
-    background: white;
-    font-size: 0.95rem;
-} */
 
-
-
-/* .saved-connection p {
-    line-height: 1.4;
-    margin: 6px 0;
-} */
-
-/* .saved-activity:last-child,
-.saved-connection:last-child {
-    border-bottom: none;
-} */
 
 .saved-activity:last-of-type {
     border-bottom: none;
 }
 
-/* #saved-trip-data,
-.saved-connection,
-#saved-activity-data,
-#saved-flights-data,
-.reminder-list,
-.saved-packing-list {
-    font-size: 18px;
 
-} */
 
 .saved-packing-list-bullet,
 .saved-reminder-list-bullet,

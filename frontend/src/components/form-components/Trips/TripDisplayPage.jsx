@@ -7,10 +7,9 @@ import TripCard from "./TripCard";
 
 
 function TripDisplayPage() {
-    const { tripId } = useParams();
-    // const [selectedTrip, setSelectedTrip] = useState({days: []});
+    const { tripId } = useParams(); //allows to access parts of the url like tripid (from the routing in App.jsx)
     const navigate = useNavigate();
-    const [trip, setTrip] = useState({ name: "", days: [] });
+    const [trip, setTrip] = useState({ name: "", days: [] }); //initialize with empty object and empty days array to prevent fetch errors
 
     const getTrip = async () => {
         const response = await fetch(`http://localhost:8080/api/trips/${tripId}`, {
@@ -35,7 +34,7 @@ function TripDisplayPage() {
         navigate("/trips");
     }
 
-    useEffect(() => {
+    useEffect(() => { //runs when tripId changes, makes sure trip data is fetched automatically on navigation to the page
         getTrip(); //from function above
     }, [tripId]);
 

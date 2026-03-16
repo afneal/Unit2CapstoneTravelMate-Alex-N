@@ -31,15 +31,15 @@ public class Flight {
     private LocalTime arrivalTime;
 
 
-    @ManyToOne
+    @ManyToOne //many flights can be in one trip
     @JsonBackReference
     private Trip trip;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference //one flight can have many connecting flights
+    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true) //flight_id used in connectingFlights table
     private List<ConnectingFlight> connectingFlights;
 
-    public Flight() {
+    public Flight() { //default constructor needed by Hibernate to instantiate objects when retrieving from the database
     }
 
     public Flight(LocalDate departureDate, String departureCode, LocalTime departureTime, String arrivalCode, LocalTime arrivalTime, List<ConnectingFlight> connectingFlights) {

@@ -8,7 +8,9 @@ import jakarta.validation.constraints.Size;
 
 import java.time.LocalTime;
 
-public class ActivityDTO {
+public class ActivityDTO { //DTO is data transfer object, used to transfer data btwn processes
+                            //an API object, what gets sent/received in HTTP requests
+                             //use DTO data structure for postman testing
 
     private int id;
     @NotBlank(message = "Activity name must be between 1 and 100 characters long.")
@@ -20,6 +22,7 @@ public class ActivityDTO {
     private String notes;
 
     //dont need Day day reference b/c its in the Activity model and can be accessed in the controller
+    //DTO only for passing needed data, not database relationships
 
     public ActivityDTO() {
     }
