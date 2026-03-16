@@ -2,7 +2,9 @@ package com.travel_mate_backend.dto;
 
 import com.travel_mate_backend.models.ItemList;
 
-public class ItemDTO {
+public class ItemDTO { //DTO is data transfer object, used to transfer data btwn processes
+                        //an API object, what gets sent/received in HTTP requests
+                        //use DTO data structure for postman testing
 
     private int id;
 

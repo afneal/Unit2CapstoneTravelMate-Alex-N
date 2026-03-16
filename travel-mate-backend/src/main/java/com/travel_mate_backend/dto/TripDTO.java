@@ -7,7 +7,9 @@ import jakarta.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TripDTO {
+public class TripDTO { //DTO is data transfer object, used to transfer only needed data btwn processes
+                        //an API object, what gets sent/received in HTTP requests
+                        //use DTO data structure for postman testing
 
     private int id;
     @NotBlank(message = "Trip name must be between 1 and 100 characters long.")
@@ -23,11 +25,11 @@ public class TripDTO {
     }
 
     public TripDTO(String name, String username, List<DayDTO> days, List<ItemListDTO> lists,
-     List<FlightDTO> flights) {
+                   List<FlightDTO> flights) {
         this.name = name;
         this.username = username;
         this.days = days;
-        this.lists = (lists != null) ? lists : new ArrayList<>();
+        this.lists = (lists != null) ? lists : new ArrayList<>(); //if lists is not null, assigns this.lists = lists. otherwise, this.lists = new ArrayList
         this.flights = flights;
     }
 

@@ -4,7 +4,9 @@ import com.travel_mate_backend.models.Item;
 
 import java.util.List;
 
-public class ItemListDTO {
+public class ItemListDTO { //DTO is data transfer object, used to transfer data btwn processes
+                            //an API object, what gets sent/received in HTTP requests
+                            //use DTO data structure for postman testing
 
     private int id;
 

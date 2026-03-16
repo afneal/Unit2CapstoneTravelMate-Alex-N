@@ -5,12 +5,12 @@ import Button from "../../planner-components/Button";
 
 
 function ItemCard({ getTrip, item }) {
-    const [inputValue, setInputValue] = useState(item.name); //set emtpy string to hold values
+    const [inputValue, setInputValue] = useState(item.name); 
     const [isEditing, setIsEditing] = useState(false);
 
 
-    const handleDelete = async () => { //pass in itemId as variable name, cant pass item.id becasue that is a property access
-        //function knows that itemId == item.id from the onClick event below that passes in item.id
+    const handleDelete = async () => { 
+       
         await fetch(`http://localhost:8080/api/lists/deleteItem/${item.id}`, {
             method: "DELETE"
         });
@@ -18,7 +18,7 @@ function ItemCard({ getTrip, item }) {
         await getTrip();
     }
 
-    const handleToggleCompleted = async (itemId, completed) => {
+    const handleToggleCompleted = async (completed) => {
         await fetch(`http://localhost:8080/api/lists/editItem/${item.id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
@@ -46,7 +46,7 @@ function ItemCard({ getTrip, item }) {
                     type="checkbox"
                     checked={item.completed}
                     onChange={e => {
-                        handleToggleCompleted(item.id, e.target.checked)
+                        handleToggleCompleted(e.target.checked)
                     }} />
 
                 {isEditing ? (
@@ -56,6 +56,7 @@ function ItemCard({ getTrip, item }) {
                         onChange={(e) => setInputValue(e.target.value)}
                     />
                 ) : (
+                    //span: sets className to completed if completed, allows for styling for strike through
                     <span className={`item-name ${item.completed ? "completed" : ""}`}
                     >{item.name}</span>
                 )}

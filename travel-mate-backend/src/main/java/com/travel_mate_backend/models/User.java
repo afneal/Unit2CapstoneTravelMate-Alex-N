@@ -17,9 +17,9 @@ public class User { //stored in database as an object
 
     private String password;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "user")
-    private List<Trip> trips;
+    @JsonManagedReference //user is the parent to List<Trip> trips. Prevents infinite recursion of user and trips referencing each other
+    @OneToMany(mappedBy = "user") //foreign key user_id is in the Trip table and used by trip in the database
+    private List<Trip> trips;  //one user can have many trips
 
     public User() { //default constructor needed by Hibernate to instantiate objects when retrieving from the database
     }
@@ -46,13 +46,6 @@ public class User { //stored in database as an object
         this.username = username;
     }
 
-//    public String getEmail() {
-//        return email;
-//    }
-//
-//    public void setEmail(String email) {
-//        this.email = email;
-//    }
 
     public String getPassword() {
         return password;

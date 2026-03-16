@@ -29,7 +29,7 @@ function UserLogin({ isLoggedIn, setIsLoggedIn, isNewUser, setIsNewUser, usernam
             setHasErrors(false);
             setErrorMessage("");
             setUsername(username);
-            sessionStorage.setItem("isLoggedIn", "true");
+            sessionStorage.setItem("isLoggedIn", "true"); 
             navigate("/");
         } else {
             setHasErrors(true),

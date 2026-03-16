@@ -7,7 +7,7 @@ function AddConnectingFlightCard({ flightId, getTrip, closeConnectingFlightForm 
     
 
     const handleAddConnectingFlight = async () => {
-        if (!connectingCode) return;
+        if (!connectingCode) return; //dont allow save unless airport code is input
         await fetch(`http://localhost:8080/api/connectingFlights/addConnectingFlight/${flightId}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },

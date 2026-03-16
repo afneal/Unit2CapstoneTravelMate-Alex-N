@@ -14,13 +14,13 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RestControllerAdvice
+@RestControllerAdvice  //will handle exceptions thrown by @RestControllers
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(NoResourceFoundException.class)
+    @ExceptionHandler(NoResourceFoundException.class) //custom error response for NoResourceFoundExceptions
     public ResponseEntity<ErrorObject> handleNoResourceFoundException(NoResourceFoundException exception) {
         ErrorObject errorObject = new ErrorObject(
-                HttpStatus.NOT_FOUND.value(),
+                HttpStatus.NOT_FOUND.value(), //404
                 "No data found for " + exception.getResourcePath(),
                 "NOT_FOUND"
         );
@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
     }
 
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ExceptionHandler(MethodArgumentNotValidException.class) //handles validation errors (ex: @size, password, empty username etc)
     public ResponseEntity<ErrorObject> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
         List<String> errors = exception.getBindingResult()
                 .getFieldErrors()
@@ -39,7 +39,7 @@ public class GlobalExceptionHandler {
         String combinedErrors = String.join("\n", errors);
 
         ErrorObject errorObject = new ErrorObject(
-                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.BAD_REQUEST.value(), //400 bad request
                 combinedErrors,
                 "VALIDATION_ERROR"
         );

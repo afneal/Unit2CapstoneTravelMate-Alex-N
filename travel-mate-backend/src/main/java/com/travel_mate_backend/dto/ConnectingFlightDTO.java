@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalTime;
 
-public class ConnectingFlightDTO {
+public class ConnectingFlightDTO { //DTO is data transfer object, used to transfer data btwn processes
+                                     //an API object, what gets sent/received in HTTP requests
+                                     //use DTO data structure for postman testing
 
     private int id;
     private String connectingCode;

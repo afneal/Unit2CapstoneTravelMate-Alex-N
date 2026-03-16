@@ -21,17 +21,22 @@ public class Trip {
     @ManyToOne
     private User user; //stores the user who created this trip, many trips can belong to one user, but a trip can only belong to one user
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, orphanRemoval = true) //one trip can have many days, mappedBy points to the field in Day that owns the relationship, cascade ALL means all operations on Trip will cascade to its days, orphanRemoval means if a day is removed from the trip's list, it will be deleted from the database
-    private List<Day> days = new ArrayList<>(); //stores the list of days for this trip
 
+    //one trip can have many days, mappedBy points to the field in Day that owns the relationship,
+    // cascade ALL means all operations on Trip will cascade to its days (ex: tripRepository.save(trip) automatically saves Trip, day itemlist, flight
+    // orphanRemoval means if a day is removed from the trip's list, it will be deleted from the database
+    //foreign key trip_id used in the day table
     @JsonManagedReference
     @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Day> days = new ArrayList<>(); //stores the list of days for this trip as [] instead of null
+
+    @JsonManagedReference //one trip can have many itemLists
+    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, orphanRemoval = true) //foreign key trip_id used in itemList table
     private List<ItemList> lists = new ArrayList<>();
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Flight> flights = new ArrayList<>();
+    @JsonManagedReference //one trip can have many flights
+    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL, orphanRemoval = true) //foreign key trip_id used in flights table
+    private List<Flight> flights = new ArrayList<>();  //prevents flights = null and instead sets flights = []
 
     public Trip() {//default constructor needed by Hibernate to instantiate objects when retrieving from the database
     }

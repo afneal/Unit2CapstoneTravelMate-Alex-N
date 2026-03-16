@@ -19,18 +19,18 @@ public class ItemList {
 
     private boolean completed;
 
-    @ManyToOne
+    @ManyToOne //many itemLists can be in one trip, but only 1 trip for each specific itemList
     @JsonBackReference
     private Trip trip;
     //foreign key relationship
     //define relationship to each trip, each ItemList belongs to a Trip
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "itemList", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "itemList", cascade = CascadeType.ALL, orphanRemoval = true)  //foreign key itemList_id used in items table
     private List<Item> items;
 
 
-    public ItemList() {
+    public ItemList() { //default constructor needed by Hibernate to instantiate objects when retrieving from the database
     }
 
 

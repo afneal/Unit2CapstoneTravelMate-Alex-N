@@ -3,7 +3,7 @@ import Button from "../../planner-components/Button";
 import Card from "../../planner-components/Card";
 
 
-function DayCard({ day, trip, getTrip, formatDate }) { //day coming from tripcard map??
+function DayCard({ day, getTrip, formatDate }) { //day coming from tripcard map
     //inline editing
   const [isEditing, setIsEditing] = useState(false);
 
@@ -17,7 +17,7 @@ function DayCard({ day, trip, getTrip, formatDate }) { //day coming from tripcar
       body: JSON.stringify({ city: city || null, date: date || null }),
     });
 
-    await getTrip();
+    await getTrip(); //wait for trip update
     setIsEditing(false);
   };
 

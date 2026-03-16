@@ -23,26 +23,28 @@ public class ConnectingFlightController {
     @Autowired
     FlightRepository flightRepository;
 
-    @PostMapping("/addConnectingFlight/{flightId}")
-
+    @PostMapping("/addConnectingFlight/{flightId}") //pathvariable: id of flight (from url) to be added to, requestbody: JSON conversion to connflightdto called connflightdata
     public ResponseEntity<?> addNewConnectingFlight(@PathVariable int flightId, @RequestBody ConnectingFlightDTO connectingFlightData) throws NoResourceFoundException {
+        //create new connectingflight object using the dto
         ConnectingFlight connectingFlight = new ConnectingFlight(connectingFlightData.getConnectingCode(), connectingFlightData.getConnectingTime());
-        Flight flight = flightRepository.findById(flightId).orElse(null);
+        Flight flight = flightRepository.findById(flightId).orElse(null); //search main flight in repo by id
         if (flight == null) {
             throw new NoResourceFoundException(HttpMethod.POST, "/" + flightId, "Flight with id " + flightId + " not found"); // 404
         }
-        connectingFlight.setFlight(flight);
-        connectingFlightRepository.save(connectingFlight);
+        connectingFlight.setFlight(flight); //set main flight for the connecting flight
+        connectingFlightRepository.save(connectingFlight); //save connection
         return new ResponseEntity<>(connectingFlight, HttpStatus.CREATED);
 
     }
 
-    @PutMapping("/editConnectingFlight/{connectingFlightId}")
+    @PutMapping("/editConnectingFlight/{connectingFlightId}") //pathvariable: id of connection (from url) to be edited, requestbody: JSON conversion to connflightdto called connflightdata
     public ResponseEntity<?> updateConnectingFlightById(@PathVariable int connectingFlightId, @RequestBody ConnectingFlightDTO connectingFlightData) throws NoResourceFoundException {
+        //get existing connection from database
         ConnectingFlight existingConnectingFlight = connectingFlightRepository.findById(connectingFlightId).orElse(null);
         if (existingConnectingFlight == null) {
             throw new NoResourceFoundException(HttpMethod.PUT, "/" + connectingFlightId, "The connecting flight with id " + connectingFlightId + " not found");
         } else {
+            //save JSON payload from dto to existing flight
             existingConnectingFlight.setConnectingCode(connectingFlightData.getConnectingCode());
             existingConnectingFlight.setConnectingTime(connectingFlightData.getConnectingTime());
 
@@ -53,13 +55,14 @@ public class ConnectingFlightController {
     }
 
     @DeleteMapping("/deleteConnectingFlight/{connectingFlightId}")
-//deleing by unique connectingflight id so don't need relationship to mainflight etc
+    //deleing by unique connectingflight id so don't need relationship to mainflight etc
     public ResponseEntity<?> deleteConnectingFlight(@PathVariable int connectingFlightId) throws NoResourceFoundException {
+        //find connection by id
         ConnectingFlight connectingFlight = connectingFlightRepository.findById(connectingFlightId).orElse(null);
         if (connectingFlight == null) {
             throw new NoResourceFoundException(HttpMethod.DELETE, "/" + connectingFlightId, "Connecting flight with id " + connectingFlightId + " not found"); // 404, resource not found, activity with the specified id does not exist in the database
         } else {
-            connectingFlightRepository.deleteById(connectingFlightId);
+            connectingFlightRepository.deleteById(connectingFlightId); //delete connection by connection id
             return new ResponseEntity<>(HttpStatus.NO_CONTENT); // 204, successful deletion, no content to return
 
         }

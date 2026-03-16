@@ -6,7 +6,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
-public class FlightDTO {
+public class FlightDTO { //DTO is data transfer object, used to transfer data btwn processes
+                        //an API object, what gets sent/received in HTTP requests
+                        //use DTO data structure for postman testing
 
     private int id;
 

@@ -8,7 +8,7 @@ import org.springframework.web.filter.CorsFilter;
 import java.util.List;
 
 @Configuration
-public class CorsConfig {
+public class CorsConfig { //Cross-Origin resource Sharing, allows frontend :5173 to call backend API at :8080 (different port so different origin)
 
 
     @Bean
@@ -16,10 +16,10 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.setAllowedOriginPatterns(List.of("http://localhost:5173"));
-        config.addAllowedMethod("*");
-        config.addAllowedHeader("*");
-        source.registerCorsConfiguration("/**", config);
+        config.setAllowedOriginPatterns(List.of("http://localhost:5173"));  //only requests coming from here (frontend) are allowed
+        config.addAllowedMethod("*"); //GET, POST, PUT, DELETE ETC
+        config.addAllowedHeader("*"); //ex: Content-Type
+        source.registerCorsConfiguration("/**", config); //apply to all endpoints (ex: /api/users, /api/trips ...)
         return new CorsFilter(source);
     }
 }
