@@ -1,4 +1,7 @@
-# 🌍 TravelMate – Full-Stack Travel Planning Application
+<div align="center">
+  <h1>🌍 TravelMate – Full-Stack Travel Planning Application</h1>
+  <img src="screenshots/travelMateLogo.png" width="500" alt="Logo"/>
+</div>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white"/>
@@ -167,7 +170,10 @@ http://localhost:5173
 ## 🗄️ Database Structure
 
 🔗 ERD Diagram:  
-https://lucid.app/lucidchart/50bc49d4-72cd-406d-9270-c398daaee0e5/edit?invitationId=inv_78917427-f6f6-45ab-9900-f60ba8d508c3&page=0_0#
+
+<a href="https://lucid.app/lucidchart/50bc49d4-72cd-406d-9270-c398daaee0e5/edit?invitationId=inv_78917427-f6f6-45ab-9900-f60ba8d508c3&page=0_0#" alt="Link to ERD Diagram">View ERD Diagram<a>  
+
+
 
 ### Overview
 - MySQL relational database  
